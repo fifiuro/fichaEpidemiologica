@@ -12,10 +12,11 @@
             @csrf
             <div class="card-body">
                 {{--  1. DATOS DEL ESTABLECIMIENTO NOTIFICADOR  --}}
-                <div class="alert alert-secondary alert-dismissible">
-                    <h5>1. DATOS DEL ESTABLECIMIENTO NOTIFICADOR</h5>
-                </div>
                 <div class="row">
+                    <label for="" style="font-size:18px;">1. DATOS DEL ESTABLECIMIENTO NOTIFICADOR</label>
+                </div>
+                <hr>
+                <div class="row grupo">
                     <div class="form-group col-md-4">
                         <label for="establecimiento">Establecimiento de Salud</label>
                         <input type="text" name="establecimiento" id="" class="form-control" placeholder="Establecimiento de Salud" value="{{ old('establecimiento') }}">
@@ -43,11 +44,11 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-3">
                         <label for="departamento">Departamento</label>
-                        <input type="text" name="departamento" id="" class="form-control" placeholder="Departamento" value="{{ old('departamento') }}">
+                        <select name="departamento" id="" class="form-control">
+                            <option value="otro">Otro</option>
+                        </select>
                         @if ($errors->has('departamento'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('departamento') }}
@@ -81,8 +82,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-12">
                         <label for="caso_identificado">Caso identificado por busqueda activa</label>
                         <input type="text" name="caso_identificado" id="" class="form-control" placeholder="Establecimiento de Salud" value="{{ old('caso_identificado') }}">
@@ -93,11 +92,13 @@
                         @endif
                     </div>
                 </div>
+                <hr>
                 {{--  2. IDENTIFICACION DEL CASO/PACIENTE  --}}
-                <div class="alert alert-secondary alert-dismissible">
-                    <h5>2. IDENTIFICACION DEL CASO/PACIENTE</h5>
-                </div>
                 <div class="row">
+                    <label for="" style="font-size:18px;">2. IDENTIFICACION DEL CASO/PACIENTE</label>
+                </div>
+                <hr>
+                <div class="row grupo">
                     <div class="form-group col-md-3">
                         <label for="nombre">Nombre</label>
                         <input type="text" name="nombre" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre') }}">
@@ -127,15 +128,16 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="sexo">Sexo</label>
-                        <input type="text" name="sexo" id="" class="form-control" placeholder="Sexo" value="{{ old('sexo') }}">
+                        <select name="sexo" id="" class="form-control">
+                            <option value="f">Femenino</option>
+                            <option value="m">Masculino</option>
+                        </select>
                         @if ($errors->has('sexo'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('sexo') }}
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-4">
                         <label for="ci">Nº Carnet de Identidad/Pasaporte</label>
                         <input type="text" name="ci" id="" class="form-control" placeholder="Nº Carnet de Identidad/Pasaporte" value="{{ old('ci') }}">
@@ -156,18 +158,18 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="edad">Edad</label>
-                        <input type="text" name="edad" id="" class="form-control" placeholder="Edad" value="{{ old('edad') }}">
+                        <input type="number" name="edad" id="" class="form-control" placeholder="Edad" value="{{ old('edad') }}">
                         @if ($errors->has('edad'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('edad') }}
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-4">
                         <label for="id_dep">Lugar de residencia; Departamento</label>
-                        <input type="text" name="id_dep" id="" class="form-control" placeholder="Departamento" value="{{ old('id_dep') }}">
+                        <select name="id_dep" id="" class="form-control">
+                            <option value="otro">Otro</option>
+                        </select>
                         @if ($errors->has('id_dep'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('id_dep') }}
@@ -185,15 +187,15 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="id_pai">País</label>
-                        <input type="text" name="id_pai" id="" class="form-control" placeholder="País" value="{{ old('id_pai') }}">
+                        <select name="ip_pai" id="" class="form-control">
+                            <option value="otro">Otro</option>
+                        </select>
                         @if ($errors->has('id_pai'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('id_pai') }}
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-3">
                         <label for="calle">Calle</label>
                         <input type="text" name="calle" id="" class="form-control" placeholder="Calle" value="{{ old('calle') }}">
@@ -230,8 +232,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-11">
                         <label for="menor">¿Es menor de edad?</label>
                         <input type="text" name="menor" id="" class="form-control" placeholder="menor" value="{{ old('menor') }}">
@@ -259,14 +259,18 @@
                         </table>
                     </div>
                 </div>
-                {{--  3. ANTECEDENTES EDPIDEMIOLOGICOS  --}}
-                <div class="alert alert-secondary alert-dismissible">
-                    <h5>2. IDENTIFICACION DEL CASO/PACIENTE</h5>
-                </div>
+                <hr>
+                {{--  3. ANTECEDENTES EPIDEMIOLOGICOS  --}}
                 <div class="row">
+                    <label for="" style="font-size:18px;">3. ANTECEDENTES EPIDEMIOLOGICOS</label>
+                </div>
+                <hr>
+                <div class="row grupo">
                     <div class="form-group col-md-6">
                         <label for="id_ocu">Ocupación</label>
-                        <input type="text" name="id_ocu" id="" class="form-control" placeholder="Ocupación" value="{{ old('id_ocu') }}">
+                        <select name="id_ocu" id="" class="form-control">
+                            <option value="otro">Otro</option>
+                        </select>
                         @if ($errors->has('id_ocu'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('id_ocu') }}
@@ -282,8 +286,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-6">
                         <label for="vacuna_influenza">Antecedente de vacunación para influenza</label>
                         <input type="text" name="vacuna_influenza" id="" class="form-control" placeholder="Antecedente de vacunación para influenza" value="{{ old('vacuna_influenza') }}">
@@ -302,8 +304,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-12">
                         <label for="viaje_riesgo">¿Tuvo un viaje a un lugar de riesgo dentro o fuera del país?</label>
                         <input type="text" name="viaje_riesgo" id="" class="form-control" placeholder="¿Tuvo un viaje a un lugar de riesgo dentro o fuera del país?" value="{{ old('viaje_riesgo') }}">
@@ -313,11 +313,11 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-3">
                         <label for="id_pai">País</label>
-                        <input type="text" name="id_pai" id="" class="form-control" placeholder="País" value="{{ old('id_pai') }}">
+                        <select name="ip_pai" id="" class="form-control">
+                            <option value="otro">Otro</option>
+                        </select>
                         @if ($errors->has('id_pai'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('id_pai') }}
@@ -326,7 +326,9 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="ciudad">Ciudad</label>
-                        <input type="text" name="ciudad" id="" class="form-control" placeholder="Ciudad" value="{{ old('ciudad') }}">
+                        <select name="ciudad" id="" class="form-control">
+                            <option value="otro">Otro</option>
+                        </select>
                         @if ($errors->has('ciudad'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('ciudad') }}
@@ -351,8 +353,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-4">
                         <label for="empresa_viaje">Empresa</label>
                         <input type="text" name="empresa_viaje" id="" class="form-control" placeholder="Empresa" value="{{ old('empresa_viaje') }}">
@@ -380,8 +380,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-6">
                         <label for="contacto">¿Tuvo contacto con un caso confirmado de COVID+19 en los 14 días previos al inicio de sinstimos, edomicilio o establecimiento de salud?</label>
                         <input type="text" name="contacto" id="" class="form-control" placeholder="¿Tuvo contacto con un caso confirmado de COVID+19 en los 14 días previos al inicio de sinstimos, edomicilio o establecimiento de salud?" value="{{ old('contacto') }}">
@@ -400,8 +398,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-3">
                         <label for="nombre">Nombre (del caso positivo)</label>
                         <input type="text" name="nombre" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre') }}">
@@ -438,14 +434,14 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-12">
                         <label for="telefono_contacto">Lugar de contacto con el caso positivo</label>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="id_pai">País</label>
-                        <input type="text" name="id_pai" id="" class="form-control" placeholder="País" value="{{ old('id_pai') }}">
+                        <select name="ip_pai" id="" class="form-control">
+                            <option value="otro">Otro</option>
+                        </select>
                         @if ($errors->has('id_pai'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('id_pai') }}
@@ -454,7 +450,9 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="departamento_contacto">Departamento / Estado</label>
-                        <input type="text" name="departamento_contacto" id="" class="form-control" placeholder="Departamento / Estado" value="{{ old('departamento_contacto') }}">
+                        <select name="departamento" id="" class="form-control">
+                            <option value="otro">Otro</option>
+                        </select>
                         @if ($errors->has('departamento_contacto'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('departamento_contacto') }}
@@ -480,11 +478,13 @@
                         @endif
                     </div>
                 </div>
+                <hr>
                 {{--  4. DATOS CLINICOS  --}}
-                <div class="alert alert-secondary alert-dismissible">
-                    <h5>4. DATOS CLINICOS</h5>
-                </div>
                 <div class="row">
+                    <label for="" style="font-size:18px;">4. DATOS CLINICOS</label>
+                </div>
+                <hr>
+                <div class="row grupo">
                     <div class="form-group col-md-6">
                         <label for="fecha_inicio">Fecha de inicio de síntomas</label>
                         <input type="text" name="fecha_inicio" id="" class="form-control" placeholder="Fecha de inicio de síntomas" value="{{ old('fecha_inicio') }}">
@@ -512,8 +512,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-12">
                         <label for="id_estado">Estado actual del paciente (al momento del reporte)</label>
                         <input type="text" name="id_estado" id="" class="form-control" placeholder="Otro" value="{{ old('id_estado') }}">
@@ -523,8 +521,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-12">
                         <label for="id_dia">Diagnostico Clinico</label>
                         <input type="text" name="id_dia" id="" class="form-control" placeholder="Diagnostico Clinico" value="{{ old('id_dia') }}">
@@ -535,11 +531,13 @@
                         @endif
                     </div>
                 </div>
+                <hr>
                 {{--  5. DATOS EN CASO DE HOSPITALIZACION Y/O AISLAMIENTO  --}}
-                <div class="alert alert-secondary alert-dismissible">
-                    <h5>5. DATOS EN CASO DE HOSPITALIZACION Y/O AISLAMIENTO</h5>
-                </div>
                 <div class="row">
+                    <label for="" style="font-size:18px;">5. DATOS EN CASO DE HOSPITALIZACION Y/O AISLAMIENTO</label>
+                </div>
+                <hr>
+                <div class="row grupo">
                     <div class="form-group col-md-6">
                         <label for="fecha_aislamiento">Fecha de aislamiento</label>
                         <input type="text" name="fecha_aislamiento" id="" class="form-control" placeholder="Fecha de aislamiento" value="{{ old('fecha_aislamiento') }}">
@@ -558,8 +556,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-6">
                         <label for="fecha_internacion">Fecha de internación</label>
                         <input type="text" name="fecha_internacion" id="" class="form-control" placeholder="Fecha de internación" value="{{ old('fecha_internacion') }}">
@@ -578,8 +574,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-4">
                         <label for="ventilacion">Ventilación mecánica</label>
                         <input type="text" name="ventilacion" id="" class="form-control" placeholder="Ventilación mecánica" value="{{ old('ventilacion') }}">
@@ -608,11 +602,13 @@
                         @endif
                     </div>
                 </div>
+                <hr>
                 {{--  6. ENFERMEDADES DE BASE O CONDICIONES DE RIESGO  --}}
-                <div class="alert alert-secondary alert-dismissible">
-                    <h5>6. ENFERMEDADES DE BASE O CONDICIONES DE RIESGO</h5>
-                </div>
                 <div class="row">
+                    <label for="" style="font-size:18px;">6. ENFERMEDADES DE BASE O CONDICIONES DE RIESGO</label>
+                </div>
+                <hr>
+                <div class="row grupo">
                     <div class="form-group col-md-6">
                         <label for="pregunta">Presenta</label>
                         <input type="text" name="pregunta" id="" class="form-control" placeholder="Presenta" value="{{ old('pregunta') }}">
@@ -641,11 +637,13 @@
                         @endif
                     </div>
                 </div>
-                {{--  7. DATOS DE PERSOPNAS CON LAS QUE EL CASO SOSPECHOSO ESTUVO EN CONTACTO (desde el inicio de los sintomas)  --}}
-                <div class="alert alert-secondary alert-dismissible">
-                    <h5>7. DATOS DE PERSOPNAS CON LAS QUE EL CASO SOSPECHOSO ESTUVO EN CONTACTO (desde el inicio de los sintomas)</h5>
-                </div>
+                <hr>
+                {{--  7. DATOS DE PERSONAS CON LAS QUE EL CASO SOSPECHOSO ESTUVO EN CONTACTO (desde el inicio de los sintomas)  --}}
                 <div class="row">
+                    <label for="" style="font-size:18px;">7. DATOS DE PERSONAS CON LAS QUE EL CASO SOSPECHOSO ESTUVO EN CONTACTO (desde el inicio de los sintomas)</label>
+                </div>
+                <hr>
+                <div class="row grupo">
                     <div class="form-group col-md-4">
                         <label for="nombre">Nombre</label>
                         <input type="text" name="nombre" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre') }}">
@@ -673,8 +671,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-4">
                         <label for="id_rel">Relacion</label>
                         <input type="text" name="id_rel" id="" class="form-control" placeholder="Materno" value="{{ old('id_rel') }}">
@@ -702,8 +698,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-4">
                         <label for="direccion">Dirección</label>
                         <input type="text" name="direccion" id="" class="form-control" placeholder="Dirección" value="{{ old('direccion') }}">
@@ -732,11 +726,13 @@
                         @endif
                     </div>
                 </div>
+                <hr>
                 {{--  8. LABORATORIO  --}}
-                <div class="alert alert-secondary alert-dismissible">
-                    <h5>8. LABORATORIO</h5>
-                </div>
                 <div class="row">
+                    <label for="" style="font-size:18px;">8. LABORATORIO</label>
+                </div>
+                <hr>
+                <div class="row grupo">
                     <div class="form-group col-md-6">
                         <label for="muestra">Se tomó la muestra para Laboratorio</label>
                         <input type="text" name="muestra" id="" class="form-control" placeholder="Se tomó la muestra para Laboratorio" value="{{ old('muestra') }}">
@@ -755,8 +751,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-6">
                         <label for="id_mue">Tipo de muestra tomada</label>
                         <input type="text" name="id_mue" id="" class="form-control" placeholder="Tipo de muestra tomada" value="{{ old('id_mue') }}">
@@ -775,8 +769,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-4">
                         <label for="nombre_laboratorio">Nombre de Laboratorio que procesara la muestra</label>
                         <input type="text" name="nombre_laboratorio" id="" class="form-control" placeholder="Nombre de Laboratorio que procesara la muestra" value="{{ old('nombre_laboratorio') }}">
@@ -804,8 +796,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-6">
                         <label for="responsable_muestra">Responsable de Toma de Muestra</label>
                         <input type="text" name="responsable_muestra" id="" class="form-control" placeholder="Responsable de Toma de Muestra" value="{{ old('responsable_muestra') }}">
@@ -815,8 +805,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-12">
                         <label for="observaciones">Observaciones</label>
                         <input type="text" name="observaciones" id="" class="form-control" placeholder="Observaciones" value="{{ old('observaciones') }}">
@@ -826,8 +814,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-6">
                         <label for="resultado">Resultado</label>
                         <input type="text" name="resultado" id="" class="form-control" placeholder="Resultado" value="{{ old('resultado') }}">
@@ -847,12 +833,14 @@
                         @endif
                     </div>
                 </div>
+                <hr>
                 {{--  DATOS DEL PERSONAL QUE NOTIFICA  --}}
-                <div class="alert alert-secondary alert-dismissible">
-                    <h5>DATOS DEL PERSONAL QUE NOTIFICA</h5>
-                </div>
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    <label for="" style="font-size:18px;">DATOS DEL PERSONAL QUE NOTIFICA</label>
+                </div>
+                <hr>
+                <div class="row grupo">
+                    <div class="form-group col-md-4">
                         <label for="nombre">Nombre</label>
                         <input type="text" name="nombre" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre') }}">
                         @if ($errors->has('nombre'))
@@ -861,7 +849,7 @@
                             </small>
                         @endif
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="paterno">Paterno</label>
                         <input type="text" name="paterno" id="" class="form-control" placeholder="Paterno" value="{{ old('paterno') }}">
                         @if ($errors->has('paterno'))
@@ -870,7 +858,7 @@
                             </small>
                         @endif
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="materno">Materno</label>
                         <input type="text" name="paterno" id="" class="form-control" placeholder="Materno" value="{{ old('materno') }}">
                         @if ($errors->has('materno'))
@@ -879,8 +867,6 @@
                             </small>
                         @endif
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-12">
                         <label for="tel_cel">Teléfono / Celular</label>
                         <input type="text" name="tel_cel" id="" class="form-control" placeholder="Teléfono / Celular" value="{{ old('tel_cel') }}">
