@@ -30,12 +30,6 @@ class CreateFichaEpidemiologicaTable extends Migration
             // LLAVE FORANEA A LA TABLA HOISPITALIZACION
             $table->unsignedBigInteger('id_hos');
             $table->foreign('id_hos')->references('id_hos')->on('hospitalizaciones');
-            // LLAVE FORANEA A LA TABLA ENFERMEDAD BASE
-            $table->unsignedBigInteger('id_eb');
-            $table->foreign('id_eb')->references('id_eb')->on('enfermedades_base');
-            // LLAVE FORANEA A LA TABLA LABORATORIO
-            $table->unsignedBigInteger('id_lab');
-            $table->foreign('id_lab')->references('id_lab')->on('laboratorios');
             // LLAVE FORANEA A LA TABLA PERSONAL NOTIFICA
             $table->unsignedBigInteger('id_pn');
             $table->foreign('id_pn')->references('id_pn')->on('personal_notifica');

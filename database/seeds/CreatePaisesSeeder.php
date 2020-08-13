@@ -12,6 +12,7 @@ class CreatePaisesSeeder extends Seeder
      */
     public function run()
     {
+        $pais = Pais::create(['pais' => '','estado' => true]);
         $pais = Pais::create(['pais' => 'Afganistán','estado' => true]);
         $pais = Pais::create(['pais' => 'Albania','estado' => true]);
         $pais = Pais::create(['pais' => 'Alemania','estado' => true]);

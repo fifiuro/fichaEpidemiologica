@@ -34,7 +34,7 @@ class CreatePacientesTable extends Migration
             // FIN
             $table->string('calle');
             $table->string('zona');
-            $table->integer('num');
+            $table->string('num');
             $table->string('telefono');
 
             $table->timestamps();

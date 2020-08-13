@@ -15,13 +15,12 @@ class CreateLaboratoriosTable extends Migration
     {
         Schema::create('laboratorios', function (Blueprint $table) {
             $table->bigIncrements('id_lab');
+            // LLAVE FORANEA A LA TABLA FICHAS EPIDEMIOLOGIA
+            $table->unsignedBigInteger('id_fe');
+            $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica');
+            //FIN
             $table->boolean('muestra');
             $table->string('lugar_muestra');
-            // LLAVE FORANEA A LA TABLA MUESTRAS
-            $table->unsignedBigInteger('id_mue');
-            $table->foreign('id_mue')->references('id_mue')->on('muestras');
-            //FIN
-            $table->string('otro_muestra');
             $table->string('nombre_laboratorio');
             $table->date('fecha_muestra');
             $table->date('fecha_envio');

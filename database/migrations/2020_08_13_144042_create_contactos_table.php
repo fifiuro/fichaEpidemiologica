@@ -20,7 +20,7 @@ class CreateContactosTable extends Migration
             $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica');
             //FIN
             $table->string('nombre_contacto');
-            $table->string('pateno_contacto');
+            $table->string('paterno_contacto');
             $table->string('materno_contacto');
             // LLAVE FORANEA A LA TABLA RELACIONES
             $table->unsignedBigInteger('id_rel');

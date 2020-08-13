@@ -29,9 +29,9 @@ class CreateAntecedentesTable extends Migration
             $table->string('ciudad');
             $table->date('fecha_retorno');
             $table->time('hora_retorno');
-            $table->string('emprea_viaje');
-            $table->integer('num_vuelo');
-            $table->integer('num_asiento');
+            $table->string('empresa_viaje');
+            $table->string('num_vuelo');
+            $table->string('num_asiento');
             $table->boolean('contacto');
             $table->date('fecha_contacto');
             $table->string('nombre_contacto');
@@ -45,8 +45,7 @@ class CreateAntecedentesTable extends Migration
             $table->unsignedBigInteger('departamento_contacto');
             $table->foreign('departamento_contacto')->references('id_dep')->on('departamentos_estados');
             // LLAVE FORANEA DE LA TABLA MUNICIPIOS
-            $table->unsignedBigInteger('municipio_contacto');
-            $table->foreign('municipio_contacto')->references('id_mun')->on('municipios');
+            $table->string('municipio_contacto');
 
             $table->string('ciudad_contacto');
 

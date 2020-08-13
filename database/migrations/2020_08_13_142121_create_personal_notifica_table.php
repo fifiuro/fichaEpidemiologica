@@ -19,7 +19,6 @@ class CreatePersonalNotificaTable extends Migration
             $table->string('paterno_notifica');
             $table->string('materno_notifica');
             $table->string('tel_cel_notifica');
-            $table->date('fecha_notifica');
             $table->timestamps();
         });
     }

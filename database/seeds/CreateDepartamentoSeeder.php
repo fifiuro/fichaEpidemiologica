@@ -12,6 +12,7 @@ class CreateDepartamentoSeeder extends Seeder
      */
     public function run()
     {
+        $dep = Departamento::create(['id_pai' => '23', 'departamento' => '', 'estado' => true]);
         $dep = Departamento::create(['id_pai' => '23', 'departamento' => 'Beni', 'estado' => true]);
         $dep = Departamento::create(['id_pai' => '23', 'departamento' => 'Chuquisaca', 'estado' => true]);
         $dep = Departamento::create(['id_pai' => '23', 'departamento' => 'Cochabamba', 'estado' => true]);

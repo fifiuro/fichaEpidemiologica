@@ -47,15 +47,9 @@
                     <div class="form-group col-md-3">
                         <label for="departamento">Departamento</label>
                         <select name="departamento" id="" class="form-control">
-                            <option value="LA PAZ">LA PAZ</option>
-                            <option value="COCHABAMBA">COCHABAMBA</option>
-                            <option value="SANTA CRUZ">SANTA CRUZ</option>
-                            <option value="PANDO">PANDO</option>
-                            <option value="BENI">BENI</option>
-                            <option value="TARIJA">TARIJA</option>
-                            <option value="POTOSI">POTOSI</option>
-                            <option value="ORURO">ORURO</option>
-                            <option value="CHUQUISACA">CHUQUISACA</option>
+                            @foreach ($dep as $d)
+                                <option value="{{ $d->id_dep }}">{{ $d->departamento }}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('departamento'))
                             <small class="form-text text-danger">
@@ -74,7 +68,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="fecha_notificacion">Fecha de Notificación</label>
-                        <input type="text" name="fecha_notificacion" id="" class="form-control" placeholder="Fecha de Notificación" value="{{ old('fecha_notificacion') }}">
+                        <input type="date" name="fecha_notificacion" id="" class="form-control" value="{{ old('fecha_notificacion') }}">
                         @if ($errors->has('fecha_notificacion'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('fecha_notificacion') }}
@@ -159,15 +153,9 @@
                     <div class="form-group col-md-3">
                         <label for="expedido">Expedido</label>
                         <select name="expedido" id="" class="form-control">
-                            <option value="LA PAZ">LA PAZ</option>
-                            <option value="COCHABAMBA">COCHABAMBA</option>
-                            <option value="SANTA CRUZ">SANTA CRUZ</option>
-                            <option value="PANDO">PANDO</option>
-                            <option value="BENI">BENI</option>
-                            <option value="TARIJA">TARIJA</option>
-                            <option value="POTOSI">POTOSI</option>
-                            <option value="ORURO">ORURO</option>
-                            <option value="CHUQUISACA">CHUQUISACA</option>
+                            @foreach ($dep as $d)
+                                <option value="{{ $d->id_dep }}">{{ $d->departamento }}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('ci'))
                             <small class="form-text text-danger">
@@ -177,7 +165,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="fecha_nac">Fecha de Nacimiento</label>
-                        <input type="text" name="fecha_nac" id="" class="form-control" placeholder="Fecha de Nacimiento" value="{{ old('fecha_nac') }}">
+                        <input type="date" name="fecha_nac" id="" class="form-control" placeholder="Fecha de Nacimiento" value="{{ old('fecha_nac') }}">
                         @if ($errors->has('fecha_nac'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('fecha_nac') }}
@@ -194,17 +182,24 @@
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="id_dep_pacientes">Lugar de residencia; Departamento</label>
+                        <label for="id_pai_pacientes">Lugar de residencia: País</label>
+                        <select name="id_pai_pacientes" id="" class="form-control">
+                            @foreach ($pai as $p)
+                                <option value="{{ $p->id_pai }}">{{ $p->pais }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('id_pai_pacientes'))
+                            <small class="form-text text-danger">
+                                {{ $errors->first('id_pai_pacientes') }}
+                            </small>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="id_dep_pacientes">Departamento</label>
                         <select name="id_dep_pacientes" id="" class="form-control">
-                            <option value="4">LA PAZ</option>
-                            <option value="COCHABAMBA">COCHABAMBA</option>
-                            <option value="SANTA CRUZ">SANTA CRUZ</option>
-                            <option value="PANDO">PANDO</option>
-                            <option value="BENI">BENI</option>
-                            <option value="TARIJA">TARIJA</option>
-                            <option value="POTOSI">POTOSI</option>
-                            <option value="ORURO">ORURO</option>
-                            <option value="CHUQUISACA">CHUQUISACA</option>
+                            @foreach ($dep as $d)
+                                <option value="{{ $d->id_dep }}">{{ $d->departamento }}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('id_dep_pacientes'))
                             <small class="form-text text-danger">
@@ -221,212 +216,7 @@
                             </small>
                         @endif
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="id_pai_pacientes">País</label>
-                        <select name="id_pai_pacientes" id="" class="form-control">
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Albania">Albania</option>
-                            <option value="Alemania">Alemania</option>
-                            <option value="Andorra">Andorra</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Antigua y Barbuda">Antigua y Barbuda</option>
-                            <option value="Arabia Saudita">Arabia Saudita</option>
-                            <option value="Argelia">Argelia</option>
-                            <option value="Argentina">Argentina</option>
-                            <option value="Armenia">Armenia</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Austria">Austria</option>
-                            <option value="Azerbaiyán">Azerbaiyán</option>
-                            <option value="Bahamas">Bahamas</option>
-                            <option value="Bahrein">Bahrein</option>
-                            <option value="Bangladesh">Bangladesh</option>
-                            <option value="Barbados">Barbados</option>
-                            <option value="Belarús">Belarús</option>
-                            <option value="Bélgica">Bélgica</option>
-                            <option value="Belice">Belice</option>
-                            <option value="Benin">Benin</option>
-                            <option value="Bhután">Bhután</option>
-                            <option value="23">Bolivia (Estado Plurinacional de)</option>
-                            <option value="Bosnia y Herzegovina">Bosnia y Herzegovina</option>
-                            <option value="Botswana">Botswana</option>
-                            <option value="Brasil">Brasil</option>
-                            <option value="Brunei Darussalam">Brunei Darussalam</option>
-                            <option value="Bulgaria">Bulgaria</option>
-                            <option value="Burkina Faso">Burkina Faso</option>
-                            <option value="Burundi">Burundi</option>
-                            <option value="Cabo Verde">Cabo Verde</option>
-                            <option value="Camboya">Camboya</option>
-                            <option value="Camerún ">Camerún </option>
-                            <option value="Canadá ">Canadá </option>
-                            <option value="Chad ">Chad </option>
-                            <option value="Chequia">Chequia</option>
-                            <option value="Chile">Chile</option>
-                            <option value="China">China</option>
-                            <option value="Chipre">Chipre</option>
-                            <option value="Colombia">Colombia</option>
-                            <option value="Comoras ">Comoras </option>
-                            <option value="Congo ">Congo </option>
-                            <option value="Costa Rica">Costa Rica</option>
-                            <option value="Côte d’Ivoire">Côte d’Ivoire</option>
-                            <option value="Croacia">Croacia</option>
-                            <option value="Cuba">Cuba</option>
-                            <option value="Dinamarca">Dinamarca</option>
-                            <option value="Djibouti">Djibouti</option>
-                            <option value="Dominica">Dominica</option>
-                            <option value="Ecuador ">Ecuador </option>
-                            <option value="Egipto">Egipto</option>
-                            <option value="El Salvador">El Salvador</option>
-                            <option value="Emiratos Árabes Unidos ">Emiratos Árabes Unidos </option>
-                            <option value="Eritrea">Eritrea</option>
-                            <option value="Eslovaquia">Eslovaquia</option>
-                            <option value="Eslovenia">Eslovenia</option>
-                            <option value="España">España</option>
-                            <option value="Estados Unidos de América ">Estados Unidos de América </option>
-                            <option value="Estonia">Estonia</option>
-                            <option value="Eswatini">Eswatini</option>
-                            <option value="Etiopía">Etiopía</option>
-                            <option value="ex República Yugoslava de Macedonia ">ex República Yugoslava de Macedonia </option>
-                            <option value="Federación de Rusia ">Federación de Rusia </option>
-                            <option value="Fiji">Fiji</option>
-                            <option value="Filipinas">Filipinas</option>
-                            <option value="Finlandia">Finlandia</option>
-                            <option value="Francia">Francia</option>
-                            <option value="Gabón ">Gabón </option>
-                            <option value="Gambia">Gambia</option>
-                            <option value="Georgia">Georgia</option>
-                            <option value="Ghana">Ghana</option>
-                            <option value="Granada">Granada</option>
-                            <option value="Grecia">Grecia</option>
-                            <option value="Guatemala">Guatemala</option>
-                            <option value="Guinea">Guinea</option>
-                            <option value="Guinea Ecuatorial">Guinea Ecuatorial</option>
-                            <option value="Guinea-Bissau">Guinea-Bissau</option>
-                            <option value="Guyana">Guyana</option>
-                            <option value="Haití">Haití</option>
-                            <option value="Honduras">Honduras</option>
-                            <option value="Hungría">Hungría</option>
-                            <option value="India ">India </option>
-                            <option value="Indonesia">Indonesia</option>
-                            <option value="Irán (República Islámica del)">Irán (República Islámica del)</option>
-                            <option value="Iraq ">Iraq </option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Islandia">Islandia</option>
-                            <option value="Islas Cook ">Islas Cook </option>
-                            <option value="Islas Marshall ">Islas Marshall </option>
-                            <option value="Islas Salomón ">Islas Salomón </option>
-                            <option value="Israel">Israel</option>
-                            <option value="Italia">Italia</option>
-                            <option value="Jamaica">Jamaica</option>
-                            <option value="Japón ">Japón </option>
-                            <option value="Jordania">Jordania</option>
-                            <option value="Kazajstán">Kazajstán</option>
-                            <option value="Kenya">Kenya</option>
-                            <option value="Kirguistán">Kirguistán</option>
-                            <option value="Kiribati">Kiribati</option>
-                            <option value="Kuwait">Kuwait</option>
-                            <option value="Lesotho">Lesotho</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Líbano ">Líbano </option>
-                            <option value="Liberia">Liberia</option>
-                            <option value="Libia">Libia</option>
-                            <option value="Liechtenstein">Liechtenstein</option>
-                            <option value="Lituania">Lituania</option>
-                            <option value="Luxemburgo">Luxemburgo</option>
-                            <option value="Madagascar">Madagascar</option>
-                            <option value="Malasia">Malasia</option>
-                            <option value="Malawi">Malawi</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Malí">Malí</option>
-                            <option value="Malta">Malta</option>
-                            <option value="Marruecos">Marruecos</option>
-                            <option value="Mauricio">Mauricio</option>
-                            <option value="Mauritania">Mauritania</option>
-                            <option value="México">México</option>
-                            <option value="Micronesia (Estados Federados de)">Micronesia (Estados Federados de)</option>
-                            <option value="Mónaco">Mónaco</option>
-                            <option value="Mongolia">Mongolia</option>
-                            <option value="Montenegro">Montenegro</option>
-                            <option value="Mozambique">Mozambique</option>
-                            <option value="Myanmar">Myanmar</option>
-                            <option value="Namibia">Namibia</option>
-                            <option value="Nauru">Nauru</option>
-                            <option value="Nepal">Nepal</option>
-                            <option value="Nicaragua">Nicaragua</option>
-                            <option value="Níger ">Níger </option>
-                            <option value="Nigeria">Nigeria</option>
-                            <option value="Niue">Niue</option>
-                            <option value="Noruega">Noruega</option>
-                            <option value="Nueva Zelandia">Nueva Zelandia</option>
-                            <option value="Omán">Omán</option>
-                            <option value="Países Bajos ">Países Bajos </option>
-                            <option value="Pakistán ">Pakistán </option>
-                            <option value="Palau">Palau</option>
-                            <option value="Panamá">Panamá</option>
-                            <option value="Papua Nueva Guinea">Papua Nueva Guinea</option>
-                            <option value="Paraguay ">Paraguay </option>
-                            <option value="Perú ">Perú </option>
-                            <option value="Polonia">Polonia</option>
-                            <option value="Portugal">Portugal</option>
-                            <option value="Qatar">Qatar</option>
-                            <option value="Reino Unido de Gran Bretaña e Irlanda del Norte ">Reino Unido de Gran Bretaña e Irlanda del Norte </option>
-                            <option value="República Árabe Siria ">República Árabe Siria </option>
-                            <option value="República Centroafricana ">República Centroafricana </option>
-                            <option value="República de Corea ">República de Corea </option>
-                            <option value="República de Moldova ">República de Moldova </option>
-                            <option value="República Democrática del Congo ">República Democrática del Congo </option>
-                            <option value="República Democrática Popular Lao ">República Democrática Popular Lao </option>
-                            <option value="República Dominicana ">República Dominicana </option>
-                            <option value="República Popular Democrática de Corea ">República Popular Democrática de Corea </option>
-                            <option value="República Unida de Tanzanía ">República Unida de Tanzanía </option>
-                            <option value="Rumania">Rumania</option>
-                            <option value="Rwanda">Rwanda</option>
-                            <option value="Saint Kitts y Nevis">Saint Kitts y Nevis</option>
-                            <option value="Samoa">Samoa</option>
-                            <option value="San Marino">San Marino</option>
-                            <option value="San Vicente y las Granadinas">San Vicente y las Granadinas</option>
-                            <option value="Santa Lucía">Santa Lucía</option>
-                            <option value="Santa Sede ">Santa Sede </option>
-                            <option value="Santo Tomé y Príncipe">Santo Tomé y Príncipe</option>
-                            <option value="Senegal ">Senegal </option>
-                            <option value="Serbia">Serbia</option>
-                            <option value="Seychelles">Seychelles</option>
-                            <option value="Sierra Leona">Sierra Leona</option>
-                            <option value="Singapur">Singapur</option>
-                            <option value="Somalia">Somalia</option>
-                            <option value="Sri Lanka">Sri Lanka</option>
-                            <option value="Sudáfrica">Sudáfrica</option>
-                            <option value="Sudán ">Sudán </option>
-                            <option value="Sudán del Sur">Sudán del Sur</option>
-                            <option value="Suecia">Suecia</option>
-                            <option value="Suiza">Suiza</option>
-                            <option value="Suriname">Suriname</option>
-                            <option value="Tailandia">Tailandia</option>
-                            <option value="Tayikistán">Tayikistán</option>
-                            <option value="Timor-Leste">Timor-Leste</option>
-                            <option value="Togo ">Togo </option>
-                            <option value="Tonga">Tonga</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Túnez">Túnez</option>
-                            <option value="Turkmenistán">Turkmenistán</option>
-                            <option value="Turquía">Turquía</option>
-                            <option value="Tuvalu">Tuvalu</option>
-                            <option value="Ucrania">Ucrania</option>
-                            <option value="Uganda">Uganda</option>
-                            <option value="Uruguay ">Uruguay </option>
-                            <option value="Uzbekistán">Uzbekistán</option>
-                            <option value="Vanuatu">Vanuatu</option>
-                            <option value="Venezuela (República Bolivariana de)">Venezuela (República Bolivariana de)</option>
-                            <option value="Viet Nam">Viet Nam</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Zambia">Zambia</option>
-                            <option value="Zimbabwe">Zimbabwe</option>                           
-                        </select>
-                        @if ($errors->has('id_pai_pacientes'))
-                            <small class="form-text text-danger">
-                                {{ $errors->first('id_pai_pacientes') }}
-                            </small>
-                        @endif
-                    </div>
+                    
                     <div class="form-group col-md-3">
                         <label for="calle">Calle</label>
                         <input type="text" name="calle" id="" class="form-control" placeholder="Calle" value="{{ old('calle') }}">
@@ -491,7 +281,9 @@
                                 </td>
                                 <td>
                                     <select name="id_rel_pacientes" id="" class="form-control">
-                                        <option value="1">OTRO</option>
+                                        @foreach ($rel as $r)
+                                            <option value="{{ $r->id_rel }}">{{ $r->relacion }}</option>
+                                        @endforeach
                                     </select>
                                 </td>
                                 <td>
@@ -511,7 +303,9 @@
                     <div class="form-group col-md-6">
                         <label for="id_ocu">Ocupación</label>
                         <select name="id_ocu" id="" class="form-control">
-                            <option value="otro">Otro</option>
+                            @foreach ($ocu as $o)
+                                <option value="{{ $o->id_ocu }}">{{ $o->ocupacion }}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('id_ocu'))
                             <small class="form-text text-danger">
@@ -520,18 +314,18 @@
                         @endif
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="otro">Otro</label>
-                        <input type="text" name="otro" id="" class="form-control" placeholder="Ocupación" value="{{ old('otro') }}">
-                        @if ($errors->has('otro'))
+                        <label for="otro_ocupacion">Otro</label>
+                        <input type="text" name="otro_ocupacion" id="" class="form-control" placeholder="Ocupación" value="{{ old('otro_ocupacion') }}">
+                        @if ($errors->has('otro_ocupacion'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('otro') }}
+                                {{ $errors->first('otro_ocupacion') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-6">
                         <label for="vacuna_influenza">Antecedente de vacunación para influenza</label>
-                        <input type="radio" name="vacuna_influenza" id="" value="SI"> SI
-                        <input type="radio" name="vacuna_influenza" id="" value="NO"> NO
+                        <input type="radio" name="vacuna_influenza" id="" value="1"> SI
+                        <input type="radio" name="vacuna_influenza" id="" value="0"> NO
                         @if ($errors->has('vacuna_influenza'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('vacuna_influenza') }}
@@ -540,7 +334,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="fecha_vacunacion">Fecha</label>
-                        <input type="text" name="fecha_vacunacion" id="" class="form-control" placeholder="Fecha" value="{{ old('fecha_vacunacion') }}">
+                        <input type="date" name="fecha_vacunacion" id="" class="form-control" placeholder="Fecha" value="{{ old('fecha_vacunacion') }}">
                         @if ($errors->has('fecha_vacunacion'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('fecha_vacunacion') }}
@@ -549,8 +343,8 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label for="viaje_riesgo">¿Tuvo un viaje a un lugar de riesgo dentro o fuera del país?</label>
-                        <input type="radio" name="viaje_riesgo" id="" value="SI"> SI
-                        <input type="radio" name="viaje_riesgo" id="" value="NO"> NO
+                        <input type="radio" name="viaje_riesgo" id="" value="1"> SI
+                        <input type="radio" name="viaje_riesgo" id="" value="0"> NO
                         @if ($errors->has('viaje_riesgo'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('viaje_riesgo') }}
@@ -558,223 +352,30 @@
                         @endif
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="id_pai">País</label>
-                        <select name="ip_pai" id="" class="form-control">
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Albania">Albania</option>
-                            <option value="Alemania">Alemania</option>
-                            <option value="Andorra">Andorra</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Antigua y Barbuda">Antigua y Barbuda</option>
-                            <option value="Arabia Saudita">Arabia Saudita</option>
-                            <option value="Argelia">Argelia</option>
-                            <option value="Argentina">Argentina</option>
-                            <option value="Armenia">Armenia</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Austria">Austria</option>
-                            <option value="Azerbaiyán">Azerbaiyán</option>
-                            <option value="Bahamas">Bahamas</option>
-                            <option value="Bahrein">Bahrein</option>
-                            <option value="Bangladesh">Bangladesh</option>
-                            <option value="Barbados">Barbados</option>
-                            <option value="Belarús">Belarús</option>
-                            <option value="Bélgica">Bélgica</option>
-                            <option value="Belice">Belice</option>
-                            <option value="Benin">Benin</option>
-                            <option value="Bhután">Bhután</option>
-                            <option value="Bolivia (Estado Plurinacional de)">Bolivia (Estado Plurinacional de)</option>
-                            <option value="Bosnia y Herzegovina">Bosnia y Herzegovina</option>
-                            <option value="Botswana">Botswana</option>
-                            <option value="Brasil">Brasil</option>
-                            <option value="Brunei Darussalam">Brunei Darussalam</option>
-                            <option value="Bulgaria">Bulgaria</option>
-                            <option value="Burkina Faso">Burkina Faso</option>
-                            <option value="Burundi">Burundi</option>
-                            <option value="Cabo Verde">Cabo Verde</option>
-                            <option value="Camboya">Camboya</option>
-                            <option value="Camerún ">Camerún </option>
-                            <option value="Canadá ">Canadá </option>
-                            <option value="Chad ">Chad </option>
-                            <option value="Chequia">Chequia</option>
-                            <option value="Chile">Chile</option>
-                            <option value="China">China</option>
-                            <option value="Chipre">Chipre</option>
-                            <option value="Colombia">Colombia</option>
-                            <option value="Comoras ">Comoras </option>
-                            <option value="Congo ">Congo </option>
-                            <option value="Costa Rica">Costa Rica</option>
-                            <option value="Côte d’Ivoire">Côte d’Ivoire</option>
-                            <option value="Croacia">Croacia</option>
-                            <option value="Cuba">Cuba</option>
-                            <option value="Dinamarca">Dinamarca</option>
-                            <option value="Djibouti">Djibouti</option>
-                            <option value="Dominica">Dominica</option>
-                            <option value="Ecuador ">Ecuador </option>
-                            <option value="Egipto">Egipto</option>
-                            <option value="El Salvador">El Salvador</option>
-                            <option value="Emiratos Árabes Unidos ">Emiratos Árabes Unidos </option>
-                            <option value="Eritrea">Eritrea</option>
-                            <option value="Eslovaquia">Eslovaquia</option>
-                            <option value="Eslovenia">Eslovenia</option>
-                            <option value="España">España</option>
-                            <option value="Estados Unidos de América ">Estados Unidos de América </option>
-                            <option value="Estonia">Estonia</option>
-                            <option value="Eswatini">Eswatini</option>
-                            <option value="Etiopía">Etiopía</option>
-                            <option value="ex República Yugoslava de Macedonia ">ex República Yugoslava de Macedonia </option>
-                            <option value="Federación de Rusia ">Federación de Rusia </option>
-                            <option value="Fiji">Fiji</option>
-                            <option value="Filipinas">Filipinas</option>
-                            <option value="Finlandia">Finlandia</option>
-                            <option value="Francia">Francia</option>
-                            <option value="Gabón ">Gabón </option>
-                            <option value="Gambia">Gambia</option>
-                            <option value="Georgia">Georgia</option>
-                            <option value="Ghana">Ghana</option>
-                            <option value="Granada">Granada</option>
-                            <option value="Grecia">Grecia</option>
-                            <option value="Guatemala">Guatemala</option>
-                            <option value="Guinea">Guinea</option>
-                            <option value="Guinea Ecuatorial">Guinea Ecuatorial</option>
-                            <option value="Guinea-Bissau">Guinea-Bissau</option>
-                            <option value="Guyana">Guyana</option>
-                            <option value="Haití">Haití</option>
-                            <option value="Honduras">Honduras</option>
-                            <option value="Hungría">Hungría</option>
-                            <option value="India ">India </option>
-                            <option value="Indonesia">Indonesia</option>
-                            <option value="Irán (República Islámica del)">Irán (República Islámica del)</option>
-                            <option value="Iraq ">Iraq </option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Islandia">Islandia</option>
-                            <option value="Islas Cook ">Islas Cook </option>
-                            <option value="Islas Marshall ">Islas Marshall </option>
-                            <option value="Islas Salomón ">Islas Salomón </option>
-                            <option value="Israel">Israel</option>
-                            <option value="Italia">Italia</option>
-                            <option value="Jamaica">Jamaica</option>
-                            <option value="Japón ">Japón </option>
-                            <option value="Jordania">Jordania</option>
-                            <option value="Kazajstán">Kazajstán</option>
-                            <option value="Kenya">Kenya</option>
-                            <option value="Kirguistán">Kirguistán</option>
-                            <option value="Kiribati">Kiribati</option>
-                            <option value="Kuwait">Kuwait</option>
-                            <option value="Lesotho">Lesotho</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Líbano ">Líbano </option>
-                            <option value="Liberia">Liberia</option>
-                            <option value="Libia">Libia</option>
-                            <option value="Liechtenstein">Liechtenstein</option>
-                            <option value="Lituania">Lituania</option>
-                            <option value="Luxemburgo">Luxemburgo</option>
-                            <option value="Madagascar">Madagascar</option>
-                            <option value="Malasia">Malasia</option>
-                            <option value="Malawi">Malawi</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Malí">Malí</option>
-                            <option value="Malta">Malta</option>
-                            <option value="Marruecos">Marruecos</option>
-                            <option value="Mauricio">Mauricio</option>
-                            <option value="Mauritania">Mauritania</option>
-                            <option value="México">México</option>
-                            <option value="Micronesia (Estados Federados de)">Micronesia (Estados Federados de)</option>
-                            <option value="Mónaco">Mónaco</option>
-                            <option value="Mongolia">Mongolia</option>
-                            <option value="Montenegro">Montenegro</option>
-                            <option value="Mozambique">Mozambique</option>
-                            <option value="Myanmar">Myanmar</option>
-                            <option value="Namibia">Namibia</option>
-                            <option value="Nauru">Nauru</option>
-                            <option value="Nepal">Nepal</option>
-                            <option value="Nicaragua">Nicaragua</option>
-                            <option value="Níger ">Níger </option>
-                            <option value="Nigeria">Nigeria</option>
-                            <option value="Niue">Niue</option>
-                            <option value="Noruega">Noruega</option>
-                            <option value="Nueva Zelandia">Nueva Zelandia</option>
-                            <option value="Omán">Omán</option>
-                            <option value="Países Bajos ">Países Bajos </option>
-                            <option value="Pakistán ">Pakistán </option>
-                            <option value="Palau">Palau</option>
-                            <option value="Panamá">Panamá</option>
-                            <option value="Papua Nueva Guinea">Papua Nueva Guinea</option>
-                            <option value="Paraguay ">Paraguay </option>
-                            <option value="Perú ">Perú </option>
-                            <option value="Polonia">Polonia</option>
-                            <option value="Portugal">Portugal</option>
-                            <option value="Qatar">Qatar</option>
-                            <option value="Reino Unido de Gran Bretaña e Irlanda del Norte ">Reino Unido de Gran Bretaña e Irlanda del Norte </option>
-                            <option value="República Árabe Siria ">República Árabe Siria </option>
-                            <option value="República Centroafricana ">República Centroafricana </option>
-                            <option value="República de Corea ">República de Corea </option>
-                            <option value="República de Moldova ">República de Moldova </option>
-                            <option value="República Democrática del Congo ">República Democrática del Congo </option>
-                            <option value="República Democrática Popular Lao ">República Democrática Popular Lao </option>
-                            <option value="República Dominicana ">República Dominicana </option>
-                            <option value="República Popular Democrática de Corea ">República Popular Democrática de Corea </option>
-                            <option value="República Unida de Tanzanía ">República Unida de Tanzanía </option>
-                            <option value="Rumania">Rumania</option>
-                            <option value="Rwanda">Rwanda</option>
-                            <option value="Saint Kitts y Nevis">Saint Kitts y Nevis</option>
-                            <option value="Samoa">Samoa</option>
-                            <option value="San Marino">San Marino</option>
-                            <option value="San Vicente y las Granadinas">San Vicente y las Granadinas</option>
-                            <option value="Santa Lucía">Santa Lucía</option>
-                            <option value="Santa Sede ">Santa Sede </option>
-                            <option value="Santo Tomé y Príncipe">Santo Tomé y Príncipe</option>
-                            <option value="Senegal ">Senegal </option>
-                            <option value="Serbia">Serbia</option>
-                            <option value="Seychelles">Seychelles</option>
-                            <option value="Sierra Leona">Sierra Leona</option>
-                            <option value="Singapur">Singapur</option>
-                            <option value="Somalia">Somalia</option>
-                            <option value="Sri Lanka">Sri Lanka</option>
-                            <option value="Sudáfrica">Sudáfrica</option>
-                            <option value="Sudán ">Sudán </option>
-                            <option value="Sudán del Sur">Sudán del Sur</option>
-                            <option value="Suecia">Suecia</option>
-                            <option value="Suiza">Suiza</option>
-                            <option value="Suriname">Suriname</option>
-                            <option value="Tailandia">Tailandia</option>
-                            <option value="Tayikistán">Tayikistán</option>
-                            <option value="Timor-Leste">Timor-Leste</option>
-                            <option value="Togo ">Togo </option>
-                            <option value="Tonga">Tonga</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Túnez">Túnez</option>
-                            <option value="Turkmenistán">Turkmenistán</option>
-                            <option value="Turquía">Turquía</option>
-                            <option value="Tuvalu">Tuvalu</option>
-                            <option value="Ucrania">Ucrania</option>
-                            <option value="Uganda">Uganda</option>
-                            <option value="Uruguay ">Uruguay </option>
-                            <option value="Uzbekistán">Uzbekistán</option>
-                            <option value="Vanuatu">Vanuatu</option>
-                            <option value="Venezuela (República Bolivariana de)">Venezuela (República Bolivariana de)</option>
-                            <option value="Viet Nam">Viet Nam</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Zambia">Zambia</option>
-                            <option value="Zimbabwe">Zimbabwe</option>                           
+                        <label for="id_pai_antcedentes">País</label>
+                        <select name="id_pai_antcedentes" id="" class="form-control">
+                            @foreach ($pai as $p)
+                                <option value="{{ $p->id_pai }}">{{ $p->pais }}</option>
+                            @endforeach
                         </select>
-                        @if ($errors->has('id_pai'))
+                        @if ($errors->has('id_pai_antcedentes'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('id_pai') }}
+                                {{ $errors->first('id_pai_antcedentes') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="ciudad">Ciudad</label>
-                        <input type="text" name="ciudad" id="" class="form-control" placeholder="Ciudad">
-                        @if ($errors->has('ciudad'))
+                        <label for="ciudad_antecedentes">Ciudad</label>
+                        <input type="text" name="ciudad_antecedentes" id="" class="form-control" placeholder="ciudad_antecedentes">
+                        @if ($errors->has('ciudad_antecedentes'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('ciudad') }}
+                                {{ $errors->first('ciudad_antecedentes') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-3">
                         <label for="fecha_retorno">Fecha de retorno de viaje</label>
-                        <input type="text" name="fecha_retorno" id="" class="form-control" placeholder="Fecha de retorno de viaje" value="{{ old('fecha_retorno') }}">
+                        <input type="date" name="fecha_retorno" id="" class="form-control" placeholder="Fecha de retorno de viaje" value="{{ old('fecha_retorno') }}">
                         @if ($errors->has('fecha_retorno'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('fecha_retorno') }}
@@ -783,7 +384,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="hora_retorno">Hora</label>
-                        <input type="text" name="hora_retorno" id="" class="form-control" placeholder="Hora" value="{{ old('hora_retorno') }}">
+                        <input type="time" name="hora_retorno" id="" class="form-control" placeholder="Hora" value="{{ old('hora_retorno') }}">
                         @if ($errors->has('hora_retorno'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('hora_retorno') }}
@@ -818,48 +419,48 @@
                         @endif
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="contacto">¿Tuvo contacto con un caso confirmado de COVID+19 en los 14 días previos al inicio de sinstimos, edomicilio o establecimiento de salud?</label>
-                        <input type="radio" name="contacto" id="" value="SI"> SI
-                        <input type="radio" name="contacto" id="" value="NO"> NO
-                        @if ($errors->has('contacto'))
+                        <label for="contacto_antecedentes">¿Tuvo contacto con un caso confirmado de COVID+19 en los 14 días previos al inicio de sinstimos, edomicilio o establecimiento de salud?</label>
+                        <input type="radio" name="contacto_antecedentes" id="" value="1"> SI
+                        <input type="radio" name="contacto_antecedentes" id="" value="0"> NO
+                        @if ($errors->has('contacto_antecedentes'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('contacto') }}
+                                {{ $errors->first('contacto_antecedentes') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="fecha_contacto">Fecha de contacto</label>
-                        <input type="text" name="fecha_contacto" id="" class="form-control" placeholder="Fecha de contacto" value="{{ old('fecha_contacto') }}">
-                        @if ($errors->has('fecha_contacto'))
+                        <label for="fecha_contacto_antecentes">Fecha de contacto</label>
+                        <input type="date" name="fecha_contacto_antecentes" id="" class="form-control" placeholder="Fecha de contacto" value="{{ old('fecha_contacto_antecentes') }}">
+                        @if ($errors->has('fecha_contacto_antecentes'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('fecha_contacto') }}
+                                {{ $errors->first('fecha_contacto_antecentes') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="nombre">Nombre (del caso positivo)</label>
-                        <input type="text" name="nombre" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre') }}">
-                        @if ($errors->has('nombre'))
+                        <label for="nombre_contacto">Nombre (del caso positivo)</label>
+                        <input type="text" name="nombre_contacto" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre_contacto') }}">
+                        @if ($errors->has('nombre_contacto'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('nombre') }}
+                                {{ $errors->first('nombre_contacto') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="paterno">Paterno (del caso positivo)</label>
-                        <input type="text" name="paterno" id="" class="form-control" placeholder="Nombre" value="{{ old('paterno') }}">
-                        @if ($errors->has('paterno'))
+                        <label for="paterno_contacto">Paterno (del caso positivo)</label>
+                        <input type="text" name="paterno_contacto" id="" class="form-control" placeholder="Nombre" value="{{ old('paterno_contacto') }}">
+                        @if ($errors->has('paterno_contacto'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('paterno') }}
+                                {{ $errors->first('paterno_contacto') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="materno">Materno (del caso positivo)</label>
-                        <input type="text" name="materno" id="" class="form-control" placeholder="Nombre" value="{{ old('materno') }}">
-                        @if ($errors->has('materno'))
+                        <label for="materno_contacto">Materno (del caso positivo)</label>
+                        <input type="text" name="materno_contacto" id="" class="form-control" placeholder="Nombre" value="{{ old('materno_contacto') }}">
+                        @if ($errors->has('materno_contacto'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('materno') }}
+                                {{ $errors->first('materno_contacto') }}
                             </small>
                         @endif
                     </div>
@@ -876,214 +477,25 @@
                         <label for="telefono_contacto">Lugar de contacto con el caso positivo</label>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="id_pai">País</label>
-                        <select name="ip_pai" id="" class="form-control">
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Albania">Albania</option>
-                            <option value="Alemania">Alemania</option>
-                            <option value="Andorra">Andorra</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Antigua y Barbuda">Antigua y Barbuda</option>
-                            <option value="Arabia Saudita">Arabia Saudita</option>
-                            <option value="Argelia">Argelia</option>
-                            <option value="Argentina">Argentina</option>
-                            <option value="Armenia">Armenia</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Austria">Austria</option>
-                            <option value="Azerbaiyán">Azerbaiyán</option>
-                            <option value="Bahamas">Bahamas</option>
-                            <option value="Bahrein">Bahrein</option>
-                            <option value="Bangladesh">Bangladesh</option>
-                            <option value="Barbados">Barbados</option>
-                            <option value="Belarús">Belarús</option>
-                            <option value="Bélgica">Bélgica</option>
-                            <option value="Belice">Belice</option>
-                            <option value="Benin">Benin</option>
-                            <option value="Bhután">Bhután</option>
-                            <option value="Bolivia (Estado Plurinacional de)">Bolivia (Estado Plurinacional de)</option>
-                            <option value="Bosnia y Herzegovina">Bosnia y Herzegovina</option>
-                            <option value="Botswana">Botswana</option>
-                            <option value="Brasil">Brasil</option>
-                            <option value="Brunei Darussalam">Brunei Darussalam</option>
-                            <option value="Bulgaria">Bulgaria</option>
-                            <option value="Burkina Faso">Burkina Faso</option>
-                            <option value="Burundi">Burundi</option>
-                            <option value="Cabo Verde">Cabo Verde</option>
-                            <option value="Camboya">Camboya</option>
-                            <option value="Camerún ">Camerún </option>
-                            <option value="Canadá ">Canadá </option>
-                            <option value="Chad ">Chad </option>
-                            <option value="Chequia">Chequia</option>
-                            <option value="Chile">Chile</option>
-                            <option value="China">China</option>
-                            <option value="Chipre">Chipre</option>
-                            <option value="Colombia">Colombia</option>
-                            <option value="Comoras ">Comoras </option>
-                            <option value="Congo ">Congo </option>
-                            <option value="Costa Rica">Costa Rica</option>
-                            <option value="Côte d’Ivoire">Côte d’Ivoire</option>
-                            <option value="Croacia">Croacia</option>
-                            <option value="Cuba">Cuba</option>
-                            <option value="Dinamarca">Dinamarca</option>
-                            <option value="Djibouti">Djibouti</option>
-                            <option value="Dominica">Dominica</option>
-                            <option value="Ecuador ">Ecuador </option>
-                            <option value="Egipto">Egipto</option>
-                            <option value="El Salvador">El Salvador</option>
-                            <option value="Emiratos Árabes Unidos ">Emiratos Árabes Unidos </option>
-                            <option value="Eritrea">Eritrea</option>
-                            <option value="Eslovaquia">Eslovaquia</option>
-                            <option value="Eslovenia">Eslovenia</option>
-                            <option value="España">España</option>
-                            <option value="Estados Unidos de América ">Estados Unidos de América </option>
-                            <option value="Estonia">Estonia</option>
-                            <option value="Eswatini">Eswatini</option>
-                            <option value="Etiopía">Etiopía</option>
-                            <option value="ex República Yugoslava de Macedonia ">ex República Yugoslava de Macedonia </option>
-                            <option value="Federación de Rusia ">Federación de Rusia </option>
-                            <option value="Fiji">Fiji</option>
-                            <option value="Filipinas">Filipinas</option>
-                            <option value="Finlandia">Finlandia</option>
-                            <option value="Francia">Francia</option>
-                            <option value="Gabón ">Gabón </option>
-                            <option value="Gambia">Gambia</option>
-                            <option value="Georgia">Georgia</option>
-                            <option value="Ghana">Ghana</option>
-                            <option value="Granada">Granada</option>
-                            <option value="Grecia">Grecia</option>
-                            <option value="Guatemala">Guatemala</option>
-                            <option value="Guinea">Guinea</option>
-                            <option value="Guinea Ecuatorial">Guinea Ecuatorial</option>
-                            <option value="Guinea-Bissau">Guinea-Bissau</option>
-                            <option value="Guyana">Guyana</option>
-                            <option value="Haití">Haití</option>
-                            <option value="Honduras">Honduras</option>
-                            <option value="Hungría">Hungría</option>
-                            <option value="India ">India </option>
-                            <option value="Indonesia">Indonesia</option>
-                            <option value="Irán (República Islámica del)">Irán (República Islámica del)</option>
-                            <option value="Iraq ">Iraq </option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Islandia">Islandia</option>
-                            <option value="Islas Cook ">Islas Cook </option>
-                            <option value="Islas Marshall ">Islas Marshall </option>
-                            <option value="Islas Salomón ">Islas Salomón </option>
-                            <option value="Israel">Israel</option>
-                            <option value="Italia">Italia</option>
-                            <option value="Jamaica">Jamaica</option>
-                            <option value="Japón ">Japón </option>
-                            <option value="Jordania">Jordania</option>
-                            <option value="Kazajstán">Kazajstán</option>
-                            <option value="Kenya">Kenya</option>
-                            <option value="Kirguistán">Kirguistán</option>
-                            <option value="Kiribati">Kiribati</option>
-                            <option value="Kuwait">Kuwait</option>
-                            <option value="Lesotho">Lesotho</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Líbano ">Líbano </option>
-                            <option value="Liberia">Liberia</option>
-                            <option value="Libia">Libia</option>
-                            <option value="Liechtenstein">Liechtenstein</option>
-                            <option value="Lituania">Lituania</option>
-                            <option value="Luxemburgo">Luxemburgo</option>
-                            <option value="Madagascar">Madagascar</option>
-                            <option value="Malasia">Malasia</option>
-                            <option value="Malawi">Malawi</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Malí">Malí</option>
-                            <option value="Malta">Malta</option>
-                            <option value="Marruecos">Marruecos</option>
-                            <option value="Mauricio">Mauricio</option>
-                            <option value="Mauritania">Mauritania</option>
-                            <option value="México">México</option>
-                            <option value="Micronesia (Estados Federados de)">Micronesia (Estados Federados de)</option>
-                            <option value="Mónaco">Mónaco</option>
-                            <option value="Mongolia">Mongolia</option>
-                            <option value="Montenegro">Montenegro</option>
-                            <option value="Mozambique">Mozambique</option>
-                            <option value="Myanmar">Myanmar</option>
-                            <option value="Namibia">Namibia</option>
-                            <option value="Nauru">Nauru</option>
-                            <option value="Nepal">Nepal</option>
-                            <option value="Nicaragua">Nicaragua</option>
-                            <option value="Níger ">Níger </option>
-                            <option value="Nigeria">Nigeria</option>
-                            <option value="Niue">Niue</option>
-                            <option value="Noruega">Noruega</option>
-                            <option value="Nueva Zelandia">Nueva Zelandia</option>
-                            <option value="Omán">Omán</option>
-                            <option value="Países Bajos ">Países Bajos </option>
-                            <option value="Pakistán ">Pakistán </option>
-                            <option value="Palau">Palau</option>
-                            <option value="Panamá">Panamá</option>
-                            <option value="Papua Nueva Guinea">Papua Nueva Guinea</option>
-                            <option value="Paraguay ">Paraguay </option>
-                            <option value="Perú ">Perú </option>
-                            <option value="Polonia">Polonia</option>
-                            <option value="Portugal">Portugal</option>
-                            <option value="Qatar">Qatar</option>
-                            <option value="Reino Unido de Gran Bretaña e Irlanda del Norte ">Reino Unido de Gran Bretaña e Irlanda del Norte </option>
-                            <option value="República Árabe Siria ">República Árabe Siria </option>
-                            <option value="República Centroafricana ">República Centroafricana </option>
-                            <option value="República de Corea ">República de Corea </option>
-                            <option value="República de Moldova ">República de Moldova </option>
-                            <option value="República Democrática del Congo ">República Democrática del Congo </option>
-                            <option value="República Democrática Popular Lao ">República Democrática Popular Lao </option>
-                            <option value="República Dominicana ">República Dominicana </option>
-                            <option value="República Popular Democrática de Corea ">República Popular Democrática de Corea </option>
-                            <option value="República Unida de Tanzanía ">República Unida de Tanzanía </option>
-                            <option value="Rumania">Rumania</option>
-                            <option value="Rwanda">Rwanda</option>
-                            <option value="Saint Kitts y Nevis">Saint Kitts y Nevis</option>
-                            <option value="Samoa">Samoa</option>
-                            <option value="San Marino">San Marino</option>
-                            <option value="San Vicente y las Granadinas">San Vicente y las Granadinas</option>
-                            <option value="Santa Lucía">Santa Lucía</option>
-                            <option value="Santa Sede ">Santa Sede </option>
-                            <option value="Santo Tomé y Príncipe">Santo Tomé y Príncipe</option>
-                            <option value="Senegal ">Senegal </option>
-                            <option value="Serbia">Serbia</option>
-                            <option value="Seychelles">Seychelles</option>
-                            <option value="Sierra Leona">Sierra Leona</option>
-                            <option value="Singapur">Singapur</option>
-                            <option value="Somalia">Somalia</option>
-                            <option value="Sri Lanka">Sri Lanka</option>
-                            <option value="Sudáfrica">Sudáfrica</option>
-                            <option value="Sudán ">Sudán </option>
-                            <option value="Sudán del Sur">Sudán del Sur</option>
-                            <option value="Suecia">Suecia</option>
-                            <option value="Suiza">Suiza</option>
-                            <option value="Suriname">Suriname</option>
-                            <option value="Tailandia">Tailandia</option>
-                            <option value="Tayikistán">Tayikistán</option>
-                            <option value="Timor-Leste">Timor-Leste</option>
-                            <option value="Togo ">Togo </option>
-                            <option value="Tonga">Tonga</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Túnez">Túnez</option>
-                            <option value="Turkmenistán">Turkmenistán</option>
-                            <option value="Turquía">Turquía</option>
-                            <option value="Tuvalu">Tuvalu</option>
-                            <option value="Ucrania">Ucrania</option>
-                            <option value="Uganda">Uganda</option>
-                            <option value="Uruguay ">Uruguay </option>
-                            <option value="Uzbekistán">Uzbekistán</option>
-                            <option value="Vanuatu">Vanuatu</option>
-                            <option value="Venezuela (República Bolivariana de)">Venezuela (República Bolivariana de)</option>
-                            <option value="Viet Nam">Viet Nam</option>
-                            <option value="Afganistán">Afganistán</option>
-                            <option value="Zambia">Zambia</option>
-                            <option value="Zimbabwe">Zimbabwe</option>                           
+                        <label for="id_pai_contacto">País</label>
+                        <select name="id_pai_contacto" id="" class="form-control">
+                            @foreach ($pai as $p)
+                                <option value="{{ $p->id_pai }}">{{ $p->pais }}</option>
+                            @endforeach
                         </select>
-                        @if ($errors->has('id_pai'))
+                        @if ($errors->has('id_pai_contacto'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('id_pai') }}
+                                {{ $errors->first('id_pai_contacto') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-3">
                         <label for="departamento_contacto">Departamento / Estado</label>
-                        <input type="text" name="departamento_contacto" id="" class="form-control" placeholder="Departamento / Estado">
+                        <select name="departamento_contacto" id="" class="form-control">
+                            @foreach ($dep as $d)
+                                <option value="{{ $d->id_dep }}">{{ $d->departamento }}</option>
+                            @endforeach
+                        </select>
                         @if ($errors->has('departamento_contacto'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('departamento_contacto') }}
@@ -1091,20 +503,20 @@
                         @endif
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="municipio_antecedentes">Municipio</label>
-                        <input type="text" name="municipio_antecedentes" id="" class="form-control" placeholder="Municipio" value="{{ old('municipio_antecedentes') }}">
-                        @if ($errors->has('municipio_antecedentes'))
+                        <label for="municipio_contacto">Municipio</label>
+                        <input type="text" name="municipio_contacto" id="" class="form-control" placeholder="Municipio" value="{{ old('municipio_contacto') }}">
+                        @if ($errors->has('municipio_contacto'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('municipio_antecedentes') }}
+                                {{ $errors->first('municipio_contacto') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="ciudad">Ciudad / Localidad</label>
-                        <input type="text" name="ciudad" id="" class="form-control" placeholder="Ciudad / Localidad" value="{{ old('ciudad') }}">
-                        @if ($errors->has('ciudad'))
+                        <label for="ciudad_contacto">Ciudad / Localidad</label>
+                        <input type="text" name="ciudad_contacto" id="" class="form-control" placeholder="Ciudad / Localidad" value="{{ old('ciudad_contacto') }}">
+                        @if ($errors->has('ciudad_contacto'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('ciudad') }}
+                                {{ $errors->first('ciudad_contacto') }}
                             </small>
                         @endif
                     </div>
@@ -1118,7 +530,7 @@
                 <div class="row grupo">
                     <div class="form-group col-md-12">
                         <label for="fecha_inicio">Fecha de inicio de síntomas</label>
-                        <input type="text" name="fecha_inicio" id="" class="form-control" placeholder="Fecha de inicio de síntomas" value="{{ old('fecha_inicio') }}">
+                        <input type="date" name="fecha_inicio" id="" class="form-control" placeholder="Fecha de inicio de síntomas" value="{{ old('fecha_inicio') }}">
                         @if ($errors->has('fecha_inicio'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('fecha_inicio') }}
@@ -1127,17 +539,10 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="sintoma">Síntomas</label>
-                        <select name="sintoma" id="" class="form-control" multiple>
-                            <option value="Tos seca">Tos seca</option>
-                            <option value="Fiebre">Fiebre</option>
-                            <option value="Malestar General">Malestar General</option>
-                            <option value="Cefalea">Cefalea</option>
-                            <option value="Dificultad Respiratoria">Dificultad Respiratoria</option>
-                            <option value="Mialgias">Mialgias</option>
-                            <option value="Dolor de gargana">Dolor de gargana</option>
-                            <option value="Perdida y/o disminucion del sentido del olfato">Perdida y/o disminucion del sentido del olfato</option>
-                            <option value="Perdida y/o disminucion del sentido del gusto">Perdida y/o disminucion del sentido del gusto</option>
-                            <option value="Asintomatico">Asintomatico</option>
+                        <select name="sintoma[]" id="" class="form-control" multiple>
+                            @foreach ($sin as $s)
+                                <option value="{{ $s->id_sin }}">{{ $s->sintoma }}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('fecha_inicio'))
                             <small class="form-text text-danger">
@@ -1157,9 +562,9 @@
                     <div class="form-group col-md-6">
                         <label for="id_estado">Estado actual del paciente (al momento del reporte)</label>
                         <select name="id_estado" id="" class="form-control">
-                            <option value="Leve">Leve</option>
-                            <option value="Grave">Grave</option>
-                            <option value="Fallecido">Fallecido</option>
+                            @foreach ($est as $e)
+                                <option value="{{ $e->id_est }}">{{ $e->nombre }}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('id_estado'))
                             <small class="form-text text-danger">
@@ -1168,20 +573,20 @@
                         @endif
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="fecha_defuncion">Fecha de defuncion</label>
-                        <input type="text" name="fecha_defuncion" id="" class="form-control">
-                        @if ($errors->has('fecha_defuncion'))
+                        <label for="fecha_estado">Fecha de defuncion</label>
+                        <input type="date" name="fecha_estado" id="" class="form-control">
+                        @if ($errors->has('fecha_estado'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('fecha_defuncion') }}
+                                {{ $errors->first('fecha_estado') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-6">
                         <label for="id_dia">Diagnostico Clinico</label>
                         <select name="id_dia" id="" class="form-control">
-                            <option value="IRA">IRA</option>
-                            <option value="IRAG">IRAG</option>
-                            <option value="Neumonia">Neumonia</option>
+                            @foreach ($dia as $d)
+                                <option value="{{ $d->id_dia }}">{{ $d->diagnostico }}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('id_dia'))
                             <small class="form-text text-danger">
@@ -1192,9 +597,9 @@
                     <div class="form-group col-md-6">
                         <label for="otro">Otro</label>
                         <input type="text" name="otro" id="" class="form-control">
-                        @if ($errors->has('id_dia'))
+                        @if ($errors->has('otro'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('id_dia') }}
+                                {{ $errors->first('otro') }}
                             </small>
                         @endif
                     </div>
@@ -1208,7 +613,7 @@
                 <div class="row grupo">
                     <div class="form-group col-md-6">
                         <label for="fecha_aislamiento">Fecha de aislamiento</label>
-                        <input type="text" name="fecha_aislamiento" id="" class="form-control" placeholder="Fecha de aislamiento" value="{{ old('fecha_aislamiento') }}">
+                        <input type="date" name="fecha_aislamiento" id="" class="form-control" placeholder="Fecha de aislamiento" value="{{ old('fecha_aislamiento') }}">
                         @if ($errors->has('fecha_aislamiento'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('fecha_aislamiento') }}
@@ -1226,7 +631,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="fecha_internacion">Fecha de internación</label>
-                        <input type="text" name="fecha_internacion" id="" class="form-control" placeholder="Fecha de internación" value="{{ old('fecha_internacion') }}">
+                        <input type="date" name="fecha_internacion" id="" class="form-control" placeholder="Fecha de internación" value="{{ old('fecha_internacion') }}">
                         @if ($errors->has('fecha_internacion'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('fecha_internacion') }}
@@ -1244,8 +649,8 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="ventilacion">Ventilación mecánica</label>
-                        <input type="radio" name="ventilacion" id="" value="SI"> SI
-                        <input type="radio" name="ventilacion" id="" value="NO"> NO
+                        <input type="radio" name="ventilacion" id="" value="1"> SI
+                        <input type="radio" name="ventilacion" id="" value="0"> NO
                         @if ($errors->has('ventilacion'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('ventilacion') }}
@@ -1254,8 +659,8 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="terapia_intensiva">Terapia intensiva</label>
-                        <input type="radio" name="terapia_intensiva" id="" value="SI"> SI
-                        <input type="radio" name="terapia_intensiva" id="" value="NO"> NO
+                        <input type="radio" name="terapia_intensiva" id="" value="1"> SI
+                        <input type="radio" name="terapia_intensiva" id="" value="0"> NO
                         @if ($errors->has('terapia_intensiva'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('terapia_intensiva') }}
@@ -1264,7 +669,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="fecha_ingreso_uti">Fecha de Ingreso a UTI</label>
-                        <input type="text" name="fecha_ingreso_uti" id="" class="form-control" placeholder="Fecha de Ingreso a UTI" value="{{ old('fecha_ingreso_uti') }}">
+                        <input type="date" name="fecha_ingreso_uti" id="" class="form-control" placeholder="Fecha de Ingreso a UTI" value="{{ old('fecha_ingreso_uti') }}">
                         @if ($errors->has('fecha_ingreso_uti'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('fecha_ingreso_uti') }}
@@ -1281,8 +686,8 @@
                 <div class="row grupo">
                     <div class="form-group col-md-12">
                         <label for="pregunta">Presenta</label>
-                        <input type="radio" name="pregunta" id="" value="SI"> SI
-                        <input type="radio" name="pregunta" id="" value="NO"> NO
+                        <input type="radio" name="pregunta" id="" value="1"> SI
+                        <input type="radio" name="pregunta" id="" value="0"> NO
                         @if ($errors->has('pregunta'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('pregunta') }}
@@ -1291,14 +696,10 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="id_enf">Enfermedad</label>
-                        <select name="id_enf" id="" class="form-control">
-                            <option value="Hipertension Artetial">Hipertension Artetial</option>
-                            <option value="Obesidad">Obesidad</option>
-                            <option value="Diabetes">Diabetes</option>
-                            <option value="Embarazo">Embarazo</option>
-                            <option value="Enfermedades cardiacas">Enfermedades cardiacas</option>
-                            <option value="Enfermedad respiratoria">Enfermedad respiratoria</option>
-                            <option value="Enfermedades renal cronicas">Enfermedades renal cronicas</option>
+                        <select name="id_enf[]" id="" class="form-control" multiple>
+                            @foreach ($enf as $e)
+                                <option value="{{ $e->id_enf }}">{{ $e->enfermedad }}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('id_enf'))
                             <small class="form-text text-danger">
@@ -1324,40 +725,38 @@
                 <hr>
                 <div class="row grupo">
                     <div class="form-group col-md-4">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" name="nombre" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre') }}">
-                        @if ($errors->has('nombre'))
+                        <label for="nombre_sospechoso">Nombre</label>
+                        <input type="text" name="nombre_sospechoso" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre_sospechoso') }}">
+                        @if ($errors->has('nombre_sospechoso'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('nombre') }}
+                                {{ $errors->first('nombre_sospechoso') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="paterno">Paterno</label>
-                        <input type="text" name="paterno" id="" class="form-control" placeholder="Paterno" value="{{ old('paterno') }}">
-                        @if ($errors->has('paterno'))
+                        <label for="paterno_sospechoso">Paterno</label>
+                        <input type="text" name="paterno_sospechoso" id="" class="form-control" placeholder="Paterno" value="{{ old('paterno_sospechoso') }}">
+                        @if ($errors->has('paterno_sospechoso'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('paterno') }}
+                                {{ $errors->first('paterno_sospechoso') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="materno">Materno</label>
-                        <input type="text" name="materno" id="" class="form-control" placeholder="Materno" value="{{ old('materno') }}">
-                        @if ($errors->has('materno'))
+                        <label for="materno_sospechoso">Materno</label>
+                        <input type="text" name="materno_sospechoso" id="" class="form-control" placeholder="Materno" value="{{ old('materno_sospechoso') }}">
+                        @if ($errors->has('materno_sospechoso'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('materno') }}
+                                {{ $errors->first('materno_sospechoso') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-4">
                         <label for="id_rel">Relacion</label>
                         <select name="id_rel" id="" class="form-control">
-                            <option value="Padre">Padre</option>
-                            <option value="Madre">Madre</option>
-                            <option value="Tia(o)">Tia(o)</option>
-                            <option value="Abuela(o)">Abuela(o)</option>
-                            <option value="Hermana(o)">Hermana(o)</option>
+                            @foreach ($rel as $r)
+                                <option value="{{ $r->id_rel }}">{{ $r->relacion }}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('id_rel'))
                             <small class="form-text text-danger">
@@ -1366,47 +765,47 @@
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="edad">Edad</label>
-                        <input type="text" name="edad" id="" class="form-control" placeholder="Edad" value="{{ old('edad') }}">
-                        @if ($errors->has('edad'))
+                        <label for="edad_sospechoso">Edad</label>
+                        <input type="text" name="edad_sospechoso" id="" class="form-control" placeholder="Edad" value="{{ old('edad_sospechoso') }}">
+                        @if ($errors->has('edad_sospechoso'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('edad') }}
+                                {{ $errors->first('edad_sospechoso') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="telefono">Teléfono</label>
-                        <input type="text" name="telefono" id="" class="form-control" placeholder="Teléfono" value="{{ old('telefono') }}">
-                        @if ($errors->has('telefono'))
+                        <label for="telefono_sospechoso">Teléfono</label>
+                        <input type="text" name="telefono_sospechoso" id="" class="form-control" placeholder="Teléfono" value="{{ old('telefono_sospechoso') }}">
+                        @if ($errors->has('telefono_sospechoso'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('telefono') }}
+                                {{ $errors->first('telefono_sospechoso') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="direccion">Dirección</label>
-                        <input type="text" name="direccion" id="" class="form-control" placeholder="Dirección" value="{{ old('direccion') }}">
-                        @if ($errors->has('direccion'))
+                        <label for="direccion_sospechoso">Dirección</label>
+                        <input type="text" name="direccion_sospechoso" id="" class="form-control" placeholder="Dirección" value="{{ old('direccion_sospechoso') }}">
+                        @if ($errors->has('direccion_sospechoso'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('direccion') }}
+                                {{ $errors->first('direccion_sospechoso') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="fecha_contacto">Fecha de contacto</label>
-                        <input type="text" name="fecha_contacto" id="" class="form-control" placeholder="fecha_contacto" value="{{ old('fecha_contacto') }}">
-                        @if ($errors->has('fecha_contacto'))
+                        <label for="fecha_sospechoso">Fecha de contacto</label>
+                        <input type="date" name="fecha_sospechoso" id="" class="form-control" placeholder="fecha_contacto" value="{{ old('fecha_sospechoso') }}">
+                        @if ($errors->has('fecha_sospechoso'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('fecha_contacto') }}
+                                {{ $errors->first('fecha_sospechoso') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="lugar_contacto">Lugar contacto</label>
-                        <input type="text" name="lugar_contacto" id="" class="form-control" placeholder="fecha_contacto" value="{{ old('lugar_contacto') }}">
-                        @if ($errors->has('lugar_contacto'))
+                        <label for="lugar_sospechoso">Lugar contacto</label>
+                        <input type="text" name="lugar_sospechoso" id="" class="form-control" placeholder="fecha_contacto" value="{{ old('lugar_sospechoso') }}">
+                        @if ($errors->has('lugar_sospechoso'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('lugar_contacto') }}
+                                {{ $errors->first('lugar_sospechoso') }}
                             </small>
                         @endif
                     </div>
@@ -1419,12 +818,12 @@
                 <hr>
                 <div class="row grupo">
                     <div class="form-group col-md-6">
-                        <label for="muestra">Se tomó la muestra para Laboratorio</label>
-                        <input type="radio" name="muestra" id="" value="SI"> SI
-                        <input type="radio" name="muestra" id="" value="NO"> NO
-                        @if ($errors->has('muestra'))
+                        <label for="muestra_laboratorio">Se tomó la muestra para Laboratorio</label>
+                        <input type="radio" name="muestra_laboratorio" id="" value="1"> SI
+                        <input type="radio" name="muestra_laboratorio" id="" value="0"> NO
+                        @if ($errors->has('muestra_laboratorio'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('muestra') }}
+                                {{ $errors->first('muestra_laboratorio') }}
                             </small>
                         @endif
                     </div>
@@ -1440,10 +839,9 @@
                     <div class="form-group col-md-6">
                         <label for="id_mue">Tipo de muestra tomada</label>
                         <select name="id_mue" id="" class="form-control">
-                            <option value="Aspirado">Aspirado</option>
-                            <option value="Lavado Bronco alveolar">Lavado Bronco alveolar</option>
-                            <option value="Hisopo Nasofaringeo">Hisopo Nasofaringeo</option>
-                            <option value="Hisopado Combinado">Hisopado Combinado</option>
+                            @foreach ($mue as $m)
+                                <option value="{{ $m->id_mue }}">{{ $m->muestra }}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('id_mue'))
                             <small class="form-text text-danger">
@@ -1471,7 +869,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="fecha_muestra">Fecha de toma de muestra</label>
-                        <input type="text" name="fecha_muestra" id="" class="form-control" placeholder="Fecha de toma de muestra" value="{{ old('fecha_muestra') }}">
+                        <input type="date" name="fecha_muestra" id="" class="form-control" placeholder="Fecha de toma de muestra" value="{{ old('fecha_muestra') }}">
                         @if ($errors->has('fecha_muestra'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('fecha_muestra') }}
@@ -1480,7 +878,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="fecha_envio">Fecha de envío</label>
-                        <input type="text" name="fecha_envio" id="" class="form-control" placeholder="Fecha envío" value="{{ old('fecha_envio') }}">
+                        <input type="date" name="fecha_envio" id="" class="form-control" placeholder="Fecha envío" value="{{ old('fecha_envio') }}">
                         @if ($errors->has('fecha_envio'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('fecha_envio') }}
@@ -1506,20 +904,20 @@
                         @endif
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="resultado">Resultado</label>
-                        <select name="resultado" id="" class="form-control">
-                            <option value="Positivo">Positivo</option>
-                            <option value="Negativo">Negativo</option>
+                        <label for="resultado_muestra">Resultado</label>
+                        <select name="resultado_muestra" id="" class="form-control">
+                            <option value="1">Positivo</option>
+                            <option value="0">Negativo</option>
                         </select>
-                        @if ($errors->has('resultado'))
+                        @if ($errors->has('resultado_muestra'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('resultado') }}
+                                {{ $errors->first('resultado_muestra') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-6">
                         <label for="fecha_resultado">Fecha</label>
-                        <input type="text" name="fecha_resultado" id="" class="form-control" placeholder="Fecha Resultado" value="{{ old('fecha_resultado') }}">
+                        <input type="date" name="fecha_resultado" id="" class="form-control" placeholder="Fecha Resultado" value="{{ old('fecha_resultado') }}">
                         @if ($errors->has('fecha_resultado'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('fecha_resultado') }}
@@ -1535,38 +933,38 @@
                 <hr>
                 <div class="row grupo">
                     <div class="form-group col-md-4">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" name="nombre" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre') }}">
-                        @if ($errors->has('nombre'))
+                        <label for="nombre_personal">Nombre</label>
+                        <input type="text" name="nombre_personal" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre_personal') }}">
+                        @if ($errors->has('nombre_personal'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('nombre') }}
+                                {{ $errors->first('nombre_personal') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="paterno">Paterno</label>
-                        <input type="text" name="paterno" id="" class="form-control" placeholder="Paterno" value="{{ old('paterno') }}">
-                        @if ($errors->has('paterno'))
+                        <label for="paterno_personal">Paterno</label>
+                        <input type="text" name="paterno_personal" id="" class="form-control" placeholder="Paterno" value="{{ old('paterno_personal') }}">
+                        @if ($errors->has('paterno_personal'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('paterno') }}
+                                {{ $errors->first('paterno_personal') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="materno">Materno</label>
-                        <input type="text" name="paterno" id="" class="form-control" placeholder="Materno" value="{{ old('materno') }}">
-                        @if ($errors->has('materno'))
+                        <label for="materno_personal">Materno</label>
+                        <input type="text" name="materno_personal" id="" class="form-control" placeholder="Materno" value="{{ old('materno_personal') }}">
+                        @if ($errors->has('materno_personal'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('materno') }}
+                                {{ $errors->first('materno_personal') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-12">
-                        <label for="tel_cel">Teléfono / Celular</label>
-                        <input type="text" name="tel_cel" id="" class="form-control" placeholder="Teléfono / Celular" value="{{ old('tel_cel') }}">
-                        @if ($errors->has('tel_cel'))
+                        <label for="tel_cel_personal">Teléfono / Celular</label>
+                        <input type="text" name="tel_cel_personal" id="" class="form-control" placeholder="Teléfono / Celular" value="{{ old('tel_cel_personal') }}">
+                        @if ($errors->has('tel_cel_personal'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('tel_cel') }}
+                                {{ $errors->first('tel_cel_personal') }}
                             </small>
                         @endif
                     </div>

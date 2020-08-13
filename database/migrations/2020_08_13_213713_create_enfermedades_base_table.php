@@ -16,8 +16,13 @@ class CreateEnfermedadesBaseTable extends Migration
         Schema::create('enfermedades_base', function (Blueprint $table) {
             $table->bigIncrements('id_eb');
             // LLAVE FORANEA EN LA TABLA ENFERMEDADES
+            $table->unsignedBigInteger('id_fe');
+            $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica');
+            //FIN
+            // LLAVE FORANEA EN LA TABLA ENFERMEDADES
             $table->unsignedBigInteger('id_enf');
             $table->foreign('id_enf')->references('id_enf')->on('enfermedades');
+            //FIN
             $table->timestamps();
         });
     }
