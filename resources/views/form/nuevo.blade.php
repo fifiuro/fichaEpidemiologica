@@ -8,7 +8,7 @@
         <div class="card-header">
             <h3 class="card-title">FICHA EPIDEMIOLOGICA Y SOLICITUD DE ESTUDIOS DE LABORATORIO COVID-19</h3>
         </div>
-        <form role="form" method="POST" action="{{ url('nuevoFormulario') }}">
+        <form role="form" method="POST" action="{{ url('nuevo') }}">
             @csrf
             <div class="card-body">
                 {{--  1. DATOS DEL ESTABLECIMIENTO NOTIFICADOR  --}}
@@ -109,29 +109,29 @@
                 <hr>
                 <div class="row grupo">
                     <div class="form-group col-md-3">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" name="nombre" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre') }}">
-                        @if ($errors->has('nombre'))
+                        <label for="nombre_pacientes">Nombre</label>
+                        <input type="text" name="nombre_pacientes" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre_pacientes') }}">
+                        @if ($errors->has('nombre_pacientes'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('nombre') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="paterno">Paterno</label>
-                        <input type="text" name="paterno" id="" class="form-control" placeholder="Paterno" value="{{ old('paterno') }}">
-                        @if ($errors->has('paterno'))
+                        <label for="paterno_pacientes">Paterno</label>
+                        <input type="text" name="paterno_pacientes" id="" class="form-control" placeholder="Paterno" value="{{ old('paterno_pacientes') }}">
+                        @if ($errors->has('paterno_pacientes'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('paterno') }}
+                                {{ $errors->first('paterno_pacientes') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="materno">Materno</label>
-                        <input type="text" name="materno" id="" class="form-control" placeholder="Materno" value="{{ old('materno') }}">
-                        @if ($errors->has('materno'))
+                        <label for="materno_pacientes">Materno</label>
+                        <input type="text" name="materno_pacientes" id="" class="form-control" placeholder="Materno" value="{{ old('materno_pacientes') }}">
+                        @if ($errors->has('materno_pacientes'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('materno') }}
+                                {{ $errors->first('materno_pacientes') }}
                             </small>
                         @endif
                     </div>
@@ -185,18 +185,18 @@
                         @endif
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="edad">Edad</label>
-                        <input type="number" name="edad" id="" class="form-control" placeholder="Edad" value="{{ old('edad') }}">
-                        @if ($errors->has('edad'))
+                        <label for="edad_pacientes">Edad</label>
+                        <input type="text" name="edad_pacientes" id="" class="form-control" placeholder="Edad" value="{{ old('edad_pacientes') }}">
+                        @if ($errors->has('edad_pacientes'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('edad') }}
+                                {{ $errors->first('edad_pacientes') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="id_dep">Lugar de residencia; Departamento</label>
-                        <select name="expedido" id="" class="form-control">
-                            <option value="LA PAZ">LA PAZ</option>
+                        <label for="id_dep_pacientes">Lugar de residencia; Departamento</label>
+                        <select name="id_dep_pacientes" id="" class="form-control">
+                            <option value="4">LA PAZ</option>
                             <option value="COCHABAMBA">COCHABAMBA</option>
                             <option value="SANTA CRUZ">SANTA CRUZ</option>
                             <option value="PANDO">PANDO</option>
@@ -206,24 +206,24 @@
                             <option value="ORURO">ORURO</option>
                             <option value="CHUQUISACA">CHUQUISACA</option>
                         </select>
-                        @if ($errors->has('id_dep'))
+                        @if ($errors->has('id_dep_pacientes'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('id_dep') }}
+                                {{ $errors->first('id_dep_pacientes') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="id_mun">Municipio</label>
-                        <input type="text" name="id_mun" id="" class="form-control" placeholder="Municipio" value="{{ old('id_mun') }}">
-                        @if ($errors->has('id_mun'))
+                        <label for="municipio_paciente">Municipio</label>
+                        <input type="text" name="municipio_paciente" id="" class="form-control" placeholder="Municipio" value="{{ old('municipio_paciente') }}">
+                        @if ($errors->has('municipio_paciente'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('id_mun') }}
+                                {{ $errors->first('municipio_paciente') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="id_pai">País</label>
-                        <select name="ip_pai" id="" class="form-control">
+                        <label for="id_pai_pacientes">País</label>
+                        <select name="id_pai_pacientes" id="" class="form-control">
                             <option value="Afganistán">Afganistán</option>
                             <option value="Albania">Albania</option>
                             <option value="Alemania">Alemania</option>
@@ -246,7 +246,7 @@
                             <option value="Belice">Belice</option>
                             <option value="Benin">Benin</option>
                             <option value="Bhután">Bhután</option>
-                            <option value="Bolivia (Estado Plurinacional de)">Bolivia (Estado Plurinacional de)</option>
+                            <option value="23">Bolivia (Estado Plurinacional de)</option>
                             <option value="Bosnia y Herzegovina">Bosnia y Herzegovina</option>
                             <option value="Botswana">Botswana</option>
                             <option value="Brasil">Brasil</option>
@@ -421,9 +421,9 @@
                             <option value="Zambia">Zambia</option>
                             <option value="Zimbabwe">Zimbabwe</option>                           
                         </select>
-                        @if ($errors->has('id_pai'))
+                        @if ($errors->has('id_pai_pacientes'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('id_pai') }}
+                                {{ $errors->first('id_pai_pacientes') }}
                             </small>
                         @endif
                     </div>
@@ -455,17 +455,18 @@
                         @endif
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="telefono">Teléfono</label>
-                        <input type="text" name="telefono" id="" class="form-control" placeholder="Teléfono" value="{{ old('telefono') }}">
-                        @if ($errors->has('telefono'))
+                        <label for="telefono_pacientes">Teléfono</label>
+                        <input type="text" name="telefono_pacientes" id="" class="form-control" placeholder="Teléfono" value="{{ old('telefono_pacientes') }}">
+                        @if ($errors->has('telefono_pacientes'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('telefono') }}
+                                {{ $errors->first('telefono_pacientes') }}
                             </small>
                         @endif
                     </div>
                     <div class="form-group col-md-11">
                         <label for="menor">¿Es menor de edad?</label>
-                        <input type="text" name="menor" id="" class="form-control" placeholder="menor" value="{{ old('menor') }}">
+                        <input type="radio" name="menor" value="1"> SI
+                        <input type="radio" name="menor" value="0"> NO
                         @if ($errors->has('menor'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('menor') }}
@@ -483,9 +484,19 @@
                                 <th>TELEFONO</th>
                             </tr>
                             <tr>
-                                <td>Uno</td>
-                                <td>Dos</td>
-                                <td>Tres</td>
+                                <td>
+                                    <input type="text" name="nombre_relacion" id="" class="form-control" placeholder="Nombre">
+                                    <input type="text" name="paterno_relacion" id="" class="form-control" placeholder="Paterno">
+                                    <input type="text" name="materno_relacion" id="" class="form-control" placeholder="Materno">
+                                </td>
+                                <td>
+                                    <select name="id_rel_pacientes" id="" class="form-control">
+                                        <option value="1">OTRO</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="tel_cel_pacientes" id="" class="form-control" placeholder="Telefono / Celular">
+                                </td>
                             </tr>
                         </table>
                     </div>

@@ -17,6 +17,5 @@ Route::get('/', function () {
     return view('template.inicio');
 });
 
-Route::get('/nuevo', function(){
-    return view('form.nuevo');
-});
+Route::get('nuevo', 'FichaEpidemiologicaController@create');
+Route::post('nuevo','FichaEpidemiologicaController@store');
