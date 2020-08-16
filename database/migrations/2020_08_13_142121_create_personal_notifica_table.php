@@ -15,10 +15,10 @@ class CreatePersonalNotificaTable extends Migration
     {
         Schema::create('personal_notifica', function (Blueprint $table) {
             $table->bigIncrements('id_pn');
-            $table->string('nombre_notifica');
-            $table->string('paterno_notifica');
-            $table->string('materno_notifica');
-            $table->string('tel_cel_notifica');
+            $table->string('nombre_notifica')->nullable();
+            $table->string('paterno_notifica')->nullable();
+            $table->string('materno_notifica')->nullable();
+            $table->string('tel_cel_notifica')->nullable();
             $table->timestamps();
         });
     }

@@ -18,9 +18,9 @@ class CreateMunicipiosTable extends Migration
             // LLAVE FORANEA A LA TABLA DEPARTAMENTOS
             $table->unsignedBigInteger('id_dep');
             $table->foreign('id_dep')->references('id_dep')->on('departamentos_estados');
-            
+            // FIN
             $table->string('municipio');
-            $table->boolean('estado');
+            $table->boolean('estado')->default(true);
             $table->timestamps();
         });
     }

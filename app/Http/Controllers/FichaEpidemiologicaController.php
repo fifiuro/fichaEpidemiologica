@@ -85,7 +85,8 @@ class FichaEpidemiologicaController extends Controller
      */
     public function store(Request $request)
     {
-        // TABLA ESTABLECIMIENTO
+        //dd($request);
+        // 1. TABLA ESTABLECIMIENTO
         $establecimiento = new Establecimiento;
         $establecimiento->establecimiento = $request->establecimiento;
         $establecimiento->codigo = $request->codigo;
@@ -99,11 +100,12 @@ class FichaEpidemiologicaController extends Controller
         $id_est = $establecimiento->id_est;
         
 
-        // IDENTIFICACION DEL CASO / PACIENTE
+        // 2. IDENTIFICACION DEL CASO / PACIENTE
         $paciente = new Paciente;
         $paciente->nombre_pacientes = $request->nombre_pacientes;
         $paciente->paterno_pacientes = $request->paterno_pacientes;
         $paciente->materno_pacientes = $request->materno_pacientes;
+        $paciente->seguro_pacientes = $request->seguro_pacientes;
         $paciente->sexo = $request->sexo;
         $paciente->ci = $request->ci;
         $paciente->expedido = $request->expedido;
@@ -130,9 +132,14 @@ class FichaEpidemiologicaController extends Controller
             $menor->save();
         }
 
-        // ANTECEDENTES EPIDEMIOLOGICOS
+        // 3. ANTECEDENTES EPIDEMIOLOGICOS
         $ante = new Antecedente;
-        $ante->id_ocu = $request->id_ocu;
+        if($request->id_ocu == "otro") {
+            $ocu = $this->create_ocupacion($request->otro_ocupacion);
+            $ante->id_ocu = $ocu;
+        } else {
+            $ante->id_ocu = $request->id_ocu;
+        }
         $ante->vacuna_influenza = $request->vacuna_influenza;
         $ante->fecha_vacunacion = $request->fecha_vacunacion;
         $ante->viaje_riesgo = $request->viaje_riesgo;
@@ -145,10 +152,10 @@ class FichaEpidemiologicaController extends Controller
         $ante->num_asiento = $request->num_asiento;
         $ante->contacto = $request->contacto_antecedentes;
         $ante->fecha_contacto = $request->fecha_contacto_antecentes;
-        $ante->nombre_contacto = $request->nombre_contacto;
-        $ante->paterno_contacto = $request->paterno_contacto;
-        $ante->materno_contacto = $request->materno_contacto;
-        $ante->telefono_contacto = $request->telefono_contacto;
+        $ante->nombre_contacto = (is_null($request->nombre_contacto)) ? '' : $request->nombre_contacto;
+        $ante->paterno_contacto = (is_null($request->paterno_contacto)) ? '' : $request->paterno_contacto;
+        $ante->materno_contacto = (is_null($request->materno_contacto)) ? '' : $request->materno_contacto;
+        $ante->telefono_contacto = (is_null($request->telefono_contacto)) ? '' : $request->telefono_contacto;
         $ante->pais_contacto = $request->id_pai_contacto;
         $ante->departamento_contacto = $request->departamento_contacto;
         $ante->municipio_contacto = $request->municipio_contacto;
@@ -159,11 +166,26 @@ class FichaEpidemiologicaController extends Controller
         // 4. DATOS CLINICOS
         $datos = new DatoClinico;
         $datos->fecha_inicio = $request->fecha_inicio;
-        $sin = implode(",",$request->sintoma);
+        if(in_array("otro",$request->sintoma)) {
+            if(isset($request->otro_sintoma)) {
+                $otro = $this->create_sintoma($request->otro_sintoma);
+                $sin = $this->borra_elemento($request->sintoma,$otro);
+            } else {
+                $sin = $this->borra_elemento($request->sintoma,"");
+            }
+        }
         $datos->sintomas = $sin;
         $datos->id_est = $request->id_estado;
-        $datos->fecha_estado = $request->fecha_estado;
-        $datos->id_dia = $request->id_dia;
+        if(isset($request->fecha_estado)) {
+            $datos->fecha_estado = $request->fecha_estado;
+        }
+        if(isset($request->otro_diagnostico)) {
+            $diag = $this->create_diagnostico($request->otro_diagnostico);
+            $datos->id_dia = $diag;
+        }else{
+            $datos->id_dia = $request->id_dia;
+        }
+        
         $datos->save();
         $id_dc = $datos->id_dc;
 
@@ -200,26 +222,31 @@ class FichaEpidemiologicaController extends Controller
         $id_fe = $ficha->id_fe;
 
         // 6. ENFERMEDADES DE BASE O CONFICIONES DE RIESGO
-        for ($i=0; $i < count($request->id_enf) ; $i++) {
-            $base = new EnfermedadesBase;
-            $base->id_enf = $request->id_enf[$i];
-            $base->id_fe = $id_fe;
-            $base->save();
+        if($request->pregunta){
+            for ($i=0; $i < count($request->id_enf) ; $i++) {
+                if($request->id_enf[$i] == 'otro') {
+                    $enf = $this->create_enfermedad($request->otro_enfermedad);
+                    $base = new EnfermedadesBase;
+                    $base->id_enf = $enf;
+                    $base->id_fe = $id_fe;
+                    $base->save();
+                } else {
+                    $base = new EnfermedadesBase;
+                    $base->id_enf = $request->id_enf[$i];
+                    $base->id_fe = $id_fe;
+                    $base->save();
+                }
+            }
         }
 
         // 7. DATOS DE PERSONAS CON LAS QUE EL CASO SOSPECHOPSO ESTUVO EN CONTACTO
-        $conta = new Contacto;
-        $conta->id_fe = $id_fe;
-        $conta->nombre_contacto = $request->nombre_sospechoso;
-        $conta->paterno_contacto = $request->paterno_sospechoso;
-        $conta->materno_contacto = $request->materno_sospechoso;
-        $conta->id_rel = $request->id_rel;
-        $conta->edad = $request->edad_sospechoso;
-        $conta->telefono = $request->telefono_sospechoso;
-        $conta->direccion = $request->direccion_sospechoso;
-        $conta->fecha_contacto = $request->fecha_sospechoso;
-        $conta->lugar_contacto = $request->lugar_sospechoso;
-        $conta->save();
+        if(isset($request->nombre_sospechoso)){
+            if(count($request->nombre_sospechoso) > 0){
+                if($request->nombre_sospechoso[0] != ""){
+                    $this->create_sospechoso($id_fe,$request->nombre_sospechoso,$request->paterno_sospechoso,$request->materno_sospechoso,$request->id_rel,$request->edad_sospechoso,$request->telefono_sospechoso,$request->direccion_sospechoso,$request->fecha_sospechoso,$request->lugar_sospechoso);
+                }
+            }
+        }
 
         // 8. LABORATORIO
         $lab = new Laboratorio;
@@ -234,8 +261,21 @@ class FichaEpidemiologicaController extends Controller
         $lab->resultado_laboratorio = $request->resultado_muestra;
         $lab->fecha_resultado = $request->fecha_resultado;
         $lab->save();
+        $id_lab = $lab->id_lab;
 
-        return view('template.inicio');
+        if($request->id_mue == 'otro'){
+            if(isset($request->otro_muestra)){
+                $mue = $this->create_muestra($request->otro_muestra);
+                
+                $lismue = new ListaMuestra;
+                $lismue->id_lab = $id_lab;
+                $lismue->id_mue = $mue;
+                $lismue->save();
+            }
+        }        
+
+        //return view('template.inicio');
+        return redirect()->route('imprimir/'.$id_fe);
     }
 
     /**
@@ -270,5 +310,173 @@ class FichaEpidemiologicaController extends Controller
     public function destroy(FichaEpidemiologica $fichaEpidemiologica)
     {
         //
+    }
+
+    /**
+     * Create row the Sintomas
+     * 
+     */
+    public function create_sintoma($sintoma){
+        $sin = new Sintoma;
+        $sin->sintoma = $sintoma;
+        $sin->estado = true;
+        $sin->save();
+        $id = $sin->id_sin;
+        return $id;
+    }
+
+    public function borra_elemento($lista,$otro) {
+        if(($clave = array_search("otro",$lista)) !== false) {
+            unset($lista[$clave]);
+        }
+
+        if($otro != "") {
+            if(count($lista) > 0){
+                $resultado = implode(",",$lista).",".$otro;
+            } else {
+                $resultado = $otro;
+            }
+        } else {
+            $resultado = implode(",",$lista);
+        }
+        return $resultado;
+    }
+
+    public function create_diagnostico($diagnostico) {
+        $diag = new Diagnostico;
+        $diag->diagnostico = $diagnostico;
+        $diag->estado = true;
+        $diag->save();
+        $id_dia = $diag->id_dia;
+        return $id_dia;
+    }
+
+    public function create_ocupacion($ocupacion) {
+        $ocu = new Ocupacion;
+        $ocu->ocupacion = $ocupacion;
+        $ocu->estado = true;
+        $ocu->save();
+        $id_ocu = $ocu->id_ocu;
+        return $id_ocu;
+    }
+
+    public function create_enfermedad($enfermedad) {
+        $enf = new Enfermedad;
+        $enf->enfermedad = $enfermedad;
+        $enf->estado = true;
+        $enf->save();
+        $id_enf = $enf->id_enf;
+        return $id_enf;
+    }
+
+    public function create_sospechoso($id_fe,$nombre,$paterno,$materno,$relacion,$edad,$telefono,$direccion,$fecha,$lugar) {
+        for ($i=0; $i < count($nombre) ; $i++) { 
+            $conta = new Contacto;
+            $conta->id_fe = $id_fe;
+            $conta->nombre_contacto = $nombre[$i];
+            $conta->paterno_contacto = $paterno[$i];
+            $conta->materno_contacto = $materno[$i];
+            $conta->id_rel = $relacion[$i];
+            $conta->edad = $edad[$i];
+            $conta->telefono = $telefono[$i];
+            $conta->direccion = $direccion[$i];
+            $conta->fecha_contacto = $fecha[$i];
+            $conta->lugar_contacto = $lugar[$i];
+            $conta->save();
+        }
+    }
+
+    public function create_muestra($muestra) {
+        $mue = new Muestra;
+        $mue->muestra = $muestra;
+        $mue->estado = true;
+        $mue->save();
+        return $mue->id_mue;
+    }
+
+    public function pantalla_imprimir($id){
+        return view('imprimir.mensaje')->with('id',$id);
+    }
+
+    public function imprimir($id) {
+        $fe = FichaEpidemiologica::find($id);
+
+        $establecimiento = Establecimiento::join('departamentos_estados','departamentos_estados.id_dep','=','establecimientos.departamento')
+                                          ->select('establecimiento','codigo','red','departamentos_estados.departamento','municipio','fecha_notificacion','sem_epidem','caso_identificado')
+                                          ->where('establecimientos.id_est','=',$fe->id_est)
+                                          ->get();
+                                
+        $identificacion = Paciente::join('departamentos_estados','departamentos_estados.id_dep','=','pacientes.expedido')
+                                  ->join('paises','paises.id_pai','=','pacientes.id_pai')
+                                  ->select('pacientes.id_pac','nombre_pacientes','paterno_pacientes','materno_pacientes','seguro_pacientes','sexo','ci','departamentos_estados.departamento','fecha_nac','edad','pacientes.id_dep','municipio_paciente','paises.pais','calle','zona','num','telefono')
+                                  ->where('pacientes.id_pac','=',$fe->id_pac)
+                                  ->get();
+        
+        $dep = Departamento::where('id_dep','=',$identificacion[0]->id_dep)
+                           ->select('departamento')
+                           ->get();
+        
+        $identificacion[0]->id_dep = $dep[0]->departamento;
+
+        $menor = Menor::join('relacion','relacion.id_rel','=','menores.id_rel')
+                      ->select('relacion','nombre_relacion','paterno_relacion','materno_relacion','tel_cel')
+                      ->where('menores.id_pac','=',$identificacion[0]->id_pac)
+                      ->get();
+
+        $antecendentes = Antecedente::join('ocupaciones','ocupaciones.id_ocu','=','antecedentes.id_ocu')
+                                    ->select('ocupacion','vacuna_influenza','fecha_vacunacion','viaje_riesgo','id_pai','ciudad','fecha_retorno','hora_retorno','empresa_viaje','num_vuelo','num_asiento','contacto','fecha_contacto','nombre_contacto','paterno_contacto','materno_contacto','telefono_contacto','pais_contacto','departamento_contacto','municipio_contacto','ciudad_contacto')
+                                    ->get();
+        
+        $pai = Pais::where('id_pai','=',$antecendentes[0]->id_pai)->select('pais')->get();
+        $antecendentes[0]->id_pai = $pai[0]->pais;
+        $pai = Pais::where('id_pai','=',$antecendentes[0]->pais_contacto)->select('pais')->get();
+        $antecendentes[0]->pais_contacto = $pai[0]->pais;
+        
+        $dato = DatoClinico::join('estados_pacientes','estados_pacientes.id_est','=','datos_clinicos.id_est')
+                           ->join('diagnosticos','diagnosticos.id_dia','=','datos_clinicos.id_dia')
+                           ->select('fecha_inicio','sintomas','nombre','fecha_estado','diagnostico')
+                           ->where('datos_clinicos.id_dc','=',$fe->id_dc)
+                           ->get();
+        
+        $s = explode(",",$dato[0]->sintomas);
+        $sintoma = Sintoma::whereIn('id_sin',$s)->select('sintoma')->get();
+
+        $hospitalizacion = Hospitalizacion::where('id_hos','=',$fe->id_hos)->get();
+        
+        $enf_base = EnfermedadesBase::join('enfermedades','enfermedades.id_enf','=','enfermedades_base.id_enf')
+                                    ->where('id_fe','=',$fe->id_fe)->select('enfermedad')
+                                    ->get();
+        
+        $cont = Contacto::join('relacion','relacion.id_rel','=','contactos.id_rel')
+                        ->select('nombre_contacto','paterno_contacto','materno_contacto','relacion','edad','telefono','direccion','fecha_contacto','lugar_contacto')
+                        ->where('id_fe','=',$fe->id_fe)
+                        ->get();
+
+        $laboratorio = Laboratorio::where('id_fe','=',$fe->id_fe)
+                          ->select("muestra",'lugar_muestra','nombre_laboratorio','fecha_muestra','fecha_envio','responsable_muestra','observaciones','resultado_laboratorio','fecha_resultado')
+                          ->get();
+        
+        $muestra = Muestra::join('listas_muestras','listas_muestras.id_mue','=','muestras.id_mue')
+                          ->where('listas_muestras.id_lab','=',$laboratorio[0]->id_lab)
+                          ->select('muestra')
+                          ->get();
+
+        $personal = PersonalNotifica::where('id_pn','=',$fe->id_pn)->get();
+        
+        $pdf = \PDF::loadView('imprimir.ficha_epidemiologica', array('est' => $establecimiento,
+                                                                     'iden' => $identificacion,
+                                                                     'men' => $menor,
+                                                                     'ant' => $antecendentes,
+                                                                     'dat' => $dato,
+                                                                     'sin' => $sintoma,
+                                                                     'hos' => $hospitalizacion,
+                                                                     'enf' => $enf_base,
+                                                                     'cont' => $cont,
+                                                                     'lab' => $laboratorio,
+                                                                     'mue' => $muestra,
+                                                                     'per' => $personal
+                                                                    ));
+        $pdf->setPaper("A4");
+        return $pdf->stream('FichaEpidemiologica.pdf');
     }
 }

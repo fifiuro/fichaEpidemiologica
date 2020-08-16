@@ -19,15 +19,15 @@ class CreateLaboratoriosTable extends Migration
             $table->unsignedBigInteger('id_fe');
             $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica');
             //FIN
-            $table->boolean('muestra');
-            $table->string('lugar_muestra');
-            $table->string('nombre_laboratorio');
-            $table->date('fecha_muestra');
-            $table->date('fecha_envio');
-            $table->string('responsable_muestra');
-            $table->text('observaciones');
-            $table->boolean('resultado_laboratorio');
-            $table->date('fecha_resultado');
+            $table->boolean('muestra')->nullable();
+            $table->string('lugar_muestra')->nullable();
+            $table->string('nombre_laboratorio')->nullable();
+            $table->date('fecha_muestra')->nullable();
+            $table->date('fecha_envio')->nullable();
+            $table->string('responsable_muestra')->nullable();
+            $table->text('observaciones')->nullable();
+            $table->boolean('resultado_laboratorio')->nullable();
+            $table->date('fecha_resultado')->nullable();
 
             $table->timestamps();
         });

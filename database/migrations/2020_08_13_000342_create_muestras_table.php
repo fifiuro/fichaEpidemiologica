@@ -16,7 +16,7 @@ class CreateMuestrasTable extends Migration
         Schema::create('muestras', function (Blueprint $table) {
             $table->bigIncrements('id_mue');
             $table->string('muestra');
-            $table->boolean('estado');
+            $table->boolean('estado')->default(true);
             $table->timestamps();
         });
     }

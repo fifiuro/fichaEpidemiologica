@@ -19,18 +19,18 @@ class CreateContactosTable extends Migration
             $table->unsignedBigInteger('id_fe');
             $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica');
             //FIN
-            $table->string('nombre_contacto');
-            $table->string('paterno_contacto');
-            $table->string('materno_contacto');
+            $table->string('nombre_contacto')->nullable();
+            $table->string('paterno_contacto')->nullable();
+            $table->string('materno_contacto')->nullable();
             // LLAVE FORANEA A LA TABLA RELACIONES
             $table->unsignedBigInteger('id_rel');
             $table->foreign('id_rel')->references('id_rel')->on('relacion');
             //FIN
-            $table->integer('edad');
-            $table->string('telefono');
-            $table->string('direccion');
-            $table->date('fecha_contacto');
-            $table->string('lugar_contacto');
+            $table->integer('edad')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('direccion')->nullable();
+            $table->date('fecha_contacto')->nullable();
+            $table->string('lugar_contacto')->nullable();
 
             $table->timestamps();
         });

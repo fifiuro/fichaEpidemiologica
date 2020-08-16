@@ -36,6 +36,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
   <!-- Bootstrap4 Duallistbox -->
   <link rel="stylesheet" href="{{ asset('css/bootstrap-duallistbox.min.css') }}">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
   
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -165,6 +167,8 @@
 <script src="{{ asset('js/dataTables.bootstrap4.js') }}"></script>
 <!-- Bootstrap4 Duallistbox -->
 <script src="{{ asset('js/jquery.bootstrap-duallistbox.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('js/select2.full.min.js') }}"></script>
 
 @toastr_render
 <script>

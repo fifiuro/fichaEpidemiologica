@@ -16,7 +16,7 @@ class CreateEstadosPacientesTable extends Migration
         Schema::create('estados_pacientes', function (Blueprint $table) {
             $table->bigIncrements('id_est');
             $table->string('nombre');
-            $table->boolean('estado');
+            $table->boolean('estado')->default(true);
             $table->timestamps();
         });
     }

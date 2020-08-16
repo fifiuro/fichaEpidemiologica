@@ -23,10 +23,10 @@ class CreateMenoresTable extends Migration
             $table->unsignedBigInteger('id_rel');
             $table->foreign('id_rel')->references('id_rel')->on('relacion');
             //FIN
-            $table->string('nombre_relacion');
-            $table->string('paterno_relacion');
-            $table->string('materno_relacion');
-            $table->string('tel_cel');
+            $table->string('nombre_relacion')->nullable();
+            $table->string('paterno_relacion')->nullable();
+            $table->string('materno_relacion')->nullable();
+            $table->string('tel_cel')->nullable();
             $table->timestamps();
         });
     }

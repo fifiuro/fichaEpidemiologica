@@ -16,7 +16,7 @@ class CreateSintomasTable extends Migration
         Schema::create('sintomas', function (Blueprint $table) {
             $table->bigIncrements('id_sin');
             $table->string('sintoma');
-            $table->boolean('estado');
+            $table->boolean('estado')->default(true);
             $table->timestamps();
         });
     }

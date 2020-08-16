@@ -16,7 +16,7 @@ class CreateEnfermedadesTable extends Migration
         Schema::create('enfermedades', function (Blueprint $table) {
             $table->bigIncrements('id_enf');
             $table->string('enfermedad');
-            $table->boolean('estado');
+            $table->boolean('estado')->default(true);
             $table->timestamps();
         });
     }

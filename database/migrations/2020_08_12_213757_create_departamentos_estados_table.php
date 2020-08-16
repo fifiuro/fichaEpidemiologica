@@ -18,9 +18,9 @@ class CreateDepartamentosEstadosTable extends Migration
             // LLAVE FORANEA A LA TABLA PAISES
             $table->unsignedBigInteger('id_pai');
             $table->foreign('id_pai')->references('id_pai')->on('paises');
-
+            // FIN
             $table->string('departamento');
-            $table->boolean('estado');
+            $table->boolean('estado')->default(true);
             $table->timestamps();
         });
     }

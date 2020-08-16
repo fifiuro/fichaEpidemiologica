@@ -16,7 +16,7 @@ class CreateOcupacionesTable extends Migration
         Schema::create('ocupaciones', function (Blueprint $table) {
             $table->bigIncrements('id_ocu');
             $table->string('ocupacion');
-            $table->boolean('estado');
+            $table->boolean('estado')->default(true);
             $table->timestamps();
         });
     }

@@ -15,14 +15,14 @@ class CreateEstablecimientosTable extends Migration
     {
         Schema::create('establecimientos', function (Blueprint $table) {
             $table->bigIncrements('id_est');
-            $table->string('establecimiento');
-            $table->string('codigo');
-            $table->string('red');
-            $table->string('departamento');
-            $table->string('municipio');
-            $table->date('fecha_notificacion');
-            $table->string('sem_epidem');
-            $table->boolean('caso_identificado');
+            $table->string('establecimiento')->nullable();
+            $table->string('codigo')->nullable();
+            $table->string('red')->nullable();
+            $table->string('departamento')->nullable();
+            $table->string('municipio')->nullable();
+            $table->date('fecha_notificacion')->nullable();
+            $table->string('sem_epidem')->nullable();
+            $table->boolean('caso_identificado')->nullable();
             $table->timestamps();
         });
     }

@@ -61,3 +61,7 @@
 .grupo {
     background-color: lightblue;
 }
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #024c45 !important;
+}

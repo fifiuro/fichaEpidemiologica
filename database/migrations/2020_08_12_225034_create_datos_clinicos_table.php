@@ -15,17 +15,17 @@ class CreateDatosClinicosTable extends Migration
     {
         Schema::create('datos_clinicos', function (Blueprint $table) {
             $table->bigIncrements('id_dc');
-            $table->date('fecha_inicio');
-            $table->string('sintomas');
+            $table->date('fecha_inicio')->nullable();
+            $table->string('sintomas')->nullable();
             // LLAVE FORANEA A LA TABLA ESTADOS_PACIENTES
             $table->unsignedBigInteger('id_est');
             $table->foreign('id_est')->references('id_est')->on('estados_pacientes');
-
-            $table->date('fecha_estado');
+            // FIN
+            $table->date('fecha_estado')->nullable();
             // LLAVE FORANEA A LA TABLA DIAGNOSTICO
             $table->unsignedBigInteger('id_dia');
             $table->foreign('id_dia')->references('id_dia')->on('diagnosticos');
-            
+            // FIN
             $table->timestamps();
         });
     }

@@ -18,36 +18,33 @@ class CreateAntecedentesTable extends Migration
             // LLAVE FORANEA DE LA TABLA OCUPACIONES
             $table->unsignedBigInteger('id_ocu');
             $table->foreign('id_ocu')->references('id_ocu')->on('ocupaciones');
-
-            $table->boolean('vacuna_influenza');
-            $table->date('fecha_vacunacion');
-            $table->boolean('viaje_riesgo');
+            //FIN
+            $table->boolean('vacuna_influenza')->nullable();
+            $table->date('fecha_vacunacion')->nullable();
+            $table->boolean('viaje_riesgo')->nullable();
             // LLAVE FORANEA DE LA TABLA PAISES
             $table->unsignedBigInteger('id_pai');
             $table->foreign('id_pai')->references('id_pai')->on('paises');
-
-            $table->string('ciudad');
-            $table->date('fecha_retorno');
-            $table->time('hora_retorno');
-            $table->string('empresa_viaje');
-            $table->string('num_vuelo');
-            $table->string('num_asiento');
-            $table->boolean('contacto');
-            $table->date('fecha_contacto');
-            $table->string('nombre_contacto');
-            $table->string('paterno_contacto');
-            $table->string('materno_contacto');
-            $table->string('telefono_contacto');
+            //FIN
+            $table->string('ciudad')->nullable();
+            $table->date('fecha_retorno')->nullable();
+            $table->time('hora_retorno')->nullable();
+            $table->string('empresa_viaje')->nullable();
+            $table->string('num_vuelo')->nullable();
+            $table->string('num_asiento')->nullable();
+            $table->boolean('contacto')->nullable();
+            $table->date('fecha_contacto')->nullable();
+            $table->string('nombre_contacto')->nullable();
+            $table->string('paterno_contacto')->nullable();
+            $table->string('materno_contacto')->nullable();
+            $table->string('telefono_contacto')->nullable();
             // LLAVE FORANEA DE LA TABLA PAISES
             $table->unsignedBigInteger('pais_contacto');
             $table->foreign('pais_contacto')->references('id_pai')->on('paises');
-            // LLAVE FORANEA DE LA TABLA DEPARTAMENTOS ESTADOS
-            $table->unsignedBigInteger('departamento_contacto');
-            $table->foreign('departamento_contacto')->references('id_dep')->on('departamentos_estados');
-            // LLAVE FORANEA DE LA TABLA MUNICIPIOS
-            $table->string('municipio_contacto');
-
-            $table->string('ciudad_contacto');
+            // FIN
+            $table->string('departamento_contacto');
+            $table->string('municipio_contacto')->nullable();
+            $table->string('ciudad_contacto')->nullable();
 
             $table->timestamps();
         });

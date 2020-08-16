@@ -15,13 +15,13 @@ class CreateHospitalizacionesTable extends Migration
     {
         Schema::create('hospitalizaciones', function (Blueprint $table) {
             $table->bigIncrements('id_hos');
-            $table->date('fecha_aislamiento');
-            $table->string('lugar_aislamiento');
-            $table->date('fecha_internacion');
-            $table->string('establecimiento');
-            $table->boolean('ventilacion');
-            $table->boolean('terapia_intensiva');
-            $table->date('fecha_ingreso_uti');
+            $table->date('fecha_aislamiento')->nullable();
+            $table->string('lugar_aislamiento')->nullable();
+            $table->date('fecha_internacion')->nullable();
+            $table->string('establecimiento')->nullable();
+            $table->boolean('ventilacion')->nullable();
+            $table->boolean('terapia_intensiva')->nullable();
+            $table->date('fecha_ingreso_uti')->nullable();
             $table->timestamps();
         });
     }

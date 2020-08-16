@@ -19,3 +19,8 @@ Route::get('/', function () {
 
 Route::get('nuevo', 'FichaEpidemiologicaController@create');
 Route::post('nuevo','FichaEpidemiologicaController@store');
+
+Route::get('pantalla_imprimir/{id}','FichaEpidemiologicaController@pantalla_imprimir');
+Route::get('imprimir/{id}','FichaEpidemiologicaController@imprimir');
+
+//Route::name('imprimir')->get('imprimir','FichaEpidemiologicaController@imprimir');

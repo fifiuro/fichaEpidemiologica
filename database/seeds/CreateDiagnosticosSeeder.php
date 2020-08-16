@@ -13,6 +13,11 @@ class CreateDiagnosticosSeeder extends Seeder
     public function run()
     {
         $diagnostico = Diagnostico::create([
+            'diagnostico' => '', 
+            'estado' => true
+        ]);
+
+        $diagnostico = Diagnostico::create([
             'diagnostico' => 'IRA', 
             'estado' => true
         ]);
