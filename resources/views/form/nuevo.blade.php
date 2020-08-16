@@ -8,7 +8,7 @@
         <div class="card-header">
             <h3 class="card-title">FICHA EPIDEMIOLOGICA Y SOLICITUD DE ESTUDIOS DE LABORATORIO COVID-19</h3>
         </div>
-        <form role="form" method="POST" action="{{ url('nuevo') }}">
+        <form role="form" method="POST" action="{{ url('nuevo') }}" id="quickForm">
             @csrf
             <div class="card-body">
                 {{--  1. DATOS DEL ESTABLECIMIENTO NOTIFICADOR  --}}
@@ -19,7 +19,7 @@
                 <div class="row grupo">
                     <div class="form-group col-md-4">
                         <label for="establecimiento">Establecimiento de Salud</label>
-                        <input type="text" name="establecimiento" id="" class="form-control" placeholder="Establecimiento de Salud" value="{{ old('establecimiento') }}" required>
+                        <input type="text" name="establecimiento" id="" class="form-control" placeholder="Establecimiento de Salud" value="{{ old('establecimiento') }}">
                         @if ($errors->has('establecimiento'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('establecimiento') }}
@@ -1018,6 +1018,78 @@
                 $("#otro_muestra").attr('disabled',false);
             } else {
                 $("#muestra").attr('disabled',true);
+            }
+        });
+
+        $('#quickForm').validate({
+            rules: {
+                establecimiento: {
+                    required: true
+                },
+                red: {
+                    required: true
+                },
+                municipio: {
+                    required: true
+                },
+                fecha_notificacion: {
+                    required: true
+                },
+                sem_epidem: {
+                    required: true
+                },
+                nombre_pacientes: {
+                    required: true
+                },
+                paterno_pacientes: {
+                    required: true
+                },
+                nombre_personal: {
+                    required:true
+                },
+                paterno_personal: {
+                    required: true
+                }
+            },
+            messages: {
+                establecimiento: {
+                    required: "Ingrese el nombre del Establecimiento."
+                },
+                red: {
+                    required: "Ingrese Red de Salud."
+                },
+                municipio: {
+                    required: "Ingrese el Municipio."
+                },
+                fecha_notificacion: {
+                    required: "ingrese la Fehca de Notificación."
+                },
+                sem_epidem: {
+                    required: "Ingrese el Sem Epidem."
+                },
+                nombre_pacientes: {
+                    required: "Ingrese Nombre del Paciente."
+                },
+                paterno_pacientes: {
+                    required: "Ingrese Apellido Paterno del Paciente."
+                },
+                nombre_personal: {
+                    required: "Ingrese Nombre del Personal."
+                },
+                paterno_personal: {
+                    required: "Ingrese Apellido Paterno del Personal."
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass){
+                $(element).removeClass('is-invalid');
             }
         });
     })

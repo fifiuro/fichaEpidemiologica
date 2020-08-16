@@ -169,6 +169,9 @@
 <script src="{{ asset('js/jquery.bootstrap-duallistbox.min.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ asset('js/select2.full.min.js') }}"></script>
+<!-- jquery-validation -->
+<script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('js/additional-methods.min.js') }}"></script>
 
 @toastr_render
 <script>

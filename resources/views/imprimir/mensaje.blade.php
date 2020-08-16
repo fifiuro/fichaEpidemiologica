@@ -13,7 +13,7 @@
             <p class="text-center">Todos los datos se guardaron correctamente.</p>
         </div>
         <div class="card-footer">
-            <a href="{{ url('imprimir/'.$id) }}" class="btn btn-success" target="_blanc">IMPRIMIR</a>
+            <a href="{{ url('imprimir/'.$id) }}" class="btn btn-success" target="_blank">IMPRIMIR</a>
             <a href="{{ url('/') }}" class="btn btn-danger">CERRAR</a>
         </div>
     </div>

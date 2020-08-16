@@ -7,7 +7,7 @@
             <div class="card-header">
                 <h3 class="card-title">BUSCAR FICHA EPIDEMIOLOGICA</h3>
             </div>
-            <form role="form" method="POST" action="{{ url('buscar') }}">
+            <form role="form" method="POST" action="{{ url('buscar') }}" id="quickForm">
                 @csrf
                 <div class="card-body">
                     <div class="row">
@@ -70,7 +70,7 @@
                                             <i class="far fa-trash-alt"></i>
                                         </a> --}}
                                         {{-- Boton de Imprimir --}}
-                                        <a href="{{ url('imprimir/'.$f->id_fe) }}" class="btn btn-info">
+                                        <a href="{{ url('imprimir/'.$f->id_fe) }}" class="btn btn-info" target="_blank">
                                             <i class="fas fa-print"></i>
                                         </a>
                                     </td>
@@ -98,5 +98,29 @@
 @stop
 
 @section('extra')
-    
+$(function() {
+    $('#quickForm').validate({
+        rules: {
+            nombre: {
+                required: true
+            }
+        },
+        messages: {
+            nombre: {
+                required: "Ingrese un Nombre valido para realizar la busqueda."
+            }
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function(element, errorClass, validClass){
+            $(element).removeClass('is-invalid');
+        }
+    });
+})
 @stop
