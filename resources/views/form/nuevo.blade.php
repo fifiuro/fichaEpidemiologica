@@ -104,7 +104,7 @@
                 <div class="row grupo">
                     <div class="form-group col-md-3">
                         <label for="nombre_pacientes">Nombre</label>
-                        <input type="text" name="nombre_pacientes" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre_pacientes') }}">
+                        <input type="text" name="nombre_pacientes" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre_pacientes') }}" required>
                         @if ($errors->has('nombre_pacientes'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('nombre') }}
@@ -113,7 +113,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="paterno_pacientes">Paterno</label>
-                        <input type="text" name="paterno_pacientes" id="" class="form-control" placeholder="Paterno" value="{{ old('paterno_pacientes') }}">
+                        <input type="text" name="paterno_pacientes" id="" class="form-control" placeholder="Paterno" value="{{ old('paterno_pacientes') }}" required>
                         @if ($errors->has('paterno_pacientes'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('paterno_pacientes') }}
@@ -914,7 +914,7 @@
                 <div class="row grupo">
                     <div class="form-group col-md-4">
                         <label for="nombre_personal">Nombre</label>
-                        <input type="text" name="nombre_personal" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre_personal') }}">
+                        <input type="text" name="nombre_personal" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre_personal') }}" required>
                         @if ($errors->has('nombre_personal'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('nombre_personal') }}
@@ -923,7 +923,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="paterno_personal">Paterno</label>
-                        <input type="text" name="paterno_personal" id="" class="form-control" placeholder="Paterno" value="{{ old('paterno_personal') }}">
+                        <input type="text" name="paterno_personal" id="" class="form-control" placeholder="Paterno" value="{{ old('paterno_personal') }}" required>
                         @if ($errors->has('paterno_personal'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('paterno_personal') }}

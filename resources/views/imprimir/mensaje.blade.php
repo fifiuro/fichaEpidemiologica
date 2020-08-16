@@ -7,10 +7,10 @@
     <div class="col-md-4"></div>
     <div class="card card-info col-md-4">
         <div class="card-header">
-            <h3 class="card-title">MENSAJE DE IMPRESION</h3>
+            <h3 class="card-title">MENSAJE</h3>
         </div>
         <div class="card-body">
-            <p>Todos los datos se guardaron correctament.</p>
+            <p class="text-center">Todos los datos se guardaron correctamente.</p>
         </div>
         <div class="card-footer">
             <a href="{{ url('imprimir/'.$id) }}" class="btn btn-success" target="_blanc">IMPRIMIR</a>

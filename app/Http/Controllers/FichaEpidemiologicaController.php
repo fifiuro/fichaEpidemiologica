@@ -24,6 +24,7 @@ use App\PersonalNotifica;
 use App\Departamento;
 use App\Pais;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class FichaEpidemiologicaController extends Controller
@@ -35,7 +36,7 @@ class FichaEpidemiologicaController extends Controller
      */
     public function index()
     {
-        //
+        return view('form.buscar');
     }
 
     /**
@@ -44,9 +45,23 @@ class FichaEpidemiologicaController extends Controller
      * @param  \App\FichaEpidemiologica  $fichaEpidemiologica
      * @return \Illuminate\Http\Response
      */
-    public function show(FichaEpidemiologica $fichaEpidemiologica)
+    public function show(Request $request)
     {
-        //
+        $find = FichaEpidemiologica::join('pacientes','pacientes.id_pac','=','ficha_epidemiologica.id_pac')
+                                   ->select('id_fe','pacientes.id_pac','nombre_pacientes','paterno_pacientes','materno_pacientes','seguro_pacientes','telefono')
+                                   ->where(DB::raw('CONCAT(nombre_pacientes," ",paterno_pacientes," ",materno_pacientes)'),'like','%'.$request->nombre.'%')
+                                   ->paginate(10);
+                                   //->get();
+
+        if(!is_null($find)){
+            return view('form.buscar')->with('find', $find)
+                                      ->with('estado', '1')
+                                      ->with('mensaje', '');
+        }else{
+            return view('form.buscar')->with('find', $find)
+                                      ->with('estado', '0')
+                                      ->with('mensaje', 'No se tiene resultado para la busqueda: '.$request->nombre);
+        }
     }
 
     /**
@@ -85,7 +100,6 @@ class FichaEpidemiologicaController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
         // 1. TABLA ESTABLECIMIENTO
         $establecimiento = new Establecimiento;
         $establecimiento->establecimiento = $request->establecimiento;
@@ -157,7 +171,7 @@ class FichaEpidemiologicaController extends Controller
         $ante->materno_contacto = (is_null($request->materno_contacto)) ? '' : $request->materno_contacto;
         $ante->telefono_contacto = (is_null($request->telefono_contacto)) ? '' : $request->telefono_contacto;
         $ante->pais_contacto = $request->id_pai_contacto;
-        $ante->departamento_contacto = $request->departamento_contacto;
+        $ante->departamento_contacto = (is_null($request->departamento_contacto)) ? '' : $request->departamento_contacto;
         $ante->municipio_contacto = $request->municipio_contacto;
         $ante->ciudad_contacto = $request->ciudad_contacto;
         $ante->save();
@@ -166,12 +180,16 @@ class FichaEpidemiologicaController extends Controller
         // 4. DATOS CLINICOS
         $datos = new DatoClinico;
         $datos->fecha_inicio = $request->fecha_inicio;
-        if(in_array("otro",$request->sintoma)) {
-            if(isset($request->otro_sintoma)) {
-                $otro = $this->create_sintoma($request->otro_sintoma);
-                $sin = $this->borra_elemento($request->sintoma,$otro);
-            } else {
-                $sin = $this->borra_elemento($request->sintoma,"");
+        if(is_null($request->sintoma)) {
+            $sin = 1;
+        }else{
+            if(in_array("otro",$request->sintoma)) {
+                if(isset($request->otro_sintoma)) {
+                    $otro = $this->create_sintoma($request->otro_sintoma);
+                    $sin = $this->borra_elemento($request->sintoma,$otro);
+                } else {
+                    $sin = $this->borra_elemento($request->sintoma,"");
+                }
             }
         }
         $datos->sintomas = $sin;
@@ -223,18 +241,22 @@ class FichaEpidemiologicaController extends Controller
 
         // 6. ENFERMEDADES DE BASE O CONFICIONES DE RIESGO
         if($request->pregunta){
-            for ($i=0; $i < count($request->id_enf) ; $i++) {
-                if($request->id_enf[$i] == 'otro') {
-                    $enf = $this->create_enfermedad($request->otro_enfermedad);
-                    $base = new EnfermedadesBase;
-                    $base->id_enf = $enf;
-                    $base->id_fe = $id_fe;
-                    $base->save();
-                } else {
-                    $base = new EnfermedadesBase;
-                    $base->id_enf = $request->id_enf[$i];
-                    $base->id_fe = $id_fe;
-                    $base->save();
+            if(is_null($request->id_enf)){
+
+            }else{
+                for ($i=0; $i < count($request->id_enf) ; $i++) {
+                    if($request->id_enf[$i] == 'otro') {
+                        $enf = $this->create_enfermedad($request->otro_enfermedad);
+                        $base = new EnfermedadesBase;
+                        $base->id_enf = $enf;
+                        $base->id_fe = $id_fe;
+                        $base->save();
+                    } else {
+                        $base = new EnfermedadesBase;
+                        $base->id_enf = $request->id_enf[$i];
+                        $base->id_fe = $id_fe;
+                        $base->save();
+                    }
                 }
             }
         }
@@ -272,10 +294,9 @@ class FichaEpidemiologicaController extends Controller
                 $lismue->id_mue = $mue;
                 $lismue->save();
             }
-        }        
+        }
 
-        //return view('template.inicio');
-        return redirect()->route('imprimir/'.$id_fe);
+        return redirect('pantalla_imprimir/'.$id_fe);
     }
 
     /**
@@ -476,7 +497,6 @@ class FichaEpidemiologicaController extends Controller
                                                                      'mue' => $muestra,
                                                                      'per' => $personal
                                                                     ));
-        $pdf->setPaper("A4");
         return $pdf->stream('FichaEpidemiologica.pdf');
     }
 }

@@ -33,8 +33,29 @@ class CreateRelacionSeeder extends Seeder
         ]);
 
         $rel = Relacion::create([
-            'relacion' => 'Hermana(o)', 
+            'relacion' => 'Hija(o)', 
             'estado' => true
         ]);
+
+        $rel = Relacion::create([
+            'relacion' => 'Esposa(o)', 
+            'estado' => true
+        ]);
+
+        $rel = Relacion::create([
+            'relacion' => 'Nieta(o)', 
+            'estado' => true
+        ]);
+
+        $rel = Relacion::create([
+            'relacion' => 'Sobrina(o)', 
+            'estado' => true
+        ]);
+
+        $rel = Relacion::create([
+            'relacion' => 'Prima(o)', 
+            'estado' => true
+        ]);
+
     }
 }

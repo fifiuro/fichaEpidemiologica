@@ -13,6 +13,11 @@ class CreateSintomasSeeder extends Seeder
     public function run()
     {
         $sintoma = Sintoma::create([
+            'sintoma' => '', 
+            'estado' => true
+        ]);
+
+        $sintoma = Sintoma::create([
             'sintoma' => 'Tos seca', 
             'estado' => true
         ]);

@@ -23,4 +23,7 @@ Route::post('nuevo','FichaEpidemiologicaController@store');
 Route::get('pantalla_imprimir/{id}','FichaEpidemiologicaController@pantalla_imprimir');
 Route::get('imprimir/{id}','FichaEpidemiologicaController@imprimir');
 
+Route::get('buscar','FichaEpidemiologicaController@index');
+Route::post('buscar','FichaEpidemiologicaController@show');
+
 //Route::name('imprimir')->get('imprimir','FichaEpidemiologicaController@imprimir');
