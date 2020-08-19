@@ -17,7 +17,7 @@ class CreateLaboratoriosTable extends Migration
             $table->bigIncrements('id_lab');
             // LLAVE FORANEA A LA TABLA FICHAS EPIDEMIOLOGIA
             $table->unsignedBigInteger('id_fe');
-            $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica');
+            $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica')->onDelete('cascade');
             //FIN
             $table->boolean('muestra')->nullable();
             $table->string('lugar_muestra')->nullable();

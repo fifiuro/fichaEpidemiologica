@@ -17,7 +17,7 @@ class CreateContactosTable extends Migration
             $table->bigIncrements('id_cont');
             // LLAVE FORANEA A LA TABLA FICHA EPIDEMILOGICA
             $table->unsignedBigInteger('id_fe');
-            $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica');
+            $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica')->onDelete('cascade');
             //FIN
             $table->string('nombre_contacto')->nullable();
             $table->string('paterno_contacto')->nullable();

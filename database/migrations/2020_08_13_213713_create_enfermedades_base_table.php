@@ -17,7 +17,7 @@ class CreateEnfermedadesBaseTable extends Migration
             $table->bigIncrements('id_eb');
             // LLAVE FORANEA EN LA TABLA ENFERMEDADES
             $table->unsignedBigInteger('id_fe');
-            $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica');
+            $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica')->onDelete('cascade');
             //FIN
             // LLAVE FORANEA EN LA TABLA ENFERMEDADES
             $table->unsignedBigInteger('id_enf');

@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('welcome', function(){
+  return view('welcome');
+});
+
 Route::get('/', function () {
     return view('template.inicio');
 });
@@ -27,3 +31,7 @@ Route::get('buscar','FichaEpidemiologicaController@index');
 Route::post('buscar','FichaEpidemiologicaController@show');
 
 //Route::name('imprimir')->get('imprimir','FichaEpidemiologicaController@imprimir');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

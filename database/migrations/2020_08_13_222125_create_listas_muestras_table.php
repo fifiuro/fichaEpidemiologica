@@ -17,7 +17,7 @@ class CreateListasMuestrasTable extends Migration
             $table->bigIncrements('id_lm');
             // LLAVE FORANEA A LA TABLA LABORATORIOS
             $table->unsignedBigInteger('id_lab');
-            $table->foreign('id_lab')->references('id_lab')->on('laboratorios');
+            $table->foreign('id_lab')->references('id_lab')->on('laboratorios')->onDelete('cascade');
             //FIN
             // LLAVE FORANEA A LA TABLA MUESTRAS
             $table->unsignedBigInteger('id_mue');
