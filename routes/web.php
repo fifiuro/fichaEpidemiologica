@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Exports\DiagnosticoExport;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +39,11 @@ Route::post('eliminar','FichaEpidemiologicaController@destroy');
 
 Route::get('resultado','ReporteController@resultado');
 Route::post('resultado','ReporteController@resultado_show');
+
+Route::get('excel',function(){
+  return Excel::download(new DiagnosticoExport, 'diagnostico.xlsx');
+});
+
 //Route::name('imprimir')->get('imprimir','FichaEpidemiologicaController@imprimir');
 
 Auth::routes();

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exports\DiagnosticoExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReporteController extends Controller
 {
@@ -24,6 +26,11 @@ class ReporteController extends Controller
     public function resultado_show(Request $request)
     {
         //
+    }
+
+    public function resultadoExport()
+    {
+        return Excel::download(new DiagnosticoExport, 'diagnositico.xlsx');
     }
 
     /**
