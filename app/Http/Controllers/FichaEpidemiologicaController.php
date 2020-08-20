@@ -112,7 +112,7 @@ class FichaEpidemiologicaController extends Controller
         $establecimiento->caso_identificado = $request->caso_identificado;
         $establecimiento->save();
         $id_est = $establecimiento->id_est;
-        
+
 
         // 2. IDENTIFICACION DEL CASO / PACIENTE
         $paciente = new Paciente;
@@ -190,6 +190,8 @@ class FichaEpidemiologicaController extends Controller
                 } else {
                     $sin = $this->borra_elemento($request->sintoma,"");
                 }
+            } else {
+              $sin = $this->borra_elemento($request->sintoma,"");
             }
         }
         $datos->sintomas = $sin;
@@ -203,7 +205,7 @@ class FichaEpidemiologicaController extends Controller
         }else{
             $datos->id_dia = $request->id_dia;
         }
-        
+
         $datos->save();
         $id_dc = $datos->id_dc;
 
@@ -288,12 +290,15 @@ class FichaEpidemiologicaController extends Controller
         if($request->id_mue == 'otro'){
             if(isset($request->otro_muestra)){
                 $mue = $this->create_muestra($request->otro_muestra);
-                
-                $lismue = new ListaMuestra;
+
+                $this->lista_muestra($id_lab,$mue);
+                /* $lismue = new ListaMuestra;
                 $lismue->id_lab = $id_lab;
                 $lismue->id_mue = $mue;
-                $lismue->save();
+                $lismue->save(); */
             }
+        } else {
+          $this->lista_muestra($id_lab,$request->id_mue);
         }
 
         return redirect('pantalla_imprimir/'.$id_fe);
@@ -328,14 +333,34 @@ class FichaEpidemiologicaController extends Controller
      * @param  \App\FichaEpidemiologica  $fichaEpidemiologica
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FichaEpidemiologica $fichaEpidemiologica)
+    public function confirm($id)
     {
-        //
+        return view('form.confirma')->with('id', $id);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\FichaEpidemiologica  $fichaEpidemiologica
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+        $eb = EnfermedadesBase::where('id_fe','=',$request->id)->delete();
+
+        $con = Contacto::where('id_fe','=',$request->id)->delete();
+
+        $lab = Laboratorio::where('id_fe','=',$request->id)->delete();
+
+        $fe = FichaEpidemiologica::find($request->id);
+        $fe->delete();
+
+        return view('form.buscar');
     }
 
     /**
      * Create row the Sintomas
-     * 
+     *
      */
     public function create_sintoma($sintoma){
         $sin = new Sintoma;
@@ -391,7 +416,7 @@ class FichaEpidemiologicaController extends Controller
     }
 
     public function create_sospechoso($id_fe,$nombre,$paterno,$materno,$relacion,$edad,$telefono,$direccion,$fecha,$lugar) {
-        for ($i=0; $i < count($nombre) ; $i++) { 
+        for ($i=0; $i < count($nombre) ; $i++) {
             $conta = new Contacto;
             $conta->id_fe = $id_fe;
             $conta->nombre_contacto = $nombre[$i];
@@ -415,28 +440,36 @@ class FichaEpidemiologicaController extends Controller
         return $mue->id_mue;
     }
 
+    public function lista_muestra($id_lab,$muestra) {
+      $lista = new ListaMuestra;
+      $lista->id_lab = $id_lab;
+      $lista->id_mue = $muestra;
+      $lista->save();
+    }
+
     public function pantalla_imprimir($id){
         return view('imprimir.mensaje')->with('id',$id);
     }
 
-    public function imprimir($id) {
+    public function imprimir($id)
+    {
         $fe = FichaEpidemiologica::find($id);
 
         $establecimiento = Establecimiento::join('departamentos_estados','departamentos_estados.id_dep','=','establecimientos.departamento')
                                           ->select('establecimiento','codigo','red','departamentos_estados.departamento','municipio','fecha_notificacion','sem_epidem','caso_identificado')
                                           ->where('establecimientos.id_est','=',$fe->id_est)
                                           ->get();
-                                
+
         $identificacion = Paciente::join('departamentos_estados','departamentos_estados.id_dep','=','pacientes.expedido')
                                   ->join('paises','paises.id_pai','=','pacientes.id_pai')
                                   ->select('pacientes.id_pac','nombre_pacientes','paterno_pacientes','materno_pacientes','seguro_pacientes','sexo','ci','departamentos_estados.departamento','fecha_nac','edad','pacientes.id_dep','municipio_paciente','paises.pais','calle','zona','num','telefono')
                                   ->where('pacientes.id_pac','=',$fe->id_pac)
                                   ->get();
-        
+
         $dep = Departamento::where('id_dep','=',$identificacion[0]->id_dep)
                            ->select('departamento')
                            ->get();
-        
+
         $identificacion[0]->id_dep = $dep[0]->departamento;
 
         $menor = Menor::join('relacion','relacion.id_rel','=','menores.id_rel')
@@ -447,27 +480,27 @@ class FichaEpidemiologicaController extends Controller
         $antecendentes = Antecedente::join('ocupaciones','ocupaciones.id_ocu','=','antecedentes.id_ocu')
                                     ->select('ocupacion','vacuna_influenza','fecha_vacunacion','viaje_riesgo','id_pai','ciudad','fecha_retorno','hora_retorno','empresa_viaje','num_vuelo','num_asiento','contacto','fecha_contacto','nombre_contacto','paterno_contacto','materno_contacto','telefono_contacto','pais_contacto','departamento_contacto','municipio_contacto','ciudad_contacto')
                                     ->get();
-        
+
         $pai = Pais::where('id_pai','=',$antecendentes[0]->id_pai)->select('pais')->get();
         $antecendentes[0]->id_pai = $pai[0]->pais;
         $pai = Pais::where('id_pai','=',$antecendentes[0]->pais_contacto)->select('pais')->get();
         $antecendentes[0]->pais_contacto = $pai[0]->pais;
-        
+
         $dato = DatoClinico::join('estados_pacientes','estados_pacientes.id_est','=','datos_clinicos.id_est')
                            ->join('diagnosticos','diagnosticos.id_dia','=','datos_clinicos.id_dia')
                            ->select('fecha_inicio','sintomas','nombre','fecha_estado','diagnostico')
                            ->where('datos_clinicos.id_dc','=',$fe->id_dc)
                            ->get();
-        
+
         $s = explode(",",$dato[0]->sintomas);
         $sintoma = Sintoma::whereIn('id_sin',$s)->select('sintoma')->get();
 
         $hospitalizacion = Hospitalizacion::where('id_hos','=',$fe->id_hos)->get();
-        
+
         $enf_base = EnfermedadesBase::join('enfermedades','enfermedades.id_enf','=','enfermedades_base.id_enf')
                                     ->where('id_fe','=',$fe->id_fe)->select('enfermedad')
                                     ->get();
-        
+
         $cont = Contacto::join('relacion','relacion.id_rel','=','contactos.id_rel')
                         ->select('nombre_contacto','paterno_contacto','materno_contacto','relacion','edad','telefono','direccion','fecha_contacto','lugar_contacto')
                         ->where('id_fe','=',$fe->id_fe)
@@ -476,14 +509,14 @@ class FichaEpidemiologicaController extends Controller
         $laboratorio = Laboratorio::where('id_fe','=',$fe->id_fe)
                           ->select("muestra",'lugar_muestra','nombre_laboratorio','fecha_muestra','fecha_envio','responsable_muestra','observaciones','resultado_laboratorio','fecha_resultado')
                           ->get();
-        
+
         $muestra = Muestra::join('listas_muestras','listas_muestras.id_mue','=','muestras.id_mue')
                           ->where('listas_muestras.id_lab','=',$laboratorio[0]->id_lab)
                           ->select('muestra')
                           ->get();
 
         $personal = PersonalNotifica::where('id_pn','=',$fe->id_pn)->get();
-        
+
         $pdf = \PDF::loadView('imprimir.ficha_epidemiologica', array('est' => $establecimiento,
                                                                      'iden' => $identificacion,
                                                                      'men' => $menor,
@@ -498,5 +531,25 @@ class FichaEpidemiologicaController extends Controller
                                                                      'per' => $personal
                                                                     ));
         return $pdf->stream('FichaEpidemiologica.pdf');
+    }
+
+    public function certificado($id)
+    {
+      $paciente = FichaEpidemiologica::join('pacientes','pacientes.id_pac','=','ficha_epidemiologica.id_pac')
+                                     ->where('ficha_epidemiologica.id_fe','=',$id)
+                                     ->select('nombre_pacientes','paterno_pacientes','materno_pacientes','seguro_pacientes')
+                                     ->get();
+                                     //dd($paciente);
+      $lab = Laboratorio::join('listas_muestras','listas_muestras.id_lab','=','laboratorios.id_lab')
+                        ->join('muestras','muestras.id_mue','=','listas_muestras.id_mue')
+                        ->select('laboratorios.id_fe','laboratorios.id_lab','listas_muestras.id_lm','muestras.id_mue','fecha_muestra','resultado_laboratorio','fecha_resultado')
+                        ->where('laboratorios.id_fe','=',$id)
+                        ->get();
+                        //dd($lab);
+
+      /* return view('imprimir.certificado')->with('pac', $paciente)
+                                         ->with('lab', $lab);*/
+      $pdf = \PDF::loadView('imprimir.certificado', array('pac' => $paciente, 'lab' => $lab));
+      return $pdf->stream('Certificado.pdf');
     }
 }

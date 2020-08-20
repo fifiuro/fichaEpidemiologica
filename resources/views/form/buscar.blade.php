@@ -66,12 +66,16 @@
                                             <i class="fas fa-edit"></i>
                                         </a> --}}
                                         {{-- Boton de Eliminar --}}
-                                        {{-- <a href="{{ url('eliminar/'.$f->id_fe) }}" class="btn btn-danger">
+                                        <a href="{{ url('confirm/'.$f->id_fe) }}" class="btn btn-danger">
                                             <i class="far fa-trash-alt"></i>
-                                        </a> --}}
+                                        </a>
                                         {{-- Boton de Imprimir --}}
                                         <a href="{{ url('imprimir/'.$f->id_fe) }}" class="btn btn-info" target="_blank">
                                             <i class="fas fa-print"></i>
+                                        </a>
+                                        {{-- Boton de Imprimir Certificado --}}
+                                        <a href="{{ url('certificado/'.$f->id_fe) }}" class="btn btn-success" target="_blank">
+                                            <i class="fas fa-award"></i>
                                         </a>
                                     </td>
                                 </tr>

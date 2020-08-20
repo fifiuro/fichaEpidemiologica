@@ -225,7 +225,7 @@
                             </small>
                         @endif
                     </div>
-                    
+
                     <div class="form-group col-md-3">
                         <label for="calle">Calle</label>
                         <input type="text" name="calle" id="" class="form-control" placeholder="Calle" value="{{ old('calle') }}">
@@ -738,7 +738,7 @@
                     <label for="" style="font-size:18px;">7. DATOS DE PERSONAS CON LAS QUE EL CASO SOSPECHOSO ESTUVO EN CONTACTO (desde el inicio de los sintomas)</label>
                 </div>
                 <hr>
-                <div class="row grupo">                    
+                <div class="row grupo">
                     <table id="tabla_sospechosos" class="table table-striped">
                         <tr>
                             <td colspan="7">
@@ -1009,7 +1009,6 @@
         });
 
         $("#tabla_sospechosos").on('click', '.botones', function() {
-            alert('hola');
             $(this).parents("tr").remove();
         });
 
