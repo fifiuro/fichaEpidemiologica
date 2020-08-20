@@ -95,11 +95,11 @@
                   </a>
                 </li>
 
-                {{-- <li class="nav-item">
-                  <a href="{{ url('buscar') }}" class="nav-link">
-                    <i class="far fa-file-alt"></i> <p>Reporte</p>
+                <li class="nav-item">
+                  <a href="{{ url('resultado') }}" class="nav-link">
+                    <i class="far fa-file-alt"></i> <p>Reporte Pacientes SARS-COV-2</p>
                   </a>
-                </li> --}}
+                </li>
 
             </ul>
           </nav>

@@ -34,6 +34,8 @@ Route::post('buscar','FichaEpidemiologicaController@show');
 Route::get('confirm/{id}','FichaEpidemiologicaController@confirm');
 Route::post('eliminar','FichaEpidemiologicaController@destroy');
 
+Route::get('resultado','ReporteController@resultado');
+Route::post('resultado','ReporteController@resultado_show');
 //Route::name('imprimir')->get('imprimir','FichaEpidemiologicaController@imprimir');
 
 Auth::routes();
