@@ -84,13 +84,13 @@
               
                 <li class="nav-header"><strong>MENU PRINCIPAL</strong></li>
                 <li class="nav-item">
-                  <a href="{{ url('nuevo') }}" class="nav-link">
-                    <i class="fas fa-plus"></i> <p>Nuevo Form.</p>
+                  <a href="{{ url('ficha/nuevo') }}" class="nav-link">
+                    <i class="fas fa-clipboard-list"></i> <p>Ficha Epidemiológica</p>
                   </a>
-                </li>              
+                </li>
               
                 <li class="nav-item">
-                  <a href="{{ url('buscar') }}" class="nav-link">
+                  <a href="{{ url('ficha/buscar') }}" class="nav-link">
                     <i class="fas fa-search"></i> <p>Buscar Form.</p>
                   </a>
                 </li>

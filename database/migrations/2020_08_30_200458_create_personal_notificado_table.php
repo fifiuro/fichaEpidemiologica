@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePersonalNotificaTable extends Migration
+class CreatePersonalNotificadoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreatePersonalNotificaTable extends Migration
      */
     public function up()
     {
-        Schema::create('personal_notifica', function (Blueprint $table) {
+        Schema::create('personal_notificado', function (Blueprint $table) {
             $table->bigIncrements('id_pn');
+            // LLAVE FORANEA A LA TABLA FICHAS EPIDEMIOLOGIA
+            $table->unsignedBigInteger('id_lab');
+            $table->foreign('id_lab')->references('id_lab')->on('laboratorios')->onDelete('cascade');
+            //FIN
             $table->string('nombre_notifica')->nullable();
             $table->string('paterno_notifica')->nullable();
             $table->string('materno_notifica')->nullable();
@@ -30,6 +34,6 @@ class CreatePersonalNotificaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personal_notifica');
+        Schema::dropIfExists('personal_notificado');
     }
 }

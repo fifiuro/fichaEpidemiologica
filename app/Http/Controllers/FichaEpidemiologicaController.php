@@ -209,7 +209,7 @@ class FichaEpidemiologicaController extends Controller
         $datos->save();
         $id_dc = $datos->id_dc;
 
-        // 5. DATOS EN CADO DE HOSPITALIZACION Y/O ASILAMIENTO
+        // 5. DATOS EN CASO DE HOSPITALIZACION Y/O ASILAMIENTO
         $hos = new Hospitalizacion;
         $hos->fecha_aislamiento = $request->fecha_aislamiento;
         $hos->lugar_aislamiento = $request->lugar_aislamiento;
@@ -221,15 +221,6 @@ class FichaEpidemiologicaController extends Controller
         $hos->save();
         $id_hos = $hos->id_hos;
 
-        // DATOS PERSONAL QUE NOTIFICA
-        $personal = new PersonalNotifica;
-        $personal->nombre_notifica = $request->nombre_personal;
-        $personal->paterno_notifica = $request->paterno_personal;
-        $personal->materno_notifica = $request->materno_personal;
-        $personal->tel_cel_notifica = $request->tel_cel_personal;
-        $personal->save();
-        $id_pn = $personal->id_pn;
-
         // FICHA EPIDEMIOLOGICA
         $ficha = new FichaEpidemiologica;
         $ficha->id_est = $id_est;
@@ -237,7 +228,6 @@ class FichaEpidemiologicaController extends Controller
         $ficha->id_ant = $id_ant;
         $ficha->id_dc = $id_dc;
         $ficha->id_hos = $id_hos;
-        $ficha->id_pn = $id_pn;
         $ficha->save();
         $id_fe = $ficha->id_fe;
 
@@ -272,36 +262,7 @@ class FichaEpidemiologicaController extends Controller
             }
         }
 
-        // 8. LABORATORIO
-        $lab = new Laboratorio;
-        $lab->id_fe = $id_fe;
-        $lab->muestra = $request->muestra_laboratorio;
-        $lab->lugar_muestra = $request->lugar_muestra;
-        $lab->nombre_laboratorio = $request->nombre_laboratorio;
-        $lab->fecha_muestra = $request->fecha_muestra;
-        $lab->fecha_envio = $request->fecha_envio;
-        $lab->responsable_muestra = $request->responsable_muestra;
-        $lab->observaciones = $request->observaciones;
-        $lab->resultado_laboratorio = $request->resultado_muestra;
-        $lab->fecha_resultado = $request->fecha_resultado;
-        $lab->save();
-        $id_lab = $lab->id_lab;
-
-        if($request->id_mue == 'otro'){
-            if(isset($request->otro_muestra)){
-                $mue = $this->create_muestra($request->otro_muestra);
-
-                $this->lista_muestra($id_lab,$mue);
-                /* $lismue = new ListaMuestra;
-                $lismue->id_lab = $id_lab;
-                $lismue->id_mue = $mue;
-                $lismue->save(); */
-            }
-        } else {
-          $this->lista_muestra($id_lab,$request->id_mue);
-        }
-
-        return redirect('pantalla_imprimir/'.$id_fe);
+        return view('form.buscar');
     }
 
     /**
@@ -362,7 +323,8 @@ class FichaEpidemiologicaController extends Controller
      * Create row the Sintomas
      *
      */
-    public function create_sintoma($sintoma){
+    public function create_sintoma($sintoma)
+    {
         $sin = new Sintoma;
         $sin->sintoma = $sintoma;
         $sin->estado = true;
@@ -371,7 +333,8 @@ class FichaEpidemiologicaController extends Controller
         return $id;
     }
 
-    public function borra_elemento($lista,$otro) {
+    public function borra_elemento($lista,$otro)
+    {
         if(($clave = array_search("otro",$lista)) !== false) {
             unset($lista[$clave]);
         }
@@ -388,7 +351,8 @@ class FichaEpidemiologicaController extends Controller
         return $resultado;
     }
 
-    public function create_diagnostico($diagnostico) {
+    public function create_diagnostico($diagnostico)
+    {
         $diag = new Diagnostico;
         $diag->diagnostico = $diagnostico;
         $diag->estado = true;
@@ -397,7 +361,8 @@ class FichaEpidemiologicaController extends Controller
         return $id_dia;
     }
 
-    public function create_ocupacion($ocupacion) {
+    public function create_ocupacion($ocupacion)
+    {
         $ocu = new Ocupacion;
         $ocu->ocupacion = $ocupacion;
         $ocu->estado = true;
@@ -406,7 +371,8 @@ class FichaEpidemiologicaController extends Controller
         return $id_ocu;
     }
 
-    public function create_enfermedad($enfermedad) {
+    public function create_enfermedad($enfermedad)
+    {
         $enf = new Enfermedad;
         $enf->enfermedad = $enfermedad;
         $enf->estado = true;
@@ -415,7 +381,8 @@ class FichaEpidemiologicaController extends Controller
         return $id_enf;
     }
 
-    public function create_sospechoso($id_fe,$nombre,$paterno,$materno,$relacion,$edad,$telefono,$direccion,$fecha,$lugar) {
+    public function create_sospechoso($id_fe,$nombre,$paterno,$materno,$relacion,$edad,$telefono,$direccion,$fecha,$lugar)
+    {
         for ($i=0; $i < count($nombre) ; $i++) {
             $conta = new Contacto;
             $conta->id_fe = $id_fe;
@@ -430,21 +397,6 @@ class FichaEpidemiologicaController extends Controller
             $conta->lugar_contacto = $lugar[$i];
             $conta->save();
         }
-    }
-
-    public function create_muestra($muestra) {
-        $mue = new Muestra;
-        $mue->muestra = $muestra;
-        $mue->estado = true;
-        $mue->save();
-        return $mue->id_mue;
-    }
-
-    public function lista_muestra($id_lab,$muestra) {
-      $lista = new ListaMuestra;
-      $lista->id_lab = $id_lab;
-      $lista->id_mue = $muestra;
-      $lista->save();
     }
 
     public function pantalla_imprimir($id){
@@ -510,10 +462,15 @@ class FichaEpidemiologicaController extends Controller
                           ->select("muestra",'lugar_muestra','nombre_laboratorio','fecha_muestra','fecha_envio','responsable_muestra','observaciones','resultado_laboratorio','fecha_resultado')
                           ->get();
 
-        $muestra = Muestra::join('listas_muestras','listas_muestras.id_mue','=','muestras.id_mue')
-                          ->where('listas_muestras.id_lab','=',$laboratorio[0]->id_lab)
-                          ->select('muestra')
-                          ->get();
+        if(count($laboratorio) > 0){
+            $muestra = Muestra::join('listas_muestras','listas_muestras.id_mue','=','muestras.id_mue')
+                              ->where('listas_muestras.id_lab','=',$laboratorio[0]->id_lab)
+                              ->select('muestra')
+                              ->get();
+        }else{
+            $muestra = array();
+        }
+                          
 
         $personal = PersonalNotifica::where('id_pn','=',$fe->id_pn)->get();
 
@@ -533,23 +490,57 @@ class FichaEpidemiologicaController extends Controller
         return $pdf->stream('FichaEpidemiologica.pdf');
     }
 
-    public function certificado($id)
+    public function certificado($id,$id_lab)
     {
-      $paciente = FichaEpidemiologica::join('pacientes','pacientes.id_pac','=','ficha_epidemiologica.id_pac')
-                                     ->where('ficha_epidemiologica.id_fe','=',$id)
-                                     ->select('nombre_pacientes','paterno_pacientes','materno_pacientes','seguro_pacientes')
-                                     ->get();
-                                     //dd($paciente);
-      $lab = Laboratorio::join('listas_muestras','listas_muestras.id_lab','=','laboratorios.id_lab')
-                        ->join('muestras','muestras.id_mue','=','listas_muestras.id_mue')
-                        ->select('laboratorios.id_fe','laboratorios.id_lab','listas_muestras.id_lm','muestras.id_mue','fecha_muestra','resultado_laboratorio','fecha_resultado')
-                        ->where('laboratorios.id_fe','=',$id)
-                        ->get();
-                        //dd($lab);
+        $paciente = FichaEpidemiologica::join('pacientes','pacientes.id_pac','=','ficha_epidemiologica.id_pac')
+                                       ->where('ficha_epidemiologica.id_fe','=',$id)
+                                       ->select('nombre_pacientes','paterno_pacientes','materno_pacientes','seguro_pacientes')
+                                       ->get();
+        $lab = Laboratorio::join('listas_muestras','listas_muestras.id_lab','=','laboratorios.id_lab')
+                          ->join('muestras','muestras.id_mue','=','listas_muestras.id_mue')
+                          ->select('laboratorios.id_fe','laboratorios.id_lab','listas_muestras.id_lm','muestras.id_mue','fecha_muestra','resultado_laboratorio','fecha_resultado','fecha_impresion','numero')
+                          ->where('laboratorios.id_fe','=',$id)
+                          ->where('laboratorios.id_lab','=',$id_lab)
+                          ->get();
+        $fi = $this->fecha($id_lab,$id);
+        $reporte = PersonalNotifica::where('id_lab','=',$lab[0]->id_lab)->get();
+        $pdf = \PDF::loadView('imprimir.certificado', array('pac' => $paciente, 'lab' => $lab, 'reporte' => $reporte, 'fi' => $fi));
+        return $pdf->stream('Certificado.pdf');
+    }
 
-      /* return view('imprimir.certificado')->with('pac', $paciente)
-                                         ->with('lab', $lab);*/
-      $pdf = \PDF::loadView('imprimir.certificado', array('pac' => $paciente, 'lab' => $lab));
-      return $pdf->stream('Certificado.pdf');
+    public function fecha($id_lab,$id_fe)
+    {
+        $find = Laboratorio::where('id_lab','=',$id_lab)
+                           ->where('id_fe','=',$id_fe)
+                           ->select('fecha_impresion')
+                           ->get();
+        if(is_null($find[0]->fecha_impresion)){
+            $nue = Laboratorio::find($id_lab);
+            $nue->fecha_impresion = date("Y")."-".date("m")."-".date("d");
+            $nue->save();
+            return $nue->fecha_impresion;
+        } else {
+            return $find[0]->fecha_impresion;
+        }
+    }
+
+    public function certificado_medico($id_fe)
+    {
+        $paciente = FichaEpidemiologica::join('pacientes','pacientes.id_pac','=','ficha_epidemiologica.id_pac')
+                                       ->where('ficha_epidemiologica.id_fe','=',$id_fe)
+                                       ->select('ficha_epidemiologica.id_dc','nombre_pacientes','paterno_pacientes','materno_pacientes','seguro_pacientes')
+                                       ->get();
+                                       
+        $lab = Laboratorio::join('personal_notificado','personal_notificado.id_lab','=','laboratorios.id_lab')
+                          ->where('laboratorios.id_fe','=',$id_fe)
+                          ->select('nombre_notifica','paterno_notifica','materno_notifica')
+                          ->get();
+        $dc = DatoClinico::select('sintomas')
+                              ->where('id_dc','=',$paciente[0]->id_dc)
+                              ->get();
+        $filtro = explode(",",$dc[0]->sintomas);
+        $sintoma = Sintoma::whereIn('id_sin',$filtro)->select('sintoma')->get();
+        $pdf = \PDF::loadView('imprimir.certificado_medico', array('pac' => $paciente, 'lab' => $lab, 'sin' => $sintoma));
+        return $pdf->stream('CertificadoMedico.pdf');
     }
 }

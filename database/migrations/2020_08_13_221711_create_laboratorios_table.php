@@ -21,6 +21,10 @@ class CreateLaboratoriosTable extends Migration
             //FIN
             $table->boolean('muestra')->nullable();
             $table->string('lugar_muestra')->nullable();
+            // LLAVE FORANEA A LA TABLA MUESTRAS
+            $table->unsignedBigInteger('id_mue');
+            $table->foreign('id_mue')->references('id_mue')->on('muestras');
+            //FIN
             $table->string('nombre_laboratorio')->nullable();
             $table->date('fecha_muestra')->nullable();
             $table->date('fecha_envio')->nullable();
@@ -28,6 +32,9 @@ class CreateLaboratoriosTable extends Migration
             $table->text('observaciones')->nullable();
             $table->boolean('resultado_laboratorio')->nullable();
             $table->date('fecha_resultado')->nullable();
+            $table->date('fecha_impresion')->nullable();
+            $table->integer('numero');
+            $table->integer('estado')->default('1');
 
             $table->timestamps();
         });

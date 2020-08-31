@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PersonalNotifica extends Model
 {
-    protected $table = 'personal_notifica';
+    protected $table = 'personal_notificado';
     protected $primaryKey = 'id_pn';
     public $timestamps = true;
 }

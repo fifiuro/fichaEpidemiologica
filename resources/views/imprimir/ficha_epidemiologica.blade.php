@@ -395,7 +395,7 @@
             <td>Se tomó muestra para laboratorio</td>
             <td class="resultado">
                 @if (count($lab) > 0)
-                    @if ($lab[0]->muestras)
+                    @if ($lab[0]->muestra)
                         SI
                     @else
                         NO
@@ -418,9 +418,9 @@
             <td>Nombre de Lab. que procesa la muestra</td>
             <td class="resultado">@if (count($lab) > 0) {{ $lab[0]->nombre_laboratorio }} @endif</td>
             <td>Fecha de toma de muestra</td>
-            <td class="resultado">fecha_muestra</td>
+            <td class="resultado">@if (count($lab) > 0) {{ $lab[0]->fecha_muestra }} @endif</td>
             <td>Fecha de envio</td>
-            <td class="resultado">fecha_envio</td>
+            <td class="resultado">@if (count($lab) > 0) {{ $lab[0]->fecha_envio }} @endif</td>
         </tr>
         <tr>
             <td>Resposable de Toma de Muestra</td>

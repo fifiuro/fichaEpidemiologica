@@ -7,7 +7,7 @@
             <div class="card-header">
                 <h3 class="card-title">BUSCAR FICHA EPIDEMIOLOGICA</h3>
             </div>
-            <form role="form" method="POST" action="{{ url('buscar') }}" id="quickForm">
+            <form role="form" method="POST" action="{{ url('ficha/buscar') }}" id="quickForm">
                 @csrf
                 <div class="card-body">
                     <div class="row">
@@ -24,7 +24,7 @@
                                     <i class="fas fa-search"></i>
                                 </button>
                                 {{-- Boton Nuevo --}}
-                                <a href="{{ url('nuevo') }}" class="btn btn-danger">
+                                <a href="{{ url('ficha/nuevo') }}" class="btn btn-danger">
                                     <i class="fas fa-plus"></i>
                                 </a>
                             </div>
@@ -73,9 +73,13 @@
                                         <a href="{{ url('imprimir/'.$f->id_fe) }}" class="btn btn-info" target="_blank">
                                             <i class="fas fa-print"></i>
                                         </a>
-                                        {{-- Boton de Imprimir Certificado --}}
-                                        <a href="{{ url('certificado/'.$f->id_fe) }}" class="btn btn-success" target="_blank">
-                                            <i class="fas fa-award"></i>
+                                        {{-- Boton de Imprimir Certificado Medico --}}
+                                        <a href="{{ url('certificado_medico/'.$f->id_fe) }}" class="btn btn-primary" target="_blank">
+                                            <i class="far fa-file-alt"></i>
+                                        </a>
+                                        {{-- Boton de Crear Laboratorio --}}
+                                        <a href="{{ url('laboratorio/buscar/'.$f->id_fe) }}" class="btn btn-warning">
+                                            <i class="fas fa-flask"></i>
                                         </a>
                                     </td>
                                 </tr>
