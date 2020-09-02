@@ -44,7 +44,8 @@ class LaboratorioController extends Controller
                                          ->with('mue',$mue)
                                          ->with('menor',$menor)
                                          ->with('lab',$lab)
-                                         ->with('id',$id);
+                                         ->with('id',$id)
+                                         ->with('usu',$this->Usuario());
     }
 
     /**
@@ -59,7 +60,7 @@ class LaboratorioController extends Controller
                            ->join('pacientes','pacientes.id_pac','=','pacientes.id_pac')
                            ->where(DB::raw('CONCAT(nombre_pacientes," ",paterno.pacientes," ",materno.pacientes)','like','%%'))
                            ->gert();
-        return view('laboratorio.buscar');
+        return view('laboratorio.buscar')->with('usu',$this->Usuario());
     }
 
     /**
@@ -83,7 +84,8 @@ class LaboratorioController extends Controller
         return view('laboratorio.nuevo')->with('find',$find)
                                         ->with('dep',$dep)
                                         ->with('mue',$mue)
-                                        ->with('menor',$menor);
+                                        ->with('menor',$menor)
+                                        ->with('usu',$this->Usuario());
     }
 
     /**
@@ -96,6 +98,7 @@ class LaboratorioController extends Controller
     {
         $find = new Laboratorio;
         $find->id_fe = $request->id_fe;
+        $find->id_pn = $this->UsuarioID();
         $find->muestra = $request->muestra_laboratorio;
         $find->lugar_muestra = $request->lugar_muestra;
         $find->id_mue = $request->id_mue;
@@ -120,16 +123,16 @@ class LaboratorioController extends Controller
         }
 
         // DATOS PERSONAL QUE NOTIFICA
-        $personal = new PersonalNotifica;
+        /* $personal = new PersonalNotifica;
         $personal->id_lab = $id_lab;
         $personal->nombre_notifica = $request->nombre_personal;
         $personal->paterno_notifica = $request->paterno_personal;
         $personal->materno_notifica = $request->materno_personal;
         $personal->tel_cel_notifica = $request->tel_cel_personal;
         $personal->save();
-        $id_pn = $personal->id_pn;
+        $id_pn = $personal->id_pn; */
 
-        return redirect('laboratorio/buscar/'.$request->id_fe);
+        return redirect('laboratorio/buscar/'.$request->id_fe)->with('usu',$this->Usuario());
     }
 
     /**
@@ -142,7 +145,7 @@ class LaboratorioController extends Controller
     {
         $find = Laboratorio::where('muestras','muestras.id_mue','=','laboratorios.id_mue')
                            ->get();
-        return view('laboratorio.buscar')->with('find',$find);
+        return view('laboratorio.buscar')->with('find',$find)->with('usu',$this->Usuario());
     }
 
     /**
@@ -177,7 +180,7 @@ class LaboratorioController extends Controller
           $this->lista_muestra($id_lab,$request->id_mue);
         }
 
-        return view('laboratorio.buscar');
+        return view('laboratorio.buscar')->with('usu',$this->Usuario());
     }
 
     /**
@@ -188,7 +191,7 @@ class LaboratorioController extends Controller
      */
     public function confirm($id)
     {
-        return view('laboratorio.confirma')->with('id',$id);
+        return view('laboratorio.confirma')->with('id',$id)->with('usu',$this->Usuario());
     }
 
     /**
@@ -201,7 +204,7 @@ class LaboratorioController extends Controller
     {
         $find = Laboratorio::find($id);
         $find->delete();
-        return view('laboratorio.buscar');
+        return view('laboratorio.buscar')->with('usu',$this->Usuario());
     }
 
     public function create_muestra($muestra) {
@@ -230,5 +233,21 @@ class LaboratorioController extends Controller
         } else {
             return 1;
         }
+    }
+
+    public function Usuario()
+    {
+        $usu = PersonalNotifica::where('id','=',\Auth::user()->id)
+                               ->select('id_pn','nombre_notifica','paterno_notifica','materno_notifica')
+                               ->get();
+        return $usu;
+    }
+
+    public function UsuarioID()
+    {
+        $usu = PersonalNotifica::where('id','=',\Auth::user()->id)
+                               ->select('id_pn')
+                               ->get();
+        return $usu[0]->id_pn;
     }
 }

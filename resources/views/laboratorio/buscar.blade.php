@@ -111,7 +111,7 @@
         </div>
         <div class="card-footer">
             <a href="{{ url('laboratorio/nuevo/'.$id) }}" class="btn btn-primary">AGREGAR LABORATORIO</a>
-            <a href="{{ url('/') }}" class="btn btn-danger">CERRAR</a>
+            <a href="{{ url('/home') }}" class="btn btn-danger">CERRAR</a>
         </div>
     </div>
 </div>

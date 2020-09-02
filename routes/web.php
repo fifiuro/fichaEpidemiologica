@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Exports\DiagnosticoExport;
+use App\PersonalNotifica;
 
 
 /*
@@ -16,16 +17,19 @@ use App\Exports\DiagnosticoExport;
 |
 */
 
-Route::get('welcome', function(){
-  return view('welcome');
+Route::get('/', function(){
+  return view('auth.login');
 });
 
-Route::get('/', function () {
-    return view('template.inicio');
-});
+Route::get('home', function () {
+  $usu = PersonalNotifica::where('id','=',Auth::user()->id)
+                         ->select('nombre_notifica','paterno_notifica','materno_notifica')
+                         ->get();
+  return view('template.inicio')->with('usu',$usu);
+})->middleware('auth');
 
 /** FICHA EPIDEMIOLOGICA */
-Route::group(['prefix' => 'ficha'], function(){
+Route::group(['prefix' => 'ficha', 'middleware' => ['auth']], function(){
   Route::get('buscar','FichaEpidemiologicaController@index');
   Route::post('buscar','FichaEpidemiologicaController@show');
   Route::get('nuevo', 'FichaEpidemiologicaController@create');
@@ -36,7 +40,7 @@ Route::group(['prefix' => 'ficha'], function(){
 /** FIN */
 
 /** LABORATORIO */
-Route::group(['prefix' => 'laboratorio'], function(){
+Route::group(['prefix' => 'laboratorio', 'middleware' => ['auth']], function(){
   Route::get('buscar/{id}','LaboratorioController@index');
   Route::post('buscar','LaboratorioController@show');
   Route::get('nuevo/{id}','LaboratorioController@create');
@@ -71,6 +75,6 @@ Route::get('excel',function(){
 
 //Route::name('imprimir')->get('imprimir','FichaEpidemiologicaController@imprimir');
 
-Auth::routes();
+Auth::routes(["register" => false, "reset" => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');

@@ -36,7 +36,7 @@ class FichaEpidemiologicaController extends Controller
      */
     public function index()
     {
-        return view('form.buscar');
+        return view('form.buscar')->with('usu',$this->Usuario());
     }
 
     /**
@@ -56,11 +56,13 @@ class FichaEpidemiologicaController extends Controller
         if(!is_null($find)){
             return view('form.buscar')->with('find', $find)
                                       ->with('estado', '1')
-                                      ->with('mensaje', '');
+                                      ->with('mensaje', '')
+                                      ->with('usu',$this->Usuario());
         }else{
             return view('form.buscar')->with('find', $find)
                                       ->with('estado', '0')
-                                      ->with('mensaje', 'No se tiene resultado para la busqueda: '.$request->nombre);
+                                      ->with('mensaje', 'No se tiene resultado para la busqueda: '.$request->nombre)
+                                      ->with('usu',$this->Usuario());
         }
     }
 
@@ -89,7 +91,8 @@ class FichaEpidemiologicaController extends Controller
                                  ->with('est',$est)
                                  ->with('dia',$dia)
                                  ->with('enf',$enf)
-                                 ->with('mue',$mue);
+                                 ->with('mue',$mue)
+                                 ->with('usu',$this->Usuario());
     }
 
     /**
@@ -262,7 +265,7 @@ class FichaEpidemiologicaController extends Controller
             }
         }
 
-        return view('form.buscar');
+        return view('form.buscar')->with('usu',$this->Usuario());
     }
 
     /**
@@ -296,7 +299,7 @@ class FichaEpidemiologicaController extends Controller
      */
     public function confirm($id)
     {
-        return view('form.confirma')->with('id', $id);
+        return view('form.confirma')->with('id', $id)->with('usu',$this->Usuario());
     }
 
     /**
@@ -316,7 +319,7 @@ class FichaEpidemiologicaController extends Controller
         $fe = FichaEpidemiologica::find($request->id);
         $fe->delete();
 
-        return view('form.buscar');
+        return view('form.buscar')->with('usu',$this->Usuario());
     }
 
     /**
@@ -400,7 +403,7 @@ class FichaEpidemiologicaController extends Controller
     }
 
     public function pantalla_imprimir($id){
-        return view('imprimir.mensaje')->with('id',$id);
+        return view('imprimir.mensaje')->with('id',$id)->with('usu',$this->Usuario());
     }
 
     public function imprimir($id)
@@ -498,12 +501,12 @@ class FichaEpidemiologicaController extends Controller
                                        ->get();
         $lab = Laboratorio::join('listas_muestras','listas_muestras.id_lab','=','laboratorios.id_lab')
                           ->join('muestras','muestras.id_mue','=','listas_muestras.id_mue')
-                          ->select('laboratorios.id_fe','laboratorios.id_lab','listas_muestras.id_lm','muestras.id_mue','fecha_muestra','resultado_laboratorio','fecha_resultado','fecha_impresion','numero')
+                          ->select('laboratorios.id_fe','laboratorios.id_lab','laboratorios.id_pn','listas_muestras.id_lm','muestras.id_mue','fecha_muestra','resultado_laboratorio','fecha_resultado','fecha_impresion','numero')
                           ->where('laboratorios.id_fe','=',$id)
                           ->where('laboratorios.id_lab','=',$id_lab)
                           ->get();
         $fi = $this->fecha($id_lab,$id);
-        $reporte = PersonalNotifica::where('id_lab','=',$lab[0]->id_lab)->get();
+        $reporte = PersonalNotifica::where('id_pn','=',$lab[0]->id_pn)->get();
         $pdf = \PDF::loadView('imprimir.certificado', array('pac' => $paciente, 'lab' => $lab, 'reporte' => $reporte, 'fi' => $fi));
         return $pdf->stream('Certificado.pdf');
     }
@@ -530,17 +533,27 @@ class FichaEpidemiologicaController extends Controller
                                        ->where('ficha_epidemiologica.id_fe','=',$id_fe)
                                        ->select('ficha_epidemiologica.id_dc','nombre_pacientes','paterno_pacientes','materno_pacientes','seguro_pacientes')
                                        ->get();
-                                       
-        $lab = Laboratorio::join('personal_notificado','personal_notificado.id_lab','=','laboratorios.id_lab')
+                                       //dd($paciente[0]);
+        $lab = Laboratorio::join('personal_notificado','personal_notificado.id_pn','=','laboratorios.id_pn')
                           ->where('laboratorios.id_fe','=',$id_fe)
-                          ->select('nombre_notifica','paterno_notifica','materno_notifica')
+                          ->select('nombre_notifica','paterno_notifica','materno_notifica','matricula_profesional')
                           ->get();
+                          //dd($lab);
         $dc = DatoClinico::select('sintomas')
                               ->where('id_dc','=',$paciente[0]->id_dc)
                               ->get();
+                              //dd($dc);
         $filtro = explode(",",$dc[0]->sintomas);
         $sintoma = Sintoma::whereIn('id_sin',$filtro)->select('sintoma')->get();
         $pdf = \PDF::loadView('imprimir.certificado_medico', array('pac' => $paciente, 'lab' => $lab, 'sin' => $sintoma));
         return $pdf->stream('CertificadoMedico.pdf');
+    }
+
+    public function Usuario()
+    {
+        $usu = PersonalNotifica::where('id','=',\Auth::user()->id)
+                               ->select('id_pn','nombre_notifica','paterno_notifica','materno_notifica')
+                               ->get();
+        return $usu;
     }
 }

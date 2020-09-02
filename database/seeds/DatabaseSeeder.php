@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CreateDiagnosticosSeeder::class);
         $this->call(CreateEnfermedadSeeder::class);
         $this->call(CreateMuestraSeeder::class);
+        $this->call(CreateUsuarioSeeder::class);
+        $this->call(CreatePersonalNotificaSeeder::class);
     }
 }

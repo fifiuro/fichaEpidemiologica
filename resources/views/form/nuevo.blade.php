@@ -791,7 +791,7 @@
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">GUARDAR</button>
-                <a href="{{ url('/') }}" class="btn btn-danger">CANCELAR</a>
+                <a href="{{ url('home') }}" class="btn btn-danger">CANCELAR</a>
             </div>
         </form>
     </div>

@@ -19,6 +19,10 @@ class CreateLaboratoriosTable extends Migration
             $table->unsignedBigInteger('id_fe');
             $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica')->onDelete('cascade');
             //FIN
+            // LLAVE FORANEA A LA TABLA PERSONAL NOTIFICA
+            $table->unsignedBigInteger('id_pn');
+            $table->foreign('id_pn')->references('id_pn')->on('personal_notificado');
+            //FIN
             $table->boolean('muestra')->nullable();
             $table->string('lugar_muestra')->nullable();
             // LLAVE FORANEA A LA TABLA MUESTRAS

@@ -15,14 +15,15 @@ class CreatePersonalNotificadoTable extends Migration
     {
         Schema::create('personal_notificado', function (Blueprint $table) {
             $table->bigIncrements('id_pn');
-            // LLAVE FORANEA A LA TABLA FICHAS EPIDEMIOLOGIA
-            $table->unsignedBigInteger('id_lab');
-            $table->foreign('id_lab')->references('id_lab')->on('laboratorios')->onDelete('cascade');
+            // LLAVE FORANEA A LA TABLA USERS
+            $table->unsignedBigInteger('id');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
             //FIN
             $table->string('nombre_notifica')->nullable();
             $table->string('paterno_notifica')->nullable();
             $table->string('materno_notifica')->nullable();
             $table->string('tel_cel_notifica')->nullable();
+            $table->string('matricula_profesional')->nullable();
             $table->timestamps();
         });
     }

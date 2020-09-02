@@ -195,11 +195,11 @@
                 </div>
                 <hr>
                 {{--  DATOS DEL PERSONAL QUE NOTIFICA  --}}
-                <div class="row">
+                {{--  <div class="row">
                     <label for="" style="font-size:18px;">DATOS DEL PERSONAL QUE NOTIFICA</label>
-                </div>
-                <hr>
-                <div class="row grupo">
+                </div>  --}}
+                {{--  <hr>  --}}
+                {{--  <div class="row grupo">
                     <div class="form-group col-md-4">
                         <label for="nombre_personal">Nombre</label>
                         <input type="text" name="nombre_personal" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre_personal') }}" required>
@@ -236,11 +236,11 @@
                             </small>
                         @endif
                     </div>
-                </div>
+                </div>  --}}
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">GUARDAR</button>
-                <a href="{{ url('/') }}" class="btn btn-danger">CANCELAR</a>
+                <a href="{{ url('/home') }}" class="btn btn-danger">CANCELAR</a>
             </div>
         </form>
     </div>

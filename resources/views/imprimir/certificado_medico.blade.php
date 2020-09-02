@@ -74,7 +74,7 @@
     <table>
         <tr>
             <td>Lugar y Fecha (Fecha que no se pueda modificar):</td>
-            <td></td>
+            <td>{{ date("d") }}/{{ date("m") }}/{{ date("Y") }}</td>
         </tr>
         <tr>
             <td>Nombres y Apellidos (del Médico):</td>
@@ -82,7 +82,7 @@
         </tr>
         <tr>
             <td>Matriculo Profesional Ministerio de Salud:</td>
-            <td></td>
+            <td>{{ $lab[0]->matricula_profesional }}</td>
         </tr>
     </table>
     <hr>

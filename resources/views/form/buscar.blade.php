@@ -66,20 +66,20 @@
                                             <i class="fas fa-edit"></i>
                                         </a> --}}
                                         {{-- Boton de Eliminar --}}
-                                        <a href="{{ url('confirm/'.$f->id_fe) }}" class="btn btn-danger">
+                                        {{--  <a href="{{ url('confirm/'.$f->id_fe) }}" class="btn btn-danger">
                                             <i class="far fa-trash-alt"></i>
-                                        </a>
+                                        </a>  --}}
                                         {{-- Boton de Imprimir --}}
-                                        <a href="{{ url('imprimir/'.$f->id_fe) }}" class="btn btn-info" target="_blank">
+                                        <a href="{{ url('imprimir/'.$f->id_fe) }}" class="btn btn-primary" target="_blank">
                                             <i class="fas fa-print"></i>
                                         </a>
-                                        {{-- Boton de Imprimir Certificado Medico --}}
-                                        <a href="{{ url('certificado_medico/'.$f->id_fe) }}" class="btn btn-primary" target="_blank">
-                                            <i class="far fa-file-alt"></i>
-                                        </a>
                                         {{-- Boton de Crear Laboratorio --}}
-                                        <a href="{{ url('laboratorio/buscar/'.$f->id_fe) }}" class="btn btn-warning">
+                                        <a href="{{ url('laboratorio/buscar/'.$f->id_fe) }}" class="btn btn-danger">
                                             <i class="fas fa-flask"></i>
+                                        </a>
+                                        {{-- Boton de Imprimir Certificado Medico --}}
+                                        <a href="{{ url('certificado_medico/'.$f->id_fe) }}" class="btn btn-info" target="_blank">
+                                            <i class="far fa-file-alt"></i>
                                         </a>
                                     </td>
                                 </tr>

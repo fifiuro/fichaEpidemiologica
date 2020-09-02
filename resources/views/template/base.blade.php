@@ -52,17 +52,17 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
-            {{-- <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-              Christian René Cárdenas Sánchez <span class="caret"></span>
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+              {{ $usu[0]->nombre_notifica }} {{ $usu[0]->paterno_notifica }} {{ $usu[0]->materno_notifica }}<span class="caret"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+              <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 Cerrar Sesion
               </a>
-              <form id="logout-form" action="#" method="POST" style="display: none;">
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
               </form>
-            </div> --}}
+            </div>
           </li>
         </ul>    
       </nav>
@@ -71,7 +71,7 @@
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="{{ url('/') }}" class="brand-link">
+        <a href="{{ url('home') }}" class="brand-link">
           <img src="{{ asset('images/LogoLight.png') }}" alt="Empresa" class="brand-image img-circle elevation-3">
           <span class="brand-text font-weight-light">Caja Nacional de Salud</span>
         </a>
@@ -95,11 +95,11 @@
                   </a>
                 </li>
 
-                <li class="nav-item">
+                {{--  <li class="nav-item">
                   <a href="{{ url('resultado') }}" class="nav-link">
                     <i class="far fa-file-alt"></i> <p>Reporte Pacientes SARS-COV-2</p>
                   </a>
-                </li>
+                </li>  --}}
 
             </ul>
           </nav>
