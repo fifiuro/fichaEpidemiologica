@@ -21,7 +21,7 @@
   <style type="text/css">
     body {
       background-repeat: no-repeat !important;
-      background: url('../images/Fonfo3.jpg') no-repeat center center fixed !important;
+      background: url('../images/Fondo3.jpg') no-repeat center center fixed !important;
       background-size: 100% 100% !important;
     }
   </style>

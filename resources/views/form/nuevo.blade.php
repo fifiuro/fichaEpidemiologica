@@ -17,16 +17,31 @@
                 </div>
                 <hr>
                 <div class="row grupo">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-12">
                         <label for="establecimiento">Establecimiento de Salud</label>
-                        <input type="text" name="establecimiento" id="" class="form-control" placeholder="Establecimiento de Salud" value="{{ old('establecimiento') }}">
+                        <select name="id_est" id="id_est" class="form-control" required>
+                            @foreach ($cs as $c)
+                                <option value="{{ $c["id_est"] }}">{{ $c["establecimiento"] }}</option>
+                            @endforeach
+                        </select>
+                        <input type="hidden" name="api" value="0" required>
                         @if ($errors->has('establecimiento'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('establecimiento') }}
                             </small>
                         @endif
                     </div>
-                    <div class="form-group col-md-4">
+                    {{--  <div class="form-group col-md-4">
+                        <label for="establecimiento">Establecimiento de Salud</label>
+                        <input type="text" name="establecimiento" id="" class="form-control" placeholder="Establecimiento de Salud" value="{{ old('establecimiento') }}">
+                        <input type="hidden" name="api" value="true">
+                        @if ($errors->has('establecimiento'))
+                            <small class="form-text text-danger">
+                                {{ $errors->first('establecimiento') }}
+                            </small>
+                        @endif
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-4">
                         <label for="codigo">Código Establecimiento</label>
                         <input type="text" name="codigo" id="" class="form-control" placeholder="Código Establecimiento" value="{{ old('codigo') }}">
                         @if ($errors->has('codigo'))
@@ -34,8 +49,8 @@
                                 {{ $errors->first('codigo') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-4">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-4">
                         <label for="red">Red de Salud</label>
                         <input type="text" name="red" id="" class="form-control" placeholder="Red de Salud" value="{{ old('red') }}" required>
                         @if ($errors->has('red'))
@@ -43,8 +58,8 @@
                                 {{ $errors->first('red') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="departamento">Departamento</label>
                         <select name="departamento" id="" class="form-control" required>
                             @foreach ($dep as $d)
@@ -56,8 +71,8 @@
                                 {{ $errors->first('departamento') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="municipio">Municipio</label>
                         <input type="text" name="municipio" id="" class="form-control" placeholder="Municipio" value="{{ old('municipio') }}" required>
                         @if ($errors->has('municipio'))
@@ -65,8 +80,8 @@
                                 {{ $errors->first('municipio') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    <div class="form-group col-md-4">
                         <label for="fecha_notificacion">Fecha de Notificación</label>
                         <input type="date" name="fecha_notificacion" id="" class="form-control" value="{{ old('fecha_notificacion') }}" required>
                         @if ($errors->has('fecha_notificacion'))
@@ -75,16 +90,16 @@
                             </small>
                         @endif
                     </div>
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-4">
                         <label for="sem_epidem">Sem Epidem</label>
-                        <input type="text" name="sem_epidem" id="" class="form-control" placeholder="Sem Epidem" value="{{ old('sem_epidem') }}" required>
+                        <input type="number" name="sem_epidem" id="" class="form-control" placeholder="Sem Epidem" value="{{ old('sem_epidem') }}" required>
                         @if ($errors->has('sem_epidem'))
                             <small class="form-text text-danger">
                                 {{ $errors->first('sem_epidem') }}
                             </small>
                         @endif
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-4">
                         <label for="caso_identificado">Caso identificado por busqueda activa</label>
                         <input type="radio" name="caso_identificado" id="" value="1" checked> SI
                         <input type="radio" name="caso_identificado" id="" value="0"> NO
@@ -101,17 +116,35 @@
                     <label for="" style="font-size:18px;">2. IDENTIFICACION DEL CASO/PACIENTE</label>
                 </div>
                 <hr>
-                <div class="row grupo">
-                    <div class="form-group col-md-3">
+                <div class="row grupo" id="busquedaPaciente">
+                    <div class="form-group col-md-5">
+                        <label for="ci">Número de Carnet</label>
+                        <input type="text" id="ci" class="form-control" placeholder="Carnet de Identidad">
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="fecha">Fecha Nacimiento</label>
+                        <input type="date" id="fecha" class="form-control" placeholder="Fecha Nacimiento">
+                    </div>
+                    <div class="form-group col-md-2">
+                        {{--  BOTON PARA BUSCAR PERSONA / PACIENTE  --}}
+                        <button type="button" class="btn btn-primary" id="busquedaPacienteBoton">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        {{--  BOTON PARA REGISTRAR PERSONA / PACIENTE  --}}
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#persona-agregar">
+                            <strong><i class="fas fa-plus"></i></strong>
+                        </button>
+                    </div>
+                    {{--  <div class="form-group col-md-3">
                         <label for="nombre_pacientes">Nombre</label>
                         <input type="text" name="nombre_pacientes" id="" class="form-control" placeholder="Nombre" value="{{ old('nombre_pacientes') }}" required>
                         @if ($errors->has('nombre_pacientes'))
                             <small class="form-text text-danger">
-                                {{ $errors->first('nombre') }}
+                                {{ $errors->first('nombre_pacientes') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="paterno_pacientes">Paterno</label>
                         <input type="text" name="paterno_pacientes" id="" class="form-control" placeholder="Paterno" value="{{ old('paterno_pacientes') }}" required>
                         @if ($errors->has('paterno_pacientes'))
@@ -119,8 +152,8 @@
                                 {{ $errors->first('paterno_pacientes') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="materno_pacientes">Materno</label>
                         <input type="text" name="materno_pacientes" id="" class="form-control" placeholder="Materno" value="{{ old('materno_pacientes') }}">
                         @if ($errors->has('materno_pacientes'))
@@ -128,8 +161,8 @@
                                 {{ $errors->first('materno_pacientes') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="seguro_pacientes">Num. Seguro</label>
                         <input type="text" name="seguro_pacientes" id="" class="form-control" placeholder="Materno" value="{{ old('seguro_pacientes') }}">
                         @if ($errors->has('seguro_pacientes'))
@@ -137,8 +170,8 @@
                                 {{ $errors->first('seguro_pacientes') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="sexo">Sexo</label>
                         <select name="sexo" id="" class="form-control">
                             <option value="f">Femenino</option>
@@ -149,8 +182,8 @@
                                 {{ $errors->first('sexo') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="ci">Nº Carnet de Identidad/Pasaporte</label>
                         <input type="text" name="ci" id="" class="form-control" placeholder="Nº Carnet de Identidad/Pasaporte" value="{{ old('ci') }}">
                         @if ($errors->has('ci'))
@@ -158,8 +191,8 @@
                                 {{ $errors->first('ci') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="expedido">Expedido</label>
                         <select name="expedido" id="" class="form-control">
                             @foreach ($dep as $d)
@@ -171,8 +204,8 @@
                                 {{ $errors->first('ci') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="fecha_nac">Fecha de Nacimiento</label>
                         <input type="date" name="fecha_nac" id="" class="form-control" placeholder="Fecha de Nacimiento" value="{{ old('fecha_nac') }}">
                         @if ($errors->has('fecha_nac'))
@@ -180,8 +213,8 @@
                                 {{ $errors->first('fecha_nac') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-12">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-12">
                         <label for="edad_pacientes">Edad</label>
                         <input type="text" name="edad_pacientes" id="" class="form-control" placeholder="Edad" value="{{ old('edad_pacientes') }}">
                         @if ($errors->has('edad_pacientes'))
@@ -189,8 +222,8 @@
                                 {{ $errors->first('edad_pacientes') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-4">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-4">
                         <label for="id_pai_pacientes">Lugar de residencia: País</label>
                         <select name="id_pai_pacientes" id="" class="form-control">
                             @foreach ($pai as $p)
@@ -202,8 +235,8 @@
                                 {{ $errors->first('id_pai_pacientes') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-4">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-4">
                         <label for="id_dep_pacientes">Departamento</label>
                         <select name="id_dep_pacientes" id="" class="form-control">
                             @foreach ($dep as $d)
@@ -215,8 +248,8 @@
                                 {{ $errors->first('id_dep_pacientes') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-4">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-4">
                         <label for="municipio_paciente">Municipio</label>
                         <input type="text" name="municipio_paciente" id="" class="form-control" placeholder="Municipio" value="{{ old('municipio_paciente') }}">
                         @if ($errors->has('municipio_paciente'))
@@ -225,8 +258,8 @@
                             </small>
                         @endif
                     </div>
-
-                    <div class="form-group col-md-3">
+  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="calle">Calle</label>
                         <input type="text" name="calle" id="" class="form-control" placeholder="Calle" value="{{ old('calle') }}">
                         @if ($errors->has('calle'))
@@ -234,8 +267,8 @@
                                 {{ $errors->first('calle') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="zona">Zona</label>
                         <input type="text" name="zona" id="" class="form-control" placeholder="Zona" value="{{ old('zona') }}">
                         @if ($errors->has('zona'))
@@ -243,8 +276,8 @@
                                 {{ $errors->first('zona') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="num">Nº</label>
                         <input type="text" name="num" id="" class="form-control" placeholder="Nº" value="{{ old('num') }}">
                         @if ($errors->has('num'))
@@ -252,8 +285,8 @@
                                 {{ $errors->first('num') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-3">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-3">
                         <label for="telefono_pacientes">Teléfono</label>
                         <input type="text" name="telefono_pacientes" id="" class="form-control" placeholder="Teléfono" value="{{ old('telefono_pacientes') }}">
                         @if ($errors->has('telefono_pacientes'))
@@ -261,8 +294,8 @@
                                 {{ $errors->first('telefono_pacientes') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-12">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-12">
                         <label for="menor">¿Es menor de edad?</label>
                         <input type="radio" name="menor" value="1" checked> SI
                         <input type="radio" name="menor" value="0"> NO
@@ -271,8 +304,8 @@
                                 {{ $errors->first('menor') }}
                             </small>
                         @endif
-                    </div>
-                    <div class="form-group col-md-12">
+                    </div>  --}}
+                    {{--  <div class="form-group col-md-12">
                         <table class="table table-striped">
                             <tr>
                                 <th>NOMBRE</th>
@@ -297,6 +330,41 @@
                                 </td>
                             </tr>
                         </table>
+                    </div>  --}}
+                </div>
+                <div class="row grupo" style="display: none" id="resultadoPaciente">
+                    <div class="form-group col-md-4">
+                        <label>Nombres y Apellidos</label>
+                        <input type="text" id="resultadoPecienteNombre" class="form-control" disabled>
+                        <input type="hidden" name="id_pac" id="id_pac" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Num. Seguro</label>
+                        <input type="text" id="resltadoPacienteSeguro" class="form-control" disabled>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Sexo</label>
+                        <input type="text" id="resultadoPacienteSexo" class="form-control" disabled>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Nº Carnet de Identidad/Pasaporte</label>
+                        <input type="text" id="resultadoPacienteCi" class="form-control" disabled>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Expedido</label>
+                        <input type="text" id="resultadoPacienteExpedido" class="form-control" disabled>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Fecha de Nacimiento</label>
+                        <input type="date" id="resultadoPacienteFecha" class="form-control" disabled>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Edad</label>
+                        <input type="text" id="resultadoPacienteEdad" class="form-control" disabled>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Teléfono / Celular</label>
+                        <input type="text" id="resultadoPacienteTelefono" class="form-control" disabled>
                     </div>
                 </div>
                 <hr>
@@ -798,8 +866,257 @@
 </div>
 @stop
 
+{{--  Modal para Agregar Persona  --}}
+<div class="modal fade" id="persona-agregar">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">REGISTRO DE DATOS PERSONA</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <form role="form" method="POST" action="">
+                    @csrf
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="nombre-modal">Nombre *</label>
+                                <input type="text" name="nombre-modal" class="form-control" id="nombre-modal" placeholder="Nombre" value="{{ old('nombre-modal') }}" maxlength="255" autofocus required>
+                                @if ($errors->has('nombre-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('nombre-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="paterno-modal">Apellido Paterno *</label>
+                                <input type="text" name="paterno-modal" class="form-control" id="paterno-modal" placeholder="Apellidos Paterno" value="{{ old('paterno-modal') }}" required>
+                                @if ($errors->has('paterno-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('paterno-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="materno-modal">Apellido Materno *</label>
+                                <input type="text" name="materno-modal" class="form-control" id="materno-modal" placeholder="Apellido materno" value="{{ old('materno-modal') }}" required>
+                                @if ($errors->has('materno-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('materno-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="ci-modal">C.I. *</label>
+                                <input type="text" name="ci-modal" class="form-control" id="ci" placeholder="C.I." value="{{ old('ci-modal') }}" required>
+                                @if ($errors->has('ci-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('ci-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="expedido-modal">Expedido *</label>
+                                <input type="text" name="expedido-modal" class="form-control" id="expedido-modal" placeholder="Expedido" value="{{ old('expedido-modal') }}" required>
+                                @if ($errors->has('expedido-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('expedido-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="fecha-modal">Fecha Nacimiento *</label>
+                                <input type="date" name="fecha-modal" class="form-control" id="fecha-modal" placeholder="Fecha Nacimiento" value="{{ old('fecha-modal') }}" required>
+                                @if ($errors->has('fecha-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('fecha-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="sexo-modal">Sexo *</label>
+                                <input type="text" name="sexo-modal" class="form-control" id="sexo-modal" placeholder="Sexo" value="{{ old('sexo-modal') }}" required>
+                                @if ($errors->has('sexo-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('sexo-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="civil-modal">Estado Civil *</label>
+                                <input type="date" name="civil-modal" class="form-control" id="civil-modal" placeholder="Estado Civil" value="{{ old('civil-modal') }}" required>
+                                @if ($errors->has('civil-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('civil-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="telefono-modal">Teléfono *</label>
+                                <input type="text" name="telefono-modal" class="form-control" id="telefono-modal" placeholder="Teléfono" value="{{ old('telefono-modal') }}" required>
+                                @if ($errors->has('telefono-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('telefono-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="celular-modal">Celular *</label>
+                                <input type="text" name="celular-modal" class="form-control" id="celular-modal" placeholder="Celular" value="{{ old('celular-modal') }}" required>
+                                @if ($errors->has('celular-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('celular-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="correo-modal">Correo Electrónico *</label>
+                                <input type="text" name="correo-modal" class="form-control" id="correo-modal" placeholder="Correo Electrónico" value="{{ old('correo-modal') }}" required>
+                                @if ($errors->has('correo-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('correo-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="direccion-modal">Dirección *</label>
+                                <input type="text" name="direccion-modal" class="form-control" id="direccion-modal" placeholder="Dirección" value="{{ old('direccion-modal') }}" required>
+                                @if ($errors->has('direccion-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('direccion-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="calle-modal">calle *</label>
+                                <input type="text" name="calle-modal" class="form-control" id="calle-modal" placeholder="Calle" value="{{ old('calle-modal') }}" required>
+                                @if ($errors->has('calle-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('calle-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="zona-modal">Zona *</label>
+                                <input type="text" name="zona-modal" class="form-control" id="zona-modal" placeholder="Zona" value="{{ old('zona-modal') }}" required>
+                                @if ($errors->has('zona-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('zona-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="numero-modal">Número *</label>
+                                <input type="number" name="numero-modal" class="form-control" id="numero-modal" placeholder="Número" value="{{ old('numero-modal') }}" required>
+                                @if ($errors->has('numero-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('numero-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="seguro-modal">Código de Asegurado *</label>
+                                <input type="text" name="seguro-modal" class="form-control" id="seguro-modal" placeholder="Cófigo de Asegurado" value="{{ old('seguro-modal') }}" required>
+                                @if ($errors->has('seguro-modal'))
+                                    <small class="form-text text-danger">
+                                        {{ $errors->first('seguro-modal') }}
+                                    </small>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="card-footer">
+                    <button type="button" id="PersonaNuevo" class="btn btn-primary">GUARDAR</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section('extra')
     $(function() {
+        // BUSQUEDA DE DATOS PERSONAS
+        $('#busquedaPacienteBoton').click(function(){
+            if($('#nombre').val() != '') {
+                $.ajax({
+                    url: 'http://192.168.0.104/api-project/public/api/students/'+$('#ci').val()+'/'+$('#fecha').val(),
+                    dataType: "json",
+                    method: "GET",
+                    success: function(result)
+                    {
+                        alert("Coincidencia encontrada.");
+                        $("#resultadoPaciente").show(1000);
+                        $.each(result, function(i,item){
+                            $('#id_pac').val(result[i].id_pac);
+                            $('#resultadoPecienteNombre').val(result[i].nombre+' '+result[i].paterno+' '+result[i].materno);
+                            if(result[i].sexo == 'M') {
+                                $('#resultadoPacienteSexo').val('Masculino');
+                            } else if (result[i].sexo == 'F') {
+                                $('#resultadoPacienteSexo').val('Femenino');
+                            }
+                            $('#resultadoPacienteCi').val(result[i].ci+'-'+result[i].complemento);
+                            $('#resultadoPacienteExpedido').val(result[i].expedido);
+                            $('#resultadoPacienteFecha').val(result[i].fecha_nacimiento);
+                            $('#resultadoPacienteTelefono').val(result[i].telefono);
+                        });
+                        $('#loader').css('display','none');
+                    },
+                    fail: function() {
+                        alert("fallo");
+                    },
+                    beforeSend: function() {
+                        $('#loader').css('display','inline');
+                    },
+                    error: function(xhr, status, error) {
+                        alert("No se encontro ninguna coincidencia.");
+                    }
+                });
+            }
+        });
+
+        // GUARDAR UN NUEVO PERSONA
+        $('#personaNuevo').click(function(){
+            if($('#nombre-modal').val() != '') {
+                $.ajax({
+                    url: "{{ url('cliente/nuevo') }}",
+                    data: "nombre="+$('#nombre-modal').val()+"&paterno="+$("#paterno-modal").val()+"&materno_modal="+$("#materno-modal").val()+"&ci="+$("#ci-modal").val()+"&expedido="+$("#expedido-modal").val()+"&fecha="+$("#fecha-modal").val()+"&sexo="+$("#sexo-modal").val()+"&civil="+$("#civil-modal").val()+"&telefono="+$("#telefono-modal").val()+"&celular="+$("#celular-modal").val()+"&direccion="+$("#dreiccion-modal").val()+"&calle="+$("#calle-modal").val()+"&zona="+$("#zona-modal").val()+"&numero="+$("numero-modal").val()+"&seguro="+$("#seguro-modal").val()+"&_token={{ csrf_token() }}",
+                    dataType: "json",
+                    method: "POST",
+                    success: function(result)
+                    {
+                        // DEVUELVE LOS DATOS PARA ACOMODAR A EL FORMULARIO
+                        // MAS IMPORTANTE EL ID DE LA PERSONA REGISTRADA
+                        $.each(result, function(i,item){
+                            $("#id_cli").val(result[i].id_cli);
+                            $("#cliente").val(result[i].nombre);
+                        });
+                        $('#persona-agregar').modal('hide');
+                    },
+                    fail: function() {
+                        
+                    },
+                    beforeSend: function() {
+                        $('#loader').css('display','inline');
+                    }
+                });
+            }
+        });
+
         $('.select2').select2()
 
         $('#sintoma').on('change', function(){

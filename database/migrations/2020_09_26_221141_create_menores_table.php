@@ -28,6 +28,7 @@ class CreateMenoresTable extends Migration
             $table->string('materno_relacion')->nullable();
             $table->string('tel_cel')->nullable();
             $table->timestamps();
+
         });
     }
 

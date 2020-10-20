@@ -47,37 +47,35 @@
         <tr>
             <td>Establecimiento de Salud</td>
             <td class="resultado">
-                @if (count($est) > 0) {{ $est[0]->establecimiento }} @endif
+                @if (count($est) > 0) {{ $est[0]["establecimiento"] }} @endif
                 </td>
             <td>Cod. Estab.</td>
-            <td class="resultado">@if (count($est) > 0) {{ $est[0]->codigo }} @endif</td>
+            <td class="resultado">@if (count($est) > 0) {{ $est[0]["codigo"] }} @endif</td>
             <td>Red de Salud</td>
-            <td class="resultado">@if (count($est) > 0) {{ $est[0]->red }} @endif</td>
+            <td class="resultado">@if (count($est) > 0) {{ $est[0]["red_salud"] }} @endif</td>
         </tr>
     </table>
     <table>
         <tr>
             <td>Departamento</td>
-            <td class="resultado">@if (count($est) > 0) {{ $est[0]->departamento }} @endif</td>
+            <td class="resultado">@if (count($est) > 0) {{ $est[0]["departamento"] }} @endif</td>
             <td>Municipio</td>
-            <td class="resultado">@if (count($est) > 0) {{ $est[0]->municipio }} @endif</td>
+            <td class="resultado">@if (count($est) > 0) {{ $est[0]["municipio"] }} @endif</td>
             <td>Fecha de Notificación</td>
-            <td class="resultado">@if (count($est) > 0) {{ formato_fecha($est[0]->fecha_notificacion) }} @endif</td>
+            <td class="resultado">{{ formato_fecha($fe->fecha_notificacion) }}</td>
             <td>Sem Epidem</td>
-            <td class="resultado">@if (count($est) > 0) {{ $est[0]->sem_epidem }} @endif</td>
+            <td class="resultado">{{ $fe->sem_epidem }}</td>
         </tr>
     </table>
     <table>
         <tr>
             <td>Caso identificado por búsqueda activa</td>
             <td class="resultado">
-                @if (count($est) > 0)
-                    @if ($est[0]->caso_identificado)
-                        SI
-                    @else
-                        NO
-                    @endif
-                @endif
+                {{--  @if ($fe->caso_identificado)
+                    SI
+                @else
+                    NO
+                @endif  --}}
             </td>
         </tr>
     </table>
@@ -89,59 +87,53 @@
     <table>
         <tr>
             <td>Nombre y Apellido</td>
-            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]->nombre_pacientes }} {{ $iden[0]->paterno_pacientes}} {{ $iden[0]->materno_pacientes }} @endif</td>
+            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]["nombre"] }} {{ $iden[0]["paterno"] }} {{ $iden[0]["materno"] }} @endif</td>
             <td>Seguro</td>
-            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]->seguro_pacientes }} @endif</td>
+            <td class="resultado">Seguro</td>
             <td>Sexo</td>
             <td class="resultado">
-                @if (count($iden) > 0)
-                    @if ($iden[0]->sexo == 'm')
-                        Masculino
-                    @elseif ($iden[0]->sexo == 'f')
-                        Femenino
-                    @endif
-                @endif
+                {{ $iden[0]["sexo"] }}
             </td>
         </tr>
     </table>
     <table>
         <tr>
             <td>Nº Carnet de Identidad / Pasaporte</td>
-            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]->ci }} @endif</td>
+            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]["ci"] }} @endif</td>
             <td>Expedido</td>
-            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]->departamento }} @endif</td>
+            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]["departamento"] }} @endif</td>
             <td>Fecha de Nacimiento</td>
-            <td class="resultado">@if (count($iden) > 0) {{ formato_fecha($iden[0]->fecha_nac) }} @endif</td>
+            <td class="resultado">@if (count($iden) > 0) {{ formato_fecha($iden[0]["fecha_nacimiento"]) }} @endif</td>
             <td>Edad</td>
-            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]->edad }} @endif</td>
+            <td class="resultado">Edad</td>
         </tr>
     </table>
     <table>
         <tr>
             <td>Lugar de Residentica: País</td>
-            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]->pais }} @endif</td>
+            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]["pais"] }} @endif</td>
             <td>Departamento</td>
-            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]->id_dep }} @endif</td>
+            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]["departamento"] }} @endif</td>
             <td>Municipio</td>
-            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]->municipio_paciente }} @endif</td>
+            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]["municipio"] }} @endif</td>
         </tr>
     </table>
     <table>
         <tr>
             <td>Calle</td>
-            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]->calle }} @endif</td>
+            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]["calle"] }} @endif</td>
             <td>Zona</td>
-            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]->zona }} @endif</td>
+            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]["zona"] }} @endif</td>
             <td>Nº</td>
-            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]->num }} @endif</td>
+            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]["numero"] }} @endif</td>
             <td>Teléfono</td>
-            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]->telefono }} @endif</td>
+            <td class="resultado">@if (count($iden) > 0) {{ $iden[0]["telefono"] }} @endif</td>
         </tr>
     </table>
-    <table>
+    {{--  <table>
         <tr>
             <td>
-                Si es meno de edad Nombre del 
+                Si es menor de edad Nombre del 
                 @if (count($men) > 0)
                     {{ $men[0]->relacion }}
                 @else
@@ -156,7 +148,7 @@
                 @if (count($men) > 0) {{ $men[0]->tel_cel }} @endif
             </td>
         </tr>
-    </table>
+    </table>  --}}
     <table>
         <tr>
             <td class="sub-titulo">3. ANTECEDENTES EPIDEMIIOLOGICOS</td>

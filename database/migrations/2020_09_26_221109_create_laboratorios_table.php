@@ -15,10 +15,6 @@ class CreateLaboratoriosTable extends Migration
     {
         Schema::create('laboratorios', function (Blueprint $table) {
             $table->bigIncrements('id_lab');
-            // LLAVE FORANEA A LA TABLA FICHAS EPIDEMIOLOGIA
-            $table->unsignedBigInteger('id_fe');
-            $table->foreign('id_fe')->references('id_fe')->on('ficha_epidemiologica')->onDelete('cascade');
-            //FIN
             // LLAVE FORANEA A LA TABLA PERSONAL NOTIFICA
             $table->unsignedBigInteger('id_pn');
             $table->foreign('id_pn')->references('id_pn')->on('personal_notificado');
@@ -37,10 +33,9 @@ class CreateLaboratoriosTable extends Migration
             $table->boolean('resultado_laboratorio')->nullable();
             $table->date('fecha_resultado')->nullable();
             $table->date('fecha_impresion')->nullable();
-            $table->integer('numero');
-            $table->integer('estado')->default('1');
-
+            $table->integer('numero')->nullable();
             $table->timestamps();
+
         });
     }
 

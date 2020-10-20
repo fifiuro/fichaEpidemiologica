@@ -15,12 +15,10 @@ class CreateFichaEpidemiologicaTable extends Migration
     {
         Schema::create('ficha_epidemiologica', function (Blueprint $table) {
             $table->bigIncrements('id_fe');
-            // LLAVE FORANEA A LA TABLA ESTABLECIMIENTO
-            $table->unsignedBigInteger('id_est');
-            $table->foreign('id_est')->references('id_est')->on('establecimientos')->onDelete('cascade');
-            // LLAVE FORANEA A LA TABLA PACIENTES
-            $table->unsignedBigInteger('id_pac');
-            $table->foreign('id_pac')->references('id_pac')->on('pacientes')->onDelete('cascade');
+            // LLAVE FORANEA A LA BASE DE DATOS TABLA ESTABLECIMIENTO / CENTRO DE SALUD
+            $table->integer('id_est');
+            // LLAVE FORANEA A LA BASE DE DATOS TABLA PERSONAL
+            $table->integer('id_pac');
             // LLAVE FORANEA A LA TABLA ANTECEDENTES
             $table->unsignedBigInteger('id_ant');
             $table->foreign('id_ant')->references('id_ant')->on('antecedentes')->onDelete('cascade');
@@ -30,8 +28,16 @@ class CreateFichaEpidemiologicaTable extends Migration
             // LLAVE FORANEA A LA TABLA HOISPITALIZACION
             $table->unsignedBigInteger('id_hos');
             $table->foreign('id_hos')->references('id_hos')->on('hospitalizaciones')->onDelete('cascade');
-
+            // LLAVE FORANEA A LA TABLA LABORATORIOS
+            $table->unsignedBigInteger('id_lab');
+            $table->foreign('id_lab')->references('id_lab')->on('laboratorios')->onDelete('cascade');
+            // FIN
+            $table->date('fecha_notificacion');
+            $table->integer('sem_epidem');
+            $table->boolean('caso_identificado');
+            $table->integer('estado')->default(1);
             $table->timestamps();
+
         });
     }
 

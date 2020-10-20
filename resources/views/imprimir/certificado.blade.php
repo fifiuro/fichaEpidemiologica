@@ -83,13 +83,13 @@
       </tr>
       <tr>
         <td class="sub-titulo-tabla borde-td">Nombre(s) y Apellidos</td>
-        <td colspan="3" class="borde-td">{{ $pac[0]->nombre_pacientes }} {{ $pac[0]->paterno_pacientes }} {{ $pac[0]->materno_pacientes }}</td>
+        <td colspan="3" class="borde-td">{{ $pac[0]["nombre"] }} {{ $pac[0]["paterno"] }} {{ $pac[0]["materno"] }}</td>
         <td class="sub-titulo-tabla borde-td">Fecha de toma de muestra</td>
         <td class="borde-td">{{ $lab[0]->fecha_muestra }}</td>
       </tr>
       <tr>
         <td class="sub-titulo-tabla borde-td">Nº de asegurado</td>
-        <td class="borde-td">{{ $pac[0]->seguro_pacientes }}</td>
+        <td class="borde-td">Seguro</td>
         <td class="sub-titulo-tabla borde-td">Código de beneficiario</td>
         <td class="borde-td"></td>
         <td class="sub-titulo-tabla borde-td">Código de laboratorio</td>
@@ -134,7 +134,7 @@
     <table>
       <tr>
         <td class="izquierda">
-          {{ $pac[0]->nombre_pacientes }} {{ $pac[0]->paterno_pacientes }} {{ $pac[0]->materno_pacientes }}<br>
+          {{ $pac[0]["nombre"] }} {{ $pac[0]["paterno"] }} {{ $pac[0]["materno"] }}<br>
           Recibí conforme
         </td>
         <td class="centro">
@@ -172,13 +172,13 @@
       </tr>
       <tr>
         <td class="sub-titulo-tabla borde-td">Nombre(s) y Apellidos</td>
-        <td colspan="3" class="borde-td">{{ $pac[0]->nombre_pacientes }} {{ $pac[0]->paterno_pacientes }} {{ $pac[0]->materno_pacientes }}</td>
+        <td colspan="3" class="borde-td">{{ $pac[0]["nombre"] }} {{ $pac[0]["paterno"] }} {{ $pac[0]["materno"] }}</td>
         <td class="sub-titulo-tabla borde-td">Fecha de toma de muestra</td>
         <td class="borde-td">{{ $lab[0]->fecha_muestra }}</td>
       </tr>
       <tr>
         <td class="sub-titulo-tabla borde-td">Nº de asegurado</td>
-        <td class="borde-td">{{ $pac[0]->seguro_pacientes }}</td>
+        <td class="borde-td">Seguro</td>
         <td class="sub-titulo-tabla borde-td">Código de beneficiario</td>
         <td class="borde-td"></td>
         <td class="sub-titulo-tabla borde-td">Código de laboratorio</td>
@@ -223,7 +223,7 @@
     <table>
       <tr>
         <td class="izquierda">
-          {{ $pac[0]->nombre_pacientes }} {{ $pac[0]->paterno_pacientes }} {{ $pac[0]->materno_pacientes }}<br>
+          {{ $pac[0]["nombre"] }} {{ $pac[0]["paterno"] }} {{ $pac[0]["materno"] }}<br>
           Recibí conforme
         </td>
         <td class="centro">

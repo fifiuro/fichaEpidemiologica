@@ -11,10 +11,16 @@
                 @csrf
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-11">
+                        <div class="col-md-5">
                             <div class="form-group">
-                                <label for="nombre">Nombre del Paciente</label>
-                                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre del Paciente" required>
+                                <label for="ci">Carnet de Identidad</label>
+                                <input type="text" name="ci" class="form-control" id="ci" placeholder="Carnet de Identidad" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fecha">Fecha Nacimiento</label>
+                                <input type="date" name="fecha" class="form-control" id="fecha" placeholder="Fecha Nacimiento" required>
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -48,8 +54,9 @@
                                 <tr>
                                     <th style="width: 10px">#</th>
                                     <th>Nombre y Apellidos</th>
-                                    <th>Seguro</th>
+                                    <th>CI</th>
                                     <th>Telefono</th>
+                                    <th>Fecha Notificación</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -57,28 +64,29 @@
                                 @foreach ($find as $f)
                                 <tr>
                                     <td>{{ $f->id_fe }}</td>
-                                    <td>{{ $f->nombre_pacientes }} {{ $f->paterno_pacientes }} {{ $f->materno_pacinetes }}</td>
-                                    <td>{{ $f->seguro_pacientes }}</td>
-                                    <td>{{ $f->telefono }}</td>
+                                    <td>{{ $f->nombre }}</td>
+                                    <td>{{ $f->ci }}</td>
+                                    <td>{{ $f->telefono }} {{ $f->estado }}</td>
+                                    <td>{{ formato_fecha($f->fecha_notificacion) }}</td>
                                     <td>
                                         {{-- Boton de Modificar --}}
-                                        {{-- <a href="{{ url('centrosalud/editar/'.$f->id_cen) }}" class="btn btn-warning">
+                                        <a href="{{ url('ficha/editar/'.$f->id_fe.'/'.$f->ci.'/'.$f->fecha_nacimiento.'/'.$f->id_est) }}" class="btn btn-warning">
                                             <i class="fas fa-edit"></i>
-                                        </a> --}}
+                                        </a>
                                         {{-- Boton de Eliminar --}}
                                         {{--  <a href="{{ url('confirm/'.$f->id_fe) }}" class="btn btn-danger">
                                             <i class="far fa-trash-alt"></i>
                                         </a>  --}}
-                                        {{-- Boton de Imprimir --}}
-                                        <a href="{{ url('imprimir/'.$f->id_fe) }}" class="btn btn-primary" target="_blank">
+                                        {{-- Boton de Imprimir Ficha Epidemiologica --}}
+                                        <a href="{{ url('imprimir/'.$f->id_fe.'/'.$f->ci.'/'.$f->fecha_nacimiento.'/'.$f->id_est) }}" class="btn btn-primary" target="_blank">
                                             <i class="fas fa-print"></i>
                                         </a>
                                         {{-- Boton de Crear Laboratorio --}}
-                                        <a href="{{ url('laboratorio/buscar/'.$f->id_fe) }}" class="btn btn-danger">
+                                        <a href="{{ url('laboratorio/editar/'.$f->id_fe.'/'.$f->ci.'/'.$f->fecha_nacimiento.'/'.$f->id_est) }}" class="btn btn-danger">
                                             <i class="fas fa-flask"></i>
                                         </a>
                                         {{-- Boton de Imprimir Certificado Medico --}}
-                                        <a href="{{ url('certificado_medico/'.$f->id_fe) }}" class="btn btn-info" target="_blank">
+                                        <a href="{{ url('certificado_medico/'.$f->id_fe.'/'.$f->ci.'/'.$f->fecha_nacimiento) }}" class="btn btn-info" target="_blank">
                                             <i class="far fa-file-alt"></i>
                                         </a>
                                     </td>
@@ -86,7 +94,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $find->links() }}
                     </div>
                 </div>
             </div>

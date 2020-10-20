@@ -33,6 +33,7 @@ class CreateContactosTable extends Migration
             $table->string('lugar_contacto')->nullable();
 
             $table->timestamps();
+
         });
     }
 

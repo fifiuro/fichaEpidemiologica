@@ -25,6 +25,7 @@ class CreatePersonalNotificadoTable extends Migration
             $table->string('tel_cel_notifica')->nullable();
             $table->string('matricula_profesional')->nullable();
             $table->timestamps();
+
         });
     }
 

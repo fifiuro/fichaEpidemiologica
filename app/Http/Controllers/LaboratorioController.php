@@ -12,6 +12,7 @@ use App\Relacion;
 use App\Menor;
 use App\Departamento;
 USE App\PersonalNotifica;
+use Http;
 
 class LaboratorioController extends Controller
 {
@@ -141,11 +142,21 @@ class LaboratorioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,$ci,$fecha,$id_est)
     {
-        $find = Laboratorio::where('muestras','muestras.id_mue','=','laboratorios.id_mue')
-                           ->get();
-        return view('laboratorio.buscar')->with('find',$find)->with('usu',$this->Usuario());
+        $fe = FichaEpidemiologica::find($id);
+        $lab = Laboratorio::find($fe->id_lab);
+        $find = Http::get('http://192.168.0.104/api-project/public/api/students/'.$ci.'/'.$fecha);
+        $mue = Muestra::where('estado','=',true)->get();
+        return view('laboratorio.editar')->with('find',$find->json())
+                                         ->with('mue',$mue)
+                                         ->with('id',$id)
+                                         ->with('estado',$fe->estado)
+                                         ->with('id_fe',$fe->id_fe)
+                                         ->with('lab',$lab)
+                                         ->with('ci',$ci)
+                                         ->with('fecha',$fecha)
+                                         ->with('usu',$this->Usuario());
     }
 
     /**
@@ -157,8 +168,10 @@ class LaboratorioController extends Controller
      */
     public function update(Request $request)
     {
-        $find = Laboratorio::find($request->id_lab);
-        $find->id_fe = $id_fe;
+        $fe = FichaEpidemiologica::find($request->id_fe);
+        $fe->estado = 3;
+        $fe->save();
+        $find = Laboratorio::find($fe->id_lab);
         $find->muestra = $request->muestra_laboratorio;
         $find->lugar_muestra = $request->lugar_muestra;
         $find->nombre_laboratorio = $request->nombre_laboratorio;
@@ -169,18 +182,7 @@ class LaboratorioController extends Controller
         $find->resultado_laboratorio = $request->resultado_muestra;
         $find->fecha_resultado = $request->fecha_resultado;
         $find->save();
-        $id_lab = $find->id_lab;
-
-        if($request->id_mue == 'otro'){
-            if(isset($request->otro_muestra)){
-                $mue = $this->create_muestra($request->otro_muestra);
-                $this->lista_muestra($id_lab,$mue);
-            }
-        } else {
-          $this->lista_muestra($id_lab,$request->id_mue);
-        }
-
-        return view('laboratorio.buscar')->with('usu',$this->Usuario());
+        return view('form.buscar')->with('usu',$this->Usuario()); 
     }
 
     /**

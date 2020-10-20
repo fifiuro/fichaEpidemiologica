@@ -24,6 +24,7 @@ class CreateEnfermedadesBaseTable extends Migration
             $table->foreign('id_enf')->references('id_enf')->on('enfermedades');
             //FIN
             $table->timestamps();
+
         });
     }
 

@@ -34,6 +34,8 @@ Route::group(['prefix' => 'ficha', 'middleware' => ['auth']], function(){
   Route::post('buscar','FichaEpidemiologicaController@show');
   Route::get('nuevo', 'FichaEpidemiologicaController@create');
   Route::post('nuevo','FichaEpidemiologicaController@store');
+  Route::get('editar/{id}/{ci}/{fecha}/{id_est}','FichaEpidemiologicaController@edit');
+  Route::post('actualizar','FichaEpidemiologicaController@update');
   Route::get('confirm/{id}','FichaEpidemiologicaController@confirm');
   Route::post('eliminar','FichaEpidemiologicaController@destroy');
 });
@@ -45,7 +47,7 @@ Route::group(['prefix' => 'laboratorio', 'middleware' => ['auth']], function(){
   Route::post('buscar','LaboratorioController@show');
   Route::get('nuevo/{id}','LaboratorioController@create');
   Route::post('nuevo','LaboratorioController@store');
-  Route::get('editar/{id}','LaboratorioController@edit');
+  Route::get('editar/{id}/{ci}/{fecha}/{id_est}','LaboratorioController@edit');
   Route::post('actualizar','LaboratorioController@update');
   Route::get('confirma/{id}','LaboratorioController@confirm');
   Route::get('eliminar','LaboratorioController@destroy');
@@ -53,15 +55,15 @@ Route::group(['prefix' => 'laboratorio', 'middleware' => ['auth']], function(){
 /** FIN */
 
 /** IMPRIMIR FICHA EPIDEMIOLOGICA */
-Route::get('imprimir/{id}','FichaEpidemiologicaController@imprimir');
+Route::get('imprimir/{id}/{ci}/{fecha}/{id_est}','FichaEpidemiologicaController@imprimir');
 /** FIN */
 
 /** IMPRIMIR CERTIFICADO DE LABORATORIO */
-Route::get('certificado/{id}/{lab}','FichaEpidemiologicaController@certificado');
+Route::get('certificado/{id}/{lab}/{ci}/{fecha}','FichaEpidemiologicaController@certificado');
 /** FIN */
 
 /** IMPRIMIR CERTIFICADO MEDICO */
-Route::get('certificado_medico/{id}','FichaEpidemiologicaController@certificado_medico');
+Route::get('certificado_medico/{id}/{ci}/{fecha}','FichaEpidemiologicaController@certificado_medico');
 
 /* Route::get('pantalla_imprimir/{id}','FichaEpidemiologicaController@pantalla_imprimir'); */
 

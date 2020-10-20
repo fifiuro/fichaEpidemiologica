@@ -49,6 +49,17 @@
         .centro {
           text-align: center;
         }
+
+        .cabecera {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width: 50%;
+        }
+
+        .lineas {
+            border: solid black 1px;
+            padding-left: 5px;
+        }
     </style>
     <title>CNS - CERTIFICADO MEDICO</title>
 </head>
@@ -71,24 +82,31 @@
         </tr>
     </table>
     <br>
+    <br>
     <table>
         <tr>
-            <td>Lugar y Fecha (Fecha que no se pueda modificar):</td>
-            <td>{{ date("d") }}/{{ date("m") }}/{{ date("Y") }}</td>
+            <td class="cabecera">Lugar y Fecha (Fecha que no se pueda modificar):</td>
+            <td class="cabecera lineas">{{ date("d") }}/{{ date("m") }}/{{ date("Y") }}</td>
         </tr>
+    </table>
+    <br>
+    <table>
         <tr>
-            <td>Nombres y Apellidos (del Médico):</td>
-            <td>{{ $lab[0]->nombre_notifica }} {{ $lab[0]->paterno_notifica }} {{ $lab[0]->materno_notifica }}</td>
+            <td class="cabecera">Nombres y Apellidos (del Médico):</td>
+            <td class="cabecera lineas">{{ $lab[0]->nombre_notifica }} {{ $lab[0]->paterno_notifica }} {{ $lab[0]->materno_notifica }}</td>
         </tr>
+    </table>
+    <br>
+    <table>
         <tr>
-            <td>Matriculo Profesional Ministerio de Salud:</td>
-            <td>{{ $lab[0]->matricula_profesional }}</td>
+            <td class="cabecera">Matriculo Profesional Ministerio de Salud:</td>
+            <td class="cabecera lineas">{{ $lab[0]->matricula_profesional }}</td>
         </tr>
     </table>
     <hr>
     <p>El/la médico de la Caja nacional de Salud que suscribe certifica:</p>
     <p>
-        El/la paciente <span class="resalta">{{ $pac[0]->nombre_pacientes }} {{ $pac[0]->paterno_pacientes }} {{ $pac[0]->materno_pacientes }}</span>, con matrícula <span class="resalta">{{ $pac[0]->seguro_pacientes }}</span>, empresa <span class="resalta">"CAJA NACIONAL DE SALUD"</span>, acude a <span class="resalta">SERVICIO DE EMERGENCIAS – ETI</span>, se considera <span class="resalta">SOSPECHOSO(A)</span> de infección por <span class="resalta">CORONAVIRUS COVID - 19</span>, al momento presenta:
+        El/la paciente <span class="resalta">{{ $pac[0]["nombre"] }} {{ $pac[0]["paterno"] }} {{ $pac[0]["materno"] }}</span>, con matrícula <span class="resalta">Seguro</span>, empresa <span class="resalta">"CAJA NACIONAL DE SALUD"</span>, acude a <span class="resalta">SERVICIO DE EMERGENCIAS – ETI</span>, se considera <span class="resalta">SOSPECHOSO(A)</span> de infección por <span class="resalta">CORONAVIRUS COVID - 19</span>, al momento presenta:
     </p>
     <p>
         <ul>
